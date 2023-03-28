@@ -1,0 +1,12 @@
+.app-container {
+    display: flex;
+    flex-direction: row;
+}
+.main-container {
+    background-color: #282424;
+    color:white;
+    width:90%;
+}
+.main-elements {
+    margin-top: 3rem;
+}
