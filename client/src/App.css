@@ -1,12 +1,22 @@
 .app-container {
     display: flex;
     flex-direction: row;
+    background-color: #2D2727;
+   
 }
 .main-container {
-    background-color: #282424;
+   
     color:white;
-    width:90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+    padding-bottom: 3rem;
+    height: 85vh;
+   
+  
 }
 .main-elements {
+   
     margin-top: 3rem;
 }

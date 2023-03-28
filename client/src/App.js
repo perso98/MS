@@ -5,22 +5,25 @@ import Main from "./pages/Main";
 import "./App.css";
 import Rightbar from "./components/Rightbar";
 import User from "./pages/User";
+import AuthPage from "./pages/AuthPage";
 function App() {
+  const user = false;
   return (
     <>
       <Router>
         <Navbar />
         <div className="app-container">
-          <Sidebar />
+          {user ? <Sidebar /> : null}
           <div className="main-container">
             <div className="main-elements ">
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/user" element={<User />} />
+                <Route path="auth" element={<AuthPage />} />
               </Routes>
             </div>
           </div>
-          <Rightbar />
+          {user ? <Rightbar /> : null}
         </div>
       </Router>
     </>

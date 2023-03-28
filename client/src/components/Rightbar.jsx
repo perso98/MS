@@ -3,7 +3,7 @@ export default function Rightbar() {
   return (
     <div className="rightbar-container">
         <div className="friends-container">
-            Friends
+            Follows
             <div className="friends-scroll-container">
                 {friends.map((val)=><div className="friend-container"><div className="friend-img">{val.slice(0,1)}</div> <div className="friend-info"> {val}</div></div>)}
                 </div>

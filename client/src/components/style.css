@@ -1,12 +1,13 @@
 .navbar-container{
     width: 100%;
-    background: linear-gradient(to top, #1a1a1a, #000000);
+    background-color:#1e1b1e ;
+   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
     display: flex;
     height: 10vh;
     justify-content: space-around;
     align-content: center;
     align-items: center;
- 
+  z-index: 10;
     position: sticky;
     top:0;
 }
@@ -31,7 +32,7 @@ a {
     width: 40vh;
     top:10vh;
     position: sticky;
-    background: linear-gradient(to bottom, #1a1a1a, #000000);
+    background-color:#2D2727;
 }
 .sidebar-elements {
     align-content: center;
@@ -53,6 +54,7 @@ a {
 }
 .sidebar-element:hover {
     background-color: #ccc;
+    
     color: black;
   }
   .rightbar-container{
@@ -62,7 +64,7 @@ a {
     top:10vh;
     position: sticky;
     color:white;
-    background: linear-gradient(to bottom, #1a1a1a, #000000);
+    background: #2D2727;
   }
   .friends-container
   {
@@ -72,7 +74,7 @@ a {
     border-radius: 25px;
     padding: 1rem;
     width: 77%;
-    margin-top: 1rem;
+    margin-top: 2.3rem;
    
   }
   .friends-scroll-container {
@@ -109,4 +111,52 @@ a {
 
   .friend-info {
     font-size: 1rem;
+  }
+
+  .card-container 
+  {
+    background-color:#1e1b1e !important;
+    color:white !important;
+    border-radius: 25px !important;
+    box-shadow: black 0px 1px 4px;
+    width: 700px;
+    height: 230px;
+  }
+
+  .top-card
+  {
+    display: flex;
+    justify-content: space-between;
+  }
+  .card-subject {
+    margin:1rem 0rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    word-wrap: break-word;
+  }
+  .card-content {
+    font-size: 1.2rem;
+    word-wrap: break-word;
+  }
+  .bottom-card
+  {
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  .auth-container 
+  {
+    margin-top: 1rem;
+    padding: 2rem;
+    border:2px solid white;
+    border-radius: 50px;
+    width: 40vh;
+    height: 40vh;
+    background-color:#1e1b1e;
+  }
+  .auth-container h1
+  {
+    text-align: center;
+  
   }
