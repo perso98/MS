@@ -8,29 +8,26 @@ import Rightbar from "./components/Rightbar";
 import User from "./pages/User";
 import AuthPage from "./pages/AuthPage";
 import { AuthContext } from "./providers/AuthProvider";
-import AuthProvider from "./providers/AuthProvider";
 function App() {
   const { user } = useContext(AuthContext);
   return (
     <>
-      <AuthProvider>
-        <Router>
-          <Navbar />
-          <div className="app-container">
-            {user ? <Sidebar /> : null}
-            <div className="main-container">
-              <div className="main-elements ">
-                <Routes>
-                  <Route path="/" element={<Main />} />
-                  <Route path="/user" element={<User />} />
-                  <Route path="auth" element={<AuthPage />} />
-                </Routes>
-              </div>
+      <Router>
+        <Navbar />
+        <div className="app-container">
+          {user ? <Sidebar /> : null}
+          <div className="main-container">
+            <div className="main-elements ">
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/user" element={<User />} />
+                <Route path="auth" element={<AuthPage />} />
+              </Routes>
             </div>
-            {user ? <Rightbar /> : null}
           </div>
-        </Router>
-      </AuthProvider>
+          {user ? <Rightbar /> : null}
+        </div>
+      </Router>
     </>
   );
 }

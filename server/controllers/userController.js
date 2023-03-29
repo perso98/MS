@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
 
-const authController = {
+const userController = {
   //register user controller
   register: async (req, res) => {
     const { email, name, surname, password } = req.body;
@@ -42,4 +42,4 @@ const authController = {
     } else res.send("You are not logged in");
   },
 };
-export default authController;
+export default userController;

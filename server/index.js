@@ -7,6 +7,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import UserRoute from "./routes/UserRoute.js";
 import session from "express-session";
+import PostRoute from "./routes/PostRoute.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -35,6 +36,7 @@ app.use(
 );
 /* Routes */
 app.use("/user", UserRoute);
+app.use("/post", PostRoute);
 /* Database seup */
 const PORT = process.env.PORT || 3001;
 mongoose

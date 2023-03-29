@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   follows: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  createdAt: { type: Date, default: Date.now },
 });
 
 export default mongoose.model("User", UserSchema);

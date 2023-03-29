@@ -1,23 +1,23 @@
 import axios from "axios";
-import url from "./index";
 axios.defaults.withCredentials = true;
 export const register = async (registerForm) => {
   await axios
-    .post(`${url}/user/register`, {
+    .post("/user/register", {
       email: registerForm.email,
       password: registerForm.password,
     })
     .then((res) => console.log(res.data));
 };
 export const auth = async (setUser) => {
-  await axios.get(`/user/auth`).then((res) => {
-    console.log(res.data);
-    if (res.data.success) setUser(res.data.user);
+  await axios.get("/user/auth").then((res) => {
+    if (res.data.success) {
+      setUser(res.data.user);
+    }
   });
 };
 export const login = async (loginForm, setUser) => {
   await axios
-    .post(`${url}/user/login`, {
+    .post("/user/login", {
       email: loginForm.email,
       password: loginForm.password,
     })
@@ -26,5 +26,5 @@ export const login = async (loginForm, setUser) => {
     });
 };
 export const logout = async (setUser) => {
-  await axios.post(`${url}/user/logout`).then((res) => setUser(null));
+  await axios.post("/user/logout").then((res) => setUser(null));
 };
