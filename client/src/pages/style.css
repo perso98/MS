@@ -1,16 +1,12 @@
-.main-element 
-{
-    margin-top: 2rem;
-   
+.main-element {
+  margin-top: 2rem;
 }
-.auth-buttons 
-{
-    width:15rem;
-    height: 3rem;
+.auth-buttons {
+  width: 15rem;
+  height: 3rem;
 }
 
-.auth-buttons-container 
-{
-    display: flex;
-    justify-content: space-between;
+.auth-buttons-container {
+  display: flex;
+  justify-content: space-between;
 }
