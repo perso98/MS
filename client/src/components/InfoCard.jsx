@@ -10,18 +10,13 @@ export default function InfoCard(props) {
     <Card className="card-container" variant="outlined">
       <CardContent>
         <div className="top-card">
-          <Typography>
-            {props.name} {props.surname}
-          </Typography>
-          <Typography>{props.date}</Typography>
+          <Typography>xd</Typography>
+          <Typography>date</Typography>
         </div>
         <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>follows</div>
         <div className="card-subject">Subject</div>
 
-        <div className="card-content">
-          {" "}
-          haha ale z ciebie bambik nie masz v-dolców
-        </div>
+        <div className="card-content"> {props.desc}</div>
       </CardContent>
       <CardActions className="bottom-card">
         <div>

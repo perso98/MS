@@ -1,7 +1,16 @@
 import axios from "axios";
 
-export const findOwnerPosts = async () => {
-  await axios
-    .get("/post/find-all-user-posts")
-    .then((res) => console.log(res.data));
+export const findOwnerPosts = async (
+  posts,
+  setPosts,
+  skip,
+  setSkip,
+  setHasMore
+) => {
+  await axios.get(`/post/find-all-user-posts/${Number(skip)}`).then((res) => {
+    if (res.data.posts.length !== 0) {
+      setPosts([...posts, ...res.data.posts]);
+      setSkip(skip + 5);
+    } else setHasMore(false);
+  });
 };

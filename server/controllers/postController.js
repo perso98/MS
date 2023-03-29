@@ -17,9 +17,17 @@ const postController = {
   },
   findAllUserPosts: async (req, res) => {
     try {
-      const user = await User.findById(req.session.user._id).populate("posts");
+      const user = await User.findById(req.session.user._id).populate({
+        path: "posts",
+        options: {
+          limit: 5,
+          skip: req.params.skip,
+        },
+      });
+
       res.send({ success: true, posts: user.posts });
     } catch (err) {
+      console.log(err);
       res.send(err);
     }
   },

@@ -1,86 +1,24 @@
 import "./style.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import { findOwnerPosts } from "../api/post";
 export default function Main() {
+  const [posts, setPosts] = useState([]);
+  const [skip, setSkip] = useState(0);
   useEffect(() => {
-    findOwnerPosts();
+    loadMore();
   }, []);
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "maciej",
-      surname: "karek",
-      date: "2min ago",
-    },
-    {
-      id: 2,
-      name: "macsdaiej",
-      surname: "ksarek",
-      date: "4min ago",
-    },
-    {
-      id: 3,
-      name: "madaciej",
-      surname: "kardsek",
-      date: "5min ago",
-    },
-    {
-      id: 4,
-      name: "maciejssss",
-      surname: "kareksss",
-      date: "10min ago",
-    },
-  ]);
   const [hasMore, setHasMore] = useState(true);
   const loadMore = () => {
-    const offset = users.length;
-    setTimeout(() => {
-      const newUsers = [
-        ...users,
-        {
-          id: offset + 1,
-          name: "Jan",
-          surname: "Kowalski",
-          date: "15min ago",
-        },
-        {
-          id: offset + 2,
-          name: "Anna",
-          surname: "Nowak",
-          date: "20min ago",
-        },
-        {
-          id: offset + 3,
-          name: "Paweł",
-          surname: "Sowa",
-          date: "25min ago",
-        },
-        {
-          id: offset + 4,
-          name: "Karolina",
-          surname: "Jankowska",
-          date: "30min ago",
-        },
-        {
-          id: offset + 5,
-          name: "Adam",
-          surname: "Zając",
-          date: "35min ago",
-        },
-      ];
-      setUsers(newUsers);
-      setHasMore(false);
-    }, 2000);
+    findOwnerPosts(posts, setPosts, skip, setSkip, setHasMore);
   };
 
   return (
     <>
       <InfiniteScroll
-        dataLength={users.length}
+        dataLength={posts.length}
         next={loadMore}
         hasMore={hasMore}
         loader={
@@ -89,12 +27,17 @@ export default function Main() {
           </div>
         }
       >
-        {users.map((val) => (
+        {posts.map((val) => (
           <div className="main-element" key={val.id}>
-            <InfoCard name={val.name} surname={val.surname} date={val.date} />
+            <InfoCard desc={val.desc} />
           </div>
         ))}
       </InfiniteScroll>
+      {!hasMore ? (
+        <div style={{ textAlign: "center", marginTop: "3rem" }}>
+          There is nothing more
+        </div>
+      ) : null}{" "}
     </>
   );
 }
