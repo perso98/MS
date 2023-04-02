@@ -1,3 +1,4 @@
 #MS
 
-This project is a social media platform that allows users to create posts, like and comment on them, follow other users, and find new friends. The platform will have a user-friendly interface that makes it easy for users to navigate and interact with each other. Users can create profiles, add profile pictures and cover photos, and customize their settings. They can also search for other users, view their profiles, and send them friend requests. The platform will also have a newsfeed where users can see posts from their friends and pages they follow. The aim of this project is to provide a user-friendly and engaging social media platform that allows users to connect with each other and share their thoughts and ideas.
+
+This is my newest project, a social media platform inspired by Facebook. Currently in its early stages, the platform will allow users to create posts, like and comment on them, follow other users, and find new friends. More features and updates will be added as the project progresses. Stay tuned for more!
