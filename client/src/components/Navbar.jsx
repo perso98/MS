@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <div className="navbar-container">
       <NavLink to="/">
-        <h1>Kebabook</h1>
+        <h1>MS</h1>
       </NavLink>
       <div className="navbar-elements">
         <NavLink to="/profile">

@@ -24,7 +24,7 @@ const postController = {
           skip: req.params.skip,
         },
       });
-
+      console.log(user.posts);
       res.send({ success: true, posts: user.posts });
     } catch (err) {
       console.log(err);

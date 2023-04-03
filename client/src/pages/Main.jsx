@@ -4,6 +4,7 @@ import InfoCard from "../components/InfoCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LinearProgress from "@mui/material/LinearProgress";
 import { findOwnerPosts } from "../api/post";
+import AddPost from "../components/AddPost";
 export default function Main() {
   const [posts, setPosts] = useState([]);
   const [skip, setSkip] = useState(0);
@@ -17,6 +18,12 @@ export default function Main() {
 
   return (
     <>
+      <AddPost posts={posts} setPosts={setPosts} />
+      {posts.length === 0 ? (
+        <div style={{ textAlign: "center", marginTop: "3rem" }}>
+          You can add your first post above
+        </div>
+      ) : null}
       <InfiniteScroll
         dataLength={posts.length}
         next={loadMore}
@@ -29,11 +36,11 @@ export default function Main() {
       >
         {posts.map((val) => (
           <div className="main-element" key={val.id}>
-            <InfoCard desc={val.desc} />
+            <InfoCard desc={val.desc} createdAt={val.createdAt} />
           </div>
         ))}
       </InfiniteScroll>
-      {!hasMore ? (
+      {!hasMore && posts.length !== 0 ? (
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
           There is nothing more
         </div>

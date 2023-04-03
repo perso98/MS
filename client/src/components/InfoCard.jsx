@@ -5,13 +5,14 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
+import TimeAgo from "../components/TimeAgo";
 export default function InfoCard(props) {
   return (
     <Card className="card-container" variant="outlined">
       <CardContent>
         <div className="top-card">
           <Typography>xd</Typography>
-          <Typography>date</Typography>
+          <TimeAgo createdAt={props.createdAt} />
         </div>
         <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>follows</div>
         <div className="card-subject">Subject</div>

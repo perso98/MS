@@ -7,7 +7,7 @@ export const findOwnerPosts = async (
   setSkip,
   setHasMore
 ) => {
-  await axios.get(`/post/find-all-user-posts/${Number(skip)}`).then((res) => {
+  await axios.get(`post/${Number(skip)}`).then((res) => {
     if (res.data.posts.length !== 0) {
       setPosts([...posts, ...res.data.posts]);
       setSkip(skip + 5);

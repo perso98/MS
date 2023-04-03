@@ -1,7 +1,7 @@
 .app-container {
   display: flex;
   flex-direction: row;
-  background-color: #2d2727;
+  background-color: #404040;
 }
 .main-container {
   color: white;
@@ -11,7 +11,7 @@
   width: 100%;
   padding-bottom: 3rem;
   min-height: 85vh;
-  background-color: #2d2727;
+  background-color: #404040;
 }
 .main-elements {
   margin-top: 3rem;
