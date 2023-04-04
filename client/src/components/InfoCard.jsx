@@ -14,8 +14,10 @@ export default function InfoCard(props) {
           <Typography>xd</Typography>
           <TimeAgo createdAt={props.createdAt} />
         </div>
-        <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>follows</div>
-        <div className="card-subject">Subject</div>
+        <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
+          {props.category}
+        </div>
+        <div className="card-subject">{props.subject}</div>
 
         <div className="card-content"> {props.desc}</div>
       </CardContent>

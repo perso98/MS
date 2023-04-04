@@ -18,7 +18,12 @@ export default function Main() {
 
   return (
     <>
-      <AddPost posts={posts} setPosts={setPosts} />
+      <AddPost
+        posts={posts}
+        setPosts={setPosts}
+        setSkip={setSkip}
+        skip={skip}
+      />
       {posts.length === 0 ? (
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
           You can add your first post above
@@ -35,8 +40,14 @@ export default function Main() {
         }
       >
         {posts.map((val) => (
-          <div className="main-element" key={val.id}>
-            <InfoCard desc={val.desc} createdAt={val.createdAt} />
+          <div className="main-element" key={val._id}>
+            {console.log(val)}
+            <InfoCard
+              desc={val.desc}
+              createdAt={val.createdAt}
+              subject={val.subject}
+              category={val.category}
+            />
           </div>
         ))}
       </InfiniteScroll>

@@ -15,7 +15,7 @@ export const auth = async (setUser) => {
     }
   });
 };
-export const login = async (loginForm, setUser) => {
+export const login = async (loginForm, setUser, navigate) => {
   await axios
     .post("/user/login", {
       email: loginForm.email,
@@ -23,8 +23,12 @@ export const login = async (loginForm, setUser) => {
     })
     .then((res) => {
       setUser(res.data);
+      navigate("/");
     });
 };
-export const logout = async (setUser) => {
-  await axios.post("/user/logout").then((res) => setUser(null));
+export const logout = async (setUser, navigate) => {
+  await axios.post("/user/logout").then((res) => {
+    setUser(null);
+    navigate("/auth");
+  });
 };

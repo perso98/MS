@@ -4,6 +4,7 @@ import { AuthContext } from "../providers/AuthProvider";
 import "./style.css";
 export default function Login() {
   const { loginUser } = useContext(AuthContext);
+
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   return (
     <div className="auth-container">

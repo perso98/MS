@@ -1,35 +1,42 @@
 import React, { useState, useContext } from "react";
 import Button from "@mui/material/Button";
-import { AuthContext } from "../providers/AuthProvider";
+import { createPost } from "../api/post";
 export default function AddPost(props) {
-  const { user } = useContext(AuthContext);
   const [post, setPost] = useState({
-    title: "",
-    description: "",
+    subject: "",
+    desc: "",
     category: "",
   });
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    props.setPosts([...props.posts, { ...post, createdAt: Date.now() }]);
-  };
+
   return (
     <div className="post-container">
       <h2>Add your post below</h2>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          createPost(
+            post,
+            props.posts,
+            props.setPosts,
+            props.setSkip,
+            props.skip
+          );
+        }}
+      >
         <div className="post-element-container">
-          <label>Title</label>
+          <label>Subject</label>
           <input
             type="text"
-            value={post.title}
-            onChange={(e) => setPost({ ...post, title: e.target.value })}
+            value={post.subject}
+            onChange={(e) => setPost({ ...post, subject: e.target.value })}
           />
         </div>
 
         <div className="post-element-container">
           <label>Description</label>
           <textarea
-            value={post.description}
-            onChange={(e) => setPost({ ...post, description: e.target.value })}
+            value={post.desc}
+            onChange={(e) => setPost({ ...post, desc: e.target.value })}
           />
         </div>
         <div className="post-element-container">
@@ -40,7 +47,7 @@ export default function AddPost(props) {
             onChange={(e) => setPost({ ...post, category: e.target.value })}
           />
         </div>
-        {post.title && post.description && post.category ? (
+        {post.subject && post.desc && post.category ? (
           <Button type="submit" variant="contained" color="success">
             Add Post
           </Button>

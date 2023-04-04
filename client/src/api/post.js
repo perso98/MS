@@ -14,3 +14,21 @@ export const findOwnerPosts = async (
     } else setHasMore(false);
   });
 };
+
+export const createPost = async (post, posts, setPosts, setSkip, skip) => {
+  await axios
+    .post("post/", {
+      subject: post.subject,
+      desc: post.desc,
+      category: post.category,
+    })
+    .then((res) => {
+      const newPost = {
+        ...post,
+        createdAt: res.data.post.createdAt,
+        id: res.data.post._id,
+      };
+      setSkip(skip + 1);
+      setPosts([newPost, ...posts]);
+    });
+};

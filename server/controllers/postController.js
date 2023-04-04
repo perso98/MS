@@ -10,7 +10,7 @@ const postController = {
         { $push: { posts: post._id } },
         { new: true }
       );
-      res.send({ success: true });
+      res.send({ success: true, post: post });
     } catch (err) {
       res.send({ success: false });
     }
@@ -22,12 +22,12 @@ const postController = {
         options: {
           limit: 5,
           skip: req.params.skip,
+          sort: { createdAt: -1 },
         },
       });
-      console.log(user.posts);
+
       res.send({ success: true, posts: user.posts });
     } catch (err) {
-      console.log(err);
       res.send(err);
     }
   },
