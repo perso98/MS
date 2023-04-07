@@ -1,7 +1,9 @@
 import React, { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import { createPost } from "../api/post";
+import { AuthContext } from "../providers/AuthProvider";
 export default function AddPost(props) {
+  const { user } = useContext(AuthContext);
   const [post, setPost] = useState({
     subject: "",
     desc: "",
@@ -14,13 +16,7 @@ export default function AddPost(props) {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          createPost(
-            post,
-            props.posts,
-            props.setPosts,
-            props.setSkip,
-            props.skip
-          );
+          createPost(post, props.setPosts, user._id);
         }}
       >
         <div className="post-element-container">

@@ -16,9 +16,13 @@ const postController = {
     }
   },
   findAllUserPosts: async (req, res) => {
+    if (req.params.skip == 0) {
+      req.session.lastPostFetchTime = new Date();
+    }
     try {
       const user = await User.findById(req.session.user._id).populate({
         path: "posts",
+        match: { createdAt: { $lt: req.session.lastPostFetchTime } },
         options: {
           limit: 5,
           skip: req.params.skip,
@@ -26,7 +30,7 @@ const postController = {
         },
       });
 
-      res.send({ success: true, posts: user.posts });
+      res.send({ success: true, userId: user._id, posts: user.posts });
     } catch (err) {
       res.send(err);
     }

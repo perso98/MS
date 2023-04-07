@@ -8,14 +8,13 @@ import AddPost from "../components/AddPost";
 export default function Main() {
   const [posts, setPosts] = useState([]);
   const [skip, setSkip] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const loadMore = () => {
+    findOwnerPosts(skip, setSkip, setHasMore, posts, setPosts);
+  };
   useEffect(() => {
     loadMore();
   }, []);
-  const [hasMore, setHasMore] = useState(true);
-  const loadMore = () => {
-    findOwnerPosts(posts, setPosts, skip, setSkip, setHasMore);
-  };
-
   return (
     <>
       <AddPost
@@ -41,7 +40,6 @@ export default function Main() {
       >
         {posts.map((val) => (
           <div className="main-element" key={val._id}>
-            {console.log(val)}
             <InfoCard
               desc={val.desc}
               createdAt={val.createdAt}
