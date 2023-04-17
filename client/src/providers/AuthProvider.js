@@ -9,8 +9,8 @@ const AuthProvider = ({ children }) => {
     auth(setUser);
   }, []);
 
-  const loginUser = async (loginForm) => {
-    login(loginForm, setUser, navigate);
+  const loginUser = async (e, loginForm, setAlert) => {
+    login(e, loginForm, setAlert, setUser, navigate);
   };
   const logoutUser = async () => {
     logout(setUser, navigate);
