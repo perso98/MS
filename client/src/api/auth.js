@@ -1,5 +1,4 @@
 import axios from "axios";
-axios.defaults.withCredentials = true;
 export const register = async (e, registerForm, setRegisterForm, setAlert) => {
   e.preventDefault();
   await axios
@@ -32,11 +31,12 @@ export const register = async (e, registerForm, setRegisterForm, setAlert) => {
       }
     });
 };
-export const auth = async (setUser) => {
-  await axios.get("/user/auth").then((res) => {
+export const auth = async (setUser, setLoading) => {
+  const res = await axios.get("/user/auth").then((res) => {
     if (res.data.success) {
       setUser(res.data.user);
     }
+    if (res) setLoading(false);
   });
 };
 export const login = async (e, loginForm, setAlert, setUser, navigate) => {

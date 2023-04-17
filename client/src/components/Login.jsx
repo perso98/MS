@@ -30,7 +30,7 @@ export default function Login() {
         <label>Password</label>
         <input
           required
-          type="text"
+          type="password"
           onChange={(e) =>
             setLoginForm({ ...loginForm, password: e.target.value })
           }
