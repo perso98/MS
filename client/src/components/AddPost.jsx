@@ -22,6 +22,7 @@ export default function AddPost(props) {
         <div className="post-element-container">
           <label>Subject</label>
           <input
+            required
             type="text"
             value={post.subject}
             onChange={(e) => setPost({ ...post, subject: e.target.value })}
@@ -31,6 +32,7 @@ export default function AddPost(props) {
         <div className="post-element-container">
           <label>Description</label>
           <textarea
+            required
             value={post.desc}
             onChange={(e) => setPost({ ...post, desc: e.target.value })}
           />
@@ -38,20 +40,16 @@ export default function AddPost(props) {
         <div className="post-element-container">
           <label>Category</label>
           <input
+            required
             type="text"
             value={post.category}
             onChange={(e) => setPost({ ...post, category: e.target.value })}
           />
         </div>
-        {post.subject && post.desc && post.category ? (
-          <Button type="submit" variant="contained" color="success">
-            Add Post
-          </Button>
-        ) : (
-          <Button disabled={true} variant="contained" color="success">
-            Add Post
-          </Button>
-        )}
+
+        <Button type="submit" variant="contained" color="success">
+          Add Post
+        </Button>
       </form>
     </div>
   );

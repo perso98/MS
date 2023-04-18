@@ -9,7 +9,7 @@ import User from "./pages/User";
 import AuthPage from "./pages/AuthPage";
 import { AuthContext } from "./providers/AuthProvider";
 import AuthRoute from "./protected-routes/AuthRoute";
-import { useEffect } from "react";
+import SearchPage from "./pages/SearchPage";
 function App() {
   const { user, checkAuth, loading } = useContext(AuthContext);
 
@@ -25,8 +25,8 @@ function App() {
                 <Routes>
                   <Route element={<AuthRoute user={user} />}>
                     <Route path="/" element={<Main />} />
-                    {console.log(user)}
                     <Route path="/profile" element={<User />} />
+                    <Route path="/search/:search" element={<SearchPage />} />
                   </Route>
                   <Route path="/auth" element={<AuthPage />} />
                 </Routes>

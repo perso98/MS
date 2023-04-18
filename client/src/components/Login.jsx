@@ -17,7 +17,10 @@ export default function Login() {
       <ActionAlerts alert={alert} setAlert={setAlert} />
       <form
         className="auth-elements"
-        onSubmit={(e) => loginUser(e, loginForm, setAlert)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          loginUser(loginForm, setAlert);
+        }}
       >
         <label>E-mail</label>
         <input

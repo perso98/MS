@@ -24,6 +24,7 @@ export default function Register() {
       <form
         className="auth-elements"
         onSubmit={(e) => {
+          e.preventDefault();
           register(e, registerForm, setRegisterForm, setAlert);
         }}
       >

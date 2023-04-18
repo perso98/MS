@@ -41,5 +41,10 @@ const userController = {
       res.send("Logout success");
     } else res.send("You are not logged in");
   },
+  users: async (req, res) => {
+    const search = req.params.search;
+    const users = await User.find();
+    res.send(users);
+  },
 };
 export default userController;

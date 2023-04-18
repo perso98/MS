@@ -1,6 +1,5 @@
 import axios from "axios";
-export const register = async (e, registerForm, setRegisterForm, setAlert) => {
-  e.preventDefault();
+export const register = async (registerForm, setRegisterForm, setAlert) => {
   await axios
     .post("/user/register", {
       email: registerForm.email,
@@ -32,15 +31,14 @@ export const register = async (e, registerForm, setRegisterForm, setAlert) => {
     });
 };
 export const auth = async (setUser, setLoading) => {
-  const res = await axios.get("/user/auth").then((res) => {
+  await axios.get("/user/auth").then((res) => {
     if (res.data.success) {
       setUser(res.data.user);
     }
-    if (res) setLoading(false);
+    setLoading(false);
   });
 };
-export const login = async (e, loginForm, setAlert, setUser, navigate) => {
-  e.preventDefault();
+export const login = async (loginForm, setAlert, setUser, navigate) => {
   await axios
     .post("/user/login", {
       email: loginForm.email,

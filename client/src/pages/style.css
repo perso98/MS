@@ -10,3 +10,6 @@
   display: flex;
   justify-content: space-between;
 }
+.user-card-wrapper {
+  justify-content: center;
+}
