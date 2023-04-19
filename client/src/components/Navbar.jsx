@@ -16,31 +16,34 @@ export default function Navbar() {
       <NavLink to="/">
         <h1>MS</h1>
       </NavLink>
-      <DarkTextField
-        label="Search data"
-        setOnChange={setSearch}
-        width="20%"
-        adornment={true}
-        adornmentIcon={<SearchIcon />}
-        adornmentOnClick={() => navigate(`/search/${search}`)}
-      />
-      <div className="navbar-elements">
-        {user ? (
-          <div className="logged-elements">
-            <NavLink to="/profile">
-              <div className="profile-container">{user.name.slice(0, 1)}</div>
-            </NavLink>
 
-            <Button
-              variant="contained"
-              color="success"
-              onClick={() => logoutUser()}
-            >
-              Logout
-            </Button>
+      {user ? (
+        <>
+          <DarkTextField
+            label="Search data"
+            setOnChange={setSearch}
+            width="20%"
+            adornment={true}
+            adornmentIcon={<SearchIcon />}
+            adornmentOnClick={() => navigate(`/search/${search}`)}
+          />
+          <div className="navbar-elements">
+            <div className="logged-elements">
+              <NavLink to="/profile">
+                <div className="profile-container">{user.name.slice(0, 1)}</div>
+              </NavLink>
+
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => logoutUser()}
+              >
+                Logout
+              </Button>
+            </div>
           </div>
-        ) : null}
-      </div>
+        </>
+      ) : null}
     </div>
   );
 }

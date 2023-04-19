@@ -40,7 +40,7 @@ export default function User() {
       >
         {posts.map((val) => (
           <div className="main-element" key={val._id}>
-            <InfoCard post={val} />
+            <InfoCard val={val} />
           </div>
         ))}
       </InfiniteScroll>

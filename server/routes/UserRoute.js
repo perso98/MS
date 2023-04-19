@@ -7,5 +7,5 @@ router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.post("/logout", userController.logout);
 router.get("/auth", userController.auth);
-router.get("/:search", userController.users);
+router.get("/:search/:skip", userController.users);
 export default router;

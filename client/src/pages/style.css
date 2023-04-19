@@ -13,3 +13,9 @@
 .user-card-wrapper {
   justify-content: center;
 }
+.search-page-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 700px;
+  padding: 1rem;
+}

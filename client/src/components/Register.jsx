@@ -25,7 +25,7 @@ export default function Register() {
         className="auth-elements"
         onSubmit={(e) => {
           e.preventDefault();
-          register(e, registerForm, setRegisterForm, setAlert);
+          register(registerForm, setRegisterForm, setAlert);
         }}
       >
         <label>Name</label>

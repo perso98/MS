@@ -12,14 +12,14 @@ export default function InfoCard(props) {
       <CardContent>
         <div className="top-card">
           <Typography>xd</Typography>
-          <TimeAgo createdAt={props.post.createdAt} />
+          <TimeAgo createdAt={props.val.createdAt} />
         </div>
         <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-          {props.category}
+          {props.val.category}
         </div>
-        <div className="card-subject">{props.post.subject}</div>
+        <div className="card-subject">{props.val.subject}</div>
 
-        <div className="card-content"> {props.post.desc}</div>
+        <div className="card-content"> {props.val.desc}</div>
       </CardContent>
       <CardActions className="bottom-card">
         <div>
@@ -27,7 +27,7 @@ export default function InfoCard(props) {
             {" "}
             <FavoriteIcon sx={{ color: "white" }} />
             <Typography sx={{ color: "white", marginLeft: "0.5rem" }}>
-              {props.post.likes?.length}
+              {props.val.likes?.length}
             </Typography>
           </IconButton>
         </div>
@@ -35,7 +35,7 @@ export default function InfoCard(props) {
           <IconButton>
             {" "}
             <Typography sx={{ color: "white", marginRight: "0.5rem" }}>
-              {props.post.comments?.length}
+              {props.val.comments?.length}
             </Typography>
             <CommentIcon sx={{ color: "white" }} />{" "}
           </IconButton>

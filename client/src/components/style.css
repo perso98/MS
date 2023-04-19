@@ -1,10 +1,11 @@
 .navbar-container {
-  width: 100%;
   background-color: #1e1b1e;
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
   display: flex;
-  height: 10vh;
-  justify-content: space-around;
+  height: 9.6vh;
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
   align-content: center;
   align-items: center;
   z-index: 10;
@@ -201,16 +202,16 @@ label {
   flex-direction: row;
 }
 .user-card-container {
-  margin-right: 2rem;
-  min-width: 400px;
-  height: 120px;
+  width: 700px;
+  height: 150px;
   background-color: #1e1b1e;
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 25px;
   font-size: 1.2rem;
-  border: 0.5px solid white;
+  box-shadow: black 0px 1px 4px;
   display: flex;
+  margin-top: 2rem;
   flex-direction: column;
 }
 
@@ -218,14 +219,15 @@ label {
   word-wrap: break-word;
 }
 .user-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
   background-color: bisque;
   text-align: center;
-  line-height: 50px;
+  line-height: 100px;
   align-content: center;
   color: black;
+  font-size: 3rem;
 }
 .user-top-content {
   display: flex;

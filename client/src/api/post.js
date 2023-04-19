@@ -19,7 +19,10 @@ export const findOwnerPosts = async (
     console.error(err);
   }
 };
-
+export const searchPost = async (search, setData) => {
+  const res = await axios.get(`/post/search/${search}`);
+  setData(res.data);
+};
 export const createPost = async (post, setPosts, userId) => {
   const res = await axios.post("post/", {
     subject: post.subject,

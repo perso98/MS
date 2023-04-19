@@ -5,13 +5,15 @@ const userController = {
   //register user controller
   register: async (req, res) => {
     const { email, name, surname, password } = req.body;
+    console.log(req.body);
     const user = await User.findOne({ email });
     if (!user) {
+      const hashedPassword = await bcrypt.hash(password, 10);
       await User.create({
         email,
         name,
         surname,
-        password: bcrypt.hashSync(password, 10),
+        password: hashedPassword,
       });
       res.send({ message: "Account created", success: true });
     } else {
@@ -42,8 +44,20 @@ const userController = {
     } else res.send("You are not logged in");
   },
   users: async (req, res) => {
+    if (req.params.skip == 0) {
+      req.session.lastUserSearch = new Date();
+    }
     const search = req.params.search;
-    const users = await User.find();
+    const users = await User.find({
+      createdAt: { $lt: req.session.lastUserSearch },
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        { surname: { $regex: search, $options: "i" } },
+      ],
+    })
+      .skip(req.params.skip)
+      .limit(5)
+      .select("-password");
     res.send(users);
   },
 };

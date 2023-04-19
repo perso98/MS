@@ -3,7 +3,7 @@ import Register from "../components/Register";
 import Login from "../components/Login";
 import Button from "@mui/material/Button";
 export default function AuthPage() {
-  const [component, setComponent] = useState(0);
+  const [component, setComponent] = useState(1);
 
   return (
     <>
