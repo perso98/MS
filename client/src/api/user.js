@@ -7,5 +7,6 @@ export const searchUser = async (search, users, setUsers) => {
     data: [...users.data, ...res.data],
     hasMore: res.data.length !== 0,
     skip: users.skip + 5,
+    loading: users.loading ? false : null,
   });
 };

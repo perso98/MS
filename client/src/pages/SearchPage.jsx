@@ -5,7 +5,8 @@ import InfoCard from "../components/InfoCard";
 import "./style.css";
 import UserSearchCard from "../components/UserSearchCard";
 import Button from "@mui/material/Button";
-
+import { searchPost } from "../api/post";
+import LinearProgress from "@mui/material/LinearProgress";
 import SearchData from "../components/SearchData";
 function SearchPage() {
   const [users, setUsers] = useState({
@@ -23,11 +24,25 @@ function SearchPage() {
   const [toggleSearch, setToggleSearch] = useState(true);
   const { search } = useParams();
   useEffect(() => {
-    setUsers({ ...users, skip: 0 });
-    searchUser(search, users, setUsers);
+    setUsers({ ...users, loading: true });
+    setPosts({ ...posts, loading: true });
+    searchUser(
+      search,
+      { loading: true, data: [], skip: 0, hasMore: true },
+      setUsers
+    );
+    searchPost(
+      search,
+      { loading: true, data: [], skip: 0, hasMore: true },
+      setPosts
+    );
   }, [search]);
+
   const loadMoreUsers = () => {
     searchUser(search, users, setUsers);
+  };
+  const loadMorePosts = () => {
+    searchPost(search, posts, setPosts);
   };
   return (
     <>
@@ -54,19 +69,23 @@ function SearchPage() {
         </Button>{" "}
       </div>
       {toggleSearch ? (
-        <div className="user-card-wrapper">
+        <>
+          {users.loading ? <LinearProgress color="inherit" /> : null}
           <SearchData
             array={users}
             loadMore={loadMoreUsers}
             component={UserSearchCard}
           />
-        </div>
+        </>
       ) : (
-        <SearchData
-          array={posts}
-          loadMore={loadMoreUsers}
-          component={InfoCard}
-        />
+        <>
+          {posts.loading ? <LinearProgress color="inherit" /> : null}
+          <SearchData
+            array={posts}
+            loadMore={loadMorePosts}
+            component={InfoCard}
+          />
+        </>
       )}
     </>
   );

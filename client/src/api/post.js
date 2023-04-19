@@ -19,10 +19,7 @@ export const findOwnerPosts = async (
     console.error(err);
   }
 };
-export const searchPost = async (search, setData) => {
-  const res = await axios.get(`/post/search/${search}`);
-  setData(res.data);
-};
+
 export const createPost = async (post, setPosts, userId) => {
   const res = await axios.post("post/", {
     subject: post.subject,
@@ -37,4 +34,15 @@ export const createPost = async (post, setPosts, userId) => {
     userId: userId,
   };
   setPosts((prevPosts) => [newPost, ...prevPosts]);
+};
+export const searchPost = async (search, posts, setPosts) => {
+  const res = await axios.get(`/post/${search}/${posts.skip}`);
+
+  setPosts({
+    ...posts,
+    data: [...posts.data, ...res.data],
+    hasMore: res.data.length !== 0,
+    skip: posts.skip + 5,
+    loading: posts.loading ? false : null,
+  });
 };

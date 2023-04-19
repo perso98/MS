@@ -42,14 +42,21 @@ const postController = {
       res.send(err);
     }
   },
-  posts: async (req, res) => {
+  findPost: async (req, res) => {
     const search = req.params.search;
+    if (req.params.skip == 0) {
+      req.session.lastPostSearch = new Date();
+    }
     const posts = await Post.find({
+      createdAt: { $lt: req.session.lastPostSearch },
       $or: [
         { subject: { $regex: search, $options: "i" } },
         { desc: { $regex: search, $options: "i" } },
       ],
-    }).populate("user", "_id name surname");
+    })
+      .skip(req.params.skip)
+      .limit(5)
+      .populate("user", "_id name surname");
 
     res.send(posts);
   },

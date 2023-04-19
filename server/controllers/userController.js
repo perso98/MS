@@ -43,7 +43,7 @@ const userController = {
       res.send("Logout success");
     } else res.send("You are not logged in");
   },
-  users: async (req, res) => {
+  findUser: async (req, res) => {
     if (req.params.skip == 0) {
       req.session.lastUserSearch = new Date();
     }

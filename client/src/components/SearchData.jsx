@@ -5,7 +5,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 function SearchData(props) {
   return (
     <>
-      {props.array.data.length ? (
+      {props.array.data.length && !props.array.loading ? (
         <InfiniteScroll
           dataLength={props.array.data.length}
           next={props.loadMore}
@@ -22,10 +22,12 @@ function SearchData(props) {
         </InfiniteScroll>
       ) : (
         <div style={{ textAlign: "center", fontSize: "1.5rem" }}>
-          Nothing found
+          {props.array.loading ? null : "Nothing found"}
         </div>
       )}
-      {!props.array.data.hasMore && props.array.data.length !== 0 ? (
+      {!props.array.data.hasMore &&
+      props.array.data.length !== 0 &&
+      !props.array.loading ? (
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
           There is nothing more
         </div>
