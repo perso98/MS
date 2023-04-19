@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
   const logoutUser = async () => {
     logout(setUser, navigate);
   };
-  const value = { user, loginUser, logoutUser, loading };
+  const value = { user, setUser, loginUser, logoutUser, loading };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 export default AuthProvider;

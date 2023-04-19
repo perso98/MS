@@ -60,5 +60,27 @@ const userController = {
       .select("-password");
     res.send(users);
   },
+  follow: async (req, res) => {
+    const { id } = req.body;
+    const userId = req.session.user._id;
+    try {
+      const user = await User.findByIdAndUpdate(userId);
+      const isFollowing = user.follows.includes(id);
+      if (isFollowing) {
+        await User.findByIdAndUpdate(userId, {
+          $pull: { follows: id },
+        });
+        res.send({ followed: false });
+      } else {
+        await User.findByIdAndUpdate(userId, {
+          $push: { follows: id },
+        });
+        res.send({ followed: true });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
 };
 export default userController;

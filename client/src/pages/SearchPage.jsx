@@ -55,7 +55,7 @@ function SearchPage() {
           }}
           disabled={toggleSearch ? true : false}
         >
-          Find users
+          Users
         </Button>{" "}
         <Button
           variant="contained"
@@ -65,7 +65,7 @@ function SearchPage() {
           }}
           disabled={!toggleSearch ? true : false}
         >
-          Find posts
+          Posts
         </Button>{" "}
       </div>
       {toggleSearch ? (
