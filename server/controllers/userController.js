@@ -70,10 +70,16 @@ const userController = {
         await User.findByIdAndUpdate(userId, {
           $pull: { follows: id },
         });
+        await User.findByIdAndUpdate(id, {
+          $pull: { followers: userId },
+        });
         res.send({ followed: false });
       } else {
         await User.findByIdAndUpdate(userId, {
           $push: { follows: id },
+        });
+        await User.findByIdAndUpdate(id, {
+          $push: { followers: userId },
         });
         res.send({ followed: true });
       }

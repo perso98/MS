@@ -17,7 +17,13 @@ function SearchData(props) {
           }
         >
           {props.array.data.map((val) => {
-            return <props.component key={val._id} val={val} />;
+            return (
+              <props.component
+                key={val._id}
+                val={val}
+                setArray={props.setArray}
+              />
+            );
           })}
         </InfiniteScroll>
       ) : (

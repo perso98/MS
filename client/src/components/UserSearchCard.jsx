@@ -12,14 +12,20 @@ function UserSearchCard(props) {
         <div className="user-avatar">{props.val.name.charAt(0)}</div>
         <div className="user-card-info">
           {props.val.name} {props.val.surname}
-          <Button
-            style={{ marginLeft: "2rem" }}
-            variant="contained"
-            color={user.follows.includes(props.val._id) ? "warning" : "success"}
-            onClick={() => followHandler(props.val._id, user, setUser)}
-          >
-            {user.follows.includes(props.val._id) ? "unfollow" : "follow"}
-          </Button>
+          {user._id !== props.val._id ? (
+            <Button
+              style={{ marginLeft: "2rem" }}
+              variant="contained"
+              color={
+                user.follows.includes(props.val._id) ? "warning" : "success"
+              }
+              onClick={() =>
+                followHandler(props.val._id, user, setUser, props.setArray)
+              }
+            >
+              {user.follows.includes(props.val._id) ? "unfollow" : "follow"}
+            </Button>
+          ) : null}
         </div>
       </div>
       <div
@@ -29,14 +35,17 @@ function UserSearchCard(props) {
           marginLeft: "auto",
         }}
       >
-        {props.val.follows.includes(user._id)
-          ? "following you"
-          : "not following you"}
+        {user._id !== props.val._id
+          ? props.val.follows.includes(user._id)
+            ? "following you"
+            : "not following you"
+          : null}
       </div>
       <div className="user-bottom-content">
+        {console.log(props.val)}
         <p>followers: {props.val.followers.length}</p>
-        <p>follows {props.val.follows.length}</p>
-        <p>posts {props.val.posts.length}</p>
+        <p>follows: {props.val.follows.length}</p>
+        <p>posts: {props.val.posts.length}</p>
       </div>
     </div>
   );

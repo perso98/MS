@@ -73,6 +73,7 @@ function SearchPage() {
           {users.loading ? <LinearProgress color="inherit" /> : null}
           <SearchData
             array={users}
+            setArray={setUsers}
             loadMore={loadMoreUsers}
             component={UserSearchCard}
           />
@@ -82,6 +83,7 @@ function SearchPage() {
           {posts.loading ? <LinearProgress color="inherit" /> : null}
           <SearchData
             array={posts}
+            setArray={setPosts}
             loadMore={loadMorePosts}
             component={InfoCard}
           />
