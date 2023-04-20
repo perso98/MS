@@ -22,6 +22,7 @@ export default function Navbar() {
           <DarkTextField
             label="Search data"
             setOnChange={setSearch}
+            value={search}
             width="20%"
             adornment={true}
             adornmentIcon={<SearchIcon />}
@@ -29,7 +30,7 @@ export default function Navbar() {
           />
           <div className="navbar-elements">
             <div className="logged-elements">
-              <NavLink to="/profile">
+              <NavLink to={`/user/${user._id}`}>
                 <div className="profile-container">{user.name.slice(0, 1)}</div>
               </NavLink>
 

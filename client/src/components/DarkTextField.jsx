@@ -40,6 +40,7 @@ function DarkTextField(props) {
             <IconButton
               style={{ color: "white" }}
               onClick={props.adornmentOnClick}
+              disabled={!props.value}
             >
               {props.adornmentIcon}
             </IconButton>

@@ -25,7 +25,7 @@ function App() {
                 <Routes>
                   <Route element={<AuthRoute user={user} />}>
                     <Route path="/" element={<Main />} />
-                    <Route path="/profile" element={<User />} />
+                    <Route path="/user/:id" element={<User />} />
                     <Route path="/search/:search" element={<SearchPage />} />
                   </Route>
                   <Route path="/auth" element={<AuthPage />} />

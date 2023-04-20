@@ -5,10 +5,11 @@ export const findOwnerPosts = async (
   setSkip,
   setHasMore,
   posts,
-  setPosts
+  setPosts,
+  id
 ) => {
   try {
-    await axios.get(`post/${+skip}`).then((res) => {
+    await axios.get(`/post/posts/${id}/${+skip}`).then((res) => {
       const userId = res.data.userId;
       const newPosts = res.data.posts.map((post) => ({ ...post, userId }));
       setPosts([...posts, ...newPosts]);
@@ -21,7 +22,7 @@ export const findOwnerPosts = async (
 };
 
 export const createPost = async (post, setPosts, userId) => {
-  const res = await axios.post("post/", {
+  const res = await axios.post("/post/", {
     subject: post.subject,
     desc: post.desc,
     category: post.category,

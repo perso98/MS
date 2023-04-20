@@ -3,13 +3,19 @@ import "./style.css";
 import Button from "@mui/material/Button";
 import { AuthContext } from "../providers/AuthProvider";
 import { followHandler } from "../api/user";
+import { useNavigate } from "react-router-dom";
 function UserSearchCard(props) {
   const { user, setUser } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   return (
     <div className="user-card-container">
       <div className="user-top-content">
-        <div className="user-avatar">{props.val.name.charAt(0)}</div>
+        <div
+          className="user-avatar"
+          onClick={() => navigate(`/user/${props.val._id}`)}
+        >
+          {props.val.name.charAt(0)}
+        </div>
         <div className="user-card-info">
           {props.val.name} {props.val.surname}
           {user._id !== props.val._id ? (

@@ -1,31 +1,38 @@
 import "./style.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LinearProgress from "@mui/material/LinearProgress";
 import { findOwnerPosts } from "../api/post";
 import AddPost from "../components/AddPost";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 export default function User() {
   const [posts, setPosts] = useState([]);
   const [skip, setSkip] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const { user } = useContext(AuthContext);
+  const { id } = useParams();
   const loadMore = () => {
-    findOwnerPosts(skip, setSkip, setHasMore, posts, setPosts);
+    findOwnerPosts(skip, setSkip, setHasMore, posts, setPosts, id);
   };
+
   useEffect(() => {
     loadMore();
   }, []);
   return (
     <>
-      <AddPost
-        posts={posts}
-        setPosts={setPosts}
-        setSkip={setSkip}
-        skip={skip}
-      />
+      {id === user._id ? (
+        <AddPost
+          posts={posts}
+          setPosts={setPosts}
+          setSkip={setSkip}
+          skip={skip}
+        />
+      ) : null}
       {posts.length === 0 ? (
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          You can add your first post above
+          Nothing found
         </div>
       ) : null}
       <InfiniteScroll

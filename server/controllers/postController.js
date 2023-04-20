@@ -20,12 +20,12 @@ const postController = {
       res.send({ success: false });
     }
   },
-  findAllUserPosts: async (req, res) => {
+  posts: async (req, res) => {
     if (req.params.skip == 0) {
       req.session.lastPostFetchTime = new Date();
     }
     try {
-      const user = await User.findById(req.session.user._id)
+      const user = await User.findById(req.params.id)
         .populate({
           path: "posts",
           match: { createdAt: { $lt: req.session.lastPostFetchTime } },
@@ -36,7 +36,6 @@ const postController = {
           },
         })
         .select("-user");
-
       res.send({ success: true, userId: user._id, posts: user.posts });
     } catch (err) {
       res.send(err);

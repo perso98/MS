@@ -229,6 +229,7 @@ label {
   align-content: center;
   color: black;
   font-size: 3rem;
+  cursor: pointer;
 }
 .user-top-content {
   display: flex;
