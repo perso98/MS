@@ -27,6 +27,9 @@ a {
   line-height: 50px;
   margin-right: 2rem;
 }
+.profile-container:hover {
+  box-shadow: #8d8d8c 0px 0px 0px 3px;
+}
 .sidebar-container {
   height: 90vh;
   width: 40vh;
@@ -51,7 +54,6 @@ a {
 }
 .sidebar-element:hover {
   background-color: #ccc;
-
   color: black;
 }
 .rightbar-container {
@@ -110,12 +112,17 @@ a {
   background-color: #1e1b1e !important;
   color: white !important;
   border-radius: 25px !important;
-  box-shadow: black 0px 1px 4px;
-  margin-bottom: 2rem;
+  box-shadow: rgb(51, 51, 51) 0px 0px 0px 3px;
   width: 700px;
-  height: 230px;
+  min-height: 250px;
+  margin-top: 2rem;
 }
-
+.card-click:hover {
+  cursor: pointer;
+}
+.card-click {
+  border-bottom: 2px solid lightgrey;
+}
 .top-card {
   display: flex;
   justify-content: space-between;
@@ -171,6 +178,11 @@ label {
   border-radius: 25px;
   border: 2px solid white;
 }
+.edit-post-button {
+  padding: 1rem;
+  text-align: right;
+  border-bottom: 2px solid lightgrey;
+}
 .post-container h2 {
   text-align: center;
   margin-bottom: 1rem;
@@ -213,6 +225,7 @@ label {
   box-shadow: black 0px 1px 4px;
   display: flex;
   margin-top: 2rem;
+  border: 2px solid white;
   flex-direction: column;
 }
 

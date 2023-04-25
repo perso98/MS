@@ -1,4 +1,3 @@
-import "./style.css";
 import { useContext, useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -7,9 +6,12 @@ import { findOwnerPosts } from "../api/post";
 import AddPost from "../components/AddPost";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import UserSearchCard from "../components/UserSearchCard";
+import { getUser } from "../api/user";
 export default function User() {
   const [posts, setPosts] = useState([]);
   const [skip, setSkip] = useState(0);
+  const [profile, setProfile] = useState();
   const [hasMore, setHasMore] = useState(true);
   const { user } = useContext(AuthContext);
   const { id } = useParams();
@@ -19,9 +21,12 @@ export default function User() {
 
   useEffect(() => {
     loadMore();
-  }, []);
+    getUser(id, setProfile);
+  }, [id]);
+
   return (
     <>
+      {profile ? <UserSearchCard val={profile} /> : null}
       {id === user._id ? (
         <AddPost
           posts={posts}

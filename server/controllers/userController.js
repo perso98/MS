@@ -88,5 +88,15 @@ const userController = {
       res.status(500).send("Internal Server Error");
     }
   },
+  getUser: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id).select(
+        "-email -password"
+      );
+      res.send(user);
+    } catch (err) {
+      res.send(err);
+    }
+  },
 };
 export default userController;

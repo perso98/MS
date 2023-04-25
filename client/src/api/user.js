@@ -59,3 +59,9 @@ export const followHandler = async (id, user, setUser, setArray) => {
     }));
   }
 };
+
+export const getUser = async (id, setProfile) => {
+  const res = await axios.get(`/user/${id}`);
+
+  setProfile(res.data);
+};

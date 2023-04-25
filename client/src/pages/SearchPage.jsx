@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchUser } from "../api/user";
 import InfoCard from "../components/InfoCard";
-import "./style.css";
 import UserSearchCard from "../components/UserSearchCard";
 import Button from "@mui/material/Button";
 import { searchPost } from "../api/post";

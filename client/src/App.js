@@ -10,9 +10,11 @@ import AuthPage from "./pages/AuthPage";
 import { AuthContext } from "./providers/AuthProvider";
 import AuthRoute from "./protected-routes/AuthRoute";
 import SearchPage from "./pages/SearchPage";
+import Post from "./pages/Post";
+import { useMediaQuery } from "@material-ui/core";
 function App() {
-  const { user, checkAuth, loading } = useContext(AuthContext);
-
+  const { user, loading } = useContext(AuthContext);
+  const showRightbar = useMediaQuery("(min-width:1170px)");
   return (
     <>
       {!loading ? (
@@ -27,12 +29,13 @@ function App() {
                     <Route path="/" element={<Main />} />
                     <Route path="/user/:id" element={<User />} />
                     <Route path="/search/:search" element={<SearchPage />} />
+                    <Route path="/post/:id" element={<Post />} />
                   </Route>
                   <Route path="/auth" element={<AuthPage />} />
                 </Routes>
               </div>
             </div>
-            {user ? <Rightbar /> : null}
+            {showRightbar && user ? <Rightbar /> : null}
           </div>
         </>
       ) : null}

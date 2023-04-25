@@ -28,13 +28,7 @@ export const createPost = async (post, setPosts, userId) => {
     category: post.category,
   });
 
-  const newPost = {
-    ...post,
-    createdAt: res.data.post.createdAt,
-    _id: res.data.post._id,
-    userId: userId,
-  };
-  setPosts((prevPosts) => [newPost, ...prevPosts]);
+  setPosts((prevPosts) => [res.data.post, ...prevPosts]);
 };
 export const searchPost = async (search, posts, setPosts) => {
   const res = await axios.get(`/post/${search}/${posts.skip}`);
@@ -46,4 +40,18 @@ export const searchPost = async (search, posts, setPosts) => {
     skip: posts.skip + 5,
     loading: posts.loading ? false : null,
   });
+};
+
+export const getPost = async (setPost, id) => {
+  const res = await axios.get(`/post/${id}`);
+  setPost(res.data);
+};
+
+export const like = async (id, userId, setLikes, likes) => {
+  const res = await axios.post(`/post/like`, { id });
+  if (res.data.like) {
+    setLikes((prevLikes) => [...prevLikes, userId]);
+  } else {
+    setLikes((prevLikes) => [...prevLikes.filter((like) => like !== userId)]);
+  }
 };

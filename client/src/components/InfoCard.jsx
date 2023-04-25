@@ -1,17 +1,37 @@
+import React, { useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton } from "@mui/material";
+import { IconButton, Button } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
 import TimeAgo from "../components/TimeAgo";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import { like } from "../api/post";
+
 export default function InfoCard(props) {
+  const [likes, setLikes] = useState(props.val.likes);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <Card className="card-container" variant="outlined">
-      <CardContent>
+      <div className="edit-post-button">
+        {user._id === props.val.user._id ? (
+          <Button variant="contained" color="warning">
+            Edit
+          </Button>
+        ) : null}
+      </div>
+      <CardContent
+        className="card-click"
+        onClick={() => navigate(`/post/${props.val._id}`)}
+      >
         <div className="top-card">
-          <Typography>xd</Typography>
+          <Typography>
+            {props.val.user.name} {props.val.user.surname}
+          </Typography>
           <TimeAgo createdAt={props.val.createdAt} />
         </div>
         <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
@@ -23,11 +43,15 @@ export default function InfoCard(props) {
       </CardContent>
       <CardActions className="bottom-card">
         <div>
-          <IconButton>
+          <IconButton onClick={() => like(props.val._id, user._id, setLikes)}>
             {" "}
-            <FavoriteIcon sx={{ color: "white" }} />
+            <FavoriteIcon
+              sx={{
+                color: likes.includes(user._id) ? "red" : "white",
+              }}
+            />
             <Typography sx={{ color: "white", marginLeft: "0.5rem" }}>
-              {props.val.likes?.length}
+              {likes.length}
             </Typography>
           </IconButton>
         </div>

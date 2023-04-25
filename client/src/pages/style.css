@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+  font-family: "Roboto Slab", serif;
+}
 .main-element {
   margin-top: 2rem;
 }

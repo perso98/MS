@@ -48,7 +48,6 @@ function UserSearchCard(props) {
           : null}
       </div>
       <div className="user-bottom-content">
-        {console.log(props.val)}
         <p>followers: {props.val.followers.length}</p>
         <p>follows: {props.val.follows.length}</p>
         <p>posts: {props.val.posts.length}</p>
