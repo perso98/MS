@@ -27,7 +27,7 @@ const postController = {
       res.send({ success: false });
     }
   },
-  posts: async (req, res) => {
+  userPosts: async (req, res) => {
     try {
       let lastPostFetchTime = req.session.lastPostFetchTime;
       if (!lastPostFetchTime || req.params.skip == 0) {
@@ -103,6 +103,14 @@ const postController = {
         desc,
         subject,
       });
+      res.send({ success: true });
+    } catch (err) {
+      res.send({ success: false });
+    }
+  },
+  deletePost: async (req, res) => {
+    try {
+      await Post.findByIdAndDelete(req.params.id);
       res.send({ success: true });
     } catch (err) {
       res.send({ success: false });

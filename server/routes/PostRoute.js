@@ -10,8 +10,8 @@ router.route("/like").post(postController.like);
 
 router.route("/:search/:skip").get(postController.findPost);
 
-router.route("/:id").get(postController.post);
+router.route("/:id").get(postController.post).delete(postController.deletePost);
 
-router.route("/posts/:id/:skip").get(postController.posts);
+router.route("/posts/:id/:skip").get(postController.userPosts);
 
 export default router;

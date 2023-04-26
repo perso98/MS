@@ -75,3 +75,17 @@ export const editPost = async (id, setPosts, post) => {
       }),
     ]);
 };
+
+export const deletePost = async (id, setPosts, posts) => {
+  const res = await axios.delete(`/post/${id}`);
+  if (res.data.success) {
+    if (typeof posts === "object") {
+      setPosts((prevPost) => ({
+        ...prevPost,
+        data: [...prevPost.data.filter((val) => val._id !== id)],
+      }));
+    } else {
+      setPosts((prevPosts) => [...prevPosts.filter((val) => val._id !== id)]);
+    }
+  }
+};

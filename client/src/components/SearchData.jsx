@@ -21,7 +21,8 @@ function SearchData(props) {
               <props.component
                 key={val._id}
                 val={val}
-                setArray={props.setArray}
+                setPosts={props.setArray}
+                posts={props.array}
               />
             );
           })}

@@ -9,7 +9,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import TimeAgo from "../components/TimeAgo";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-import { like } from "../api/post";
+import { deletePost, like } from "../api/post";
 
 export default function InfoCard(props) {
   const [likes, setLikes] = useState(props.val.likes);
@@ -30,7 +30,13 @@ export default function InfoCard(props) {
             >
               Edit
             </Button>
-            <Button variant="contained" color="error">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                deletePost(props.val._id, props.setPosts, props.posts);
+              }}
+            >
               Delete
             </Button>
           </>
