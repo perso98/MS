@@ -17,11 +17,23 @@ export default function InfoCard(props) {
   const navigate = useNavigate();
   return (
     <Card className="card-container" variant="outlined">
-      <div className="edit-post-button">
+      <div className="post-buttons">
         {user._id === props.val.user._id ? (
-          <Button variant="contained" color="warning">
-            Edit
-          </Button>
+          <>
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={() => {
+                props.setPost(props.val);
+                props.setOpen(true);
+              }}
+            >
+              Edit
+            </Button>
+            <Button variant="contained" color="error">
+              Delete
+            </Button>
+          </>
         ) : null}
       </div>
       <CardContent

@@ -21,7 +21,7 @@ export const findOwnerPosts = async (
   }
 };
 
-export const createPost = async (post, setPosts, userId) => {
+export const createPost = async (post, setPosts, setUser) => {
   const res = await axios.post("/post/", {
     subject: post.subject,
     desc: post.desc,
@@ -29,6 +29,10 @@ export const createPost = async (post, setPosts, userId) => {
   });
 
   setPosts((prevPosts) => [res.data.post, ...prevPosts]);
+  setUser((prevUser) => ({
+    ...prevUser,
+    posts: [...prevUser.posts, res.data.post._id],
+  }));
 };
 export const searchPost = async (search, posts, setPosts) => {
   const res = await axios.get(`/post/${search}/${posts.skip}`);
@@ -54,4 +58,13 @@ export const like = async (id, userId, setLikes, likes) => {
   } else {
     setLikes((prevLikes) => [...prevLikes.filter((like) => like !== userId)]);
   }
+};
+
+export const editPost = async (id, setPosts, post) => {
+  setPosts((prevPosts) => [
+    ...prevPosts.map((val) => {
+      if (val._id === id) return post;
+      else return val;
+    }),
+  ]);
 };

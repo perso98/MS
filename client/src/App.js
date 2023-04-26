@@ -11,6 +11,7 @@ import { AuthContext } from "./providers/AuthProvider";
 import AuthRoute from "./protected-routes/AuthRoute";
 import SearchPage from "./pages/SearchPage";
 import Post from "./pages/Post";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useMediaQuery } from "@material-ui/core";
 function App() {
   const { user, loading } = useContext(AuthContext);
@@ -38,7 +39,12 @@ function App() {
             {showRightbar && user ? <Rightbar /> : null}
           </div>
         </>
-      ) : null}
+      ) : (
+        <div className="loading-div">
+          <CircularProgress style={{ color: "white" }} />
+          <h2>Waiting for authorization...</h2>
+        </div>
+      )}
     </>
   );
 }

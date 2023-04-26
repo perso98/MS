@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { AuthContext } from "../providers/AuthProvider";
 import { followHandler } from "../api/user";
 import { useNavigate } from "react-router-dom";
-function UserSearchCard(props) {
+function UserCard(props) {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
@@ -50,10 +50,15 @@ function UserSearchCard(props) {
       <div className="user-bottom-content">
         <p>followers: {props.val.followers.length}</p>
         <p>follows: {props.val.follows.length}</p>
-        <p>posts: {props.val.posts.length}</p>
+        <p>
+          posts:{" "}
+          {user._id === props.val._id
+            ? user.posts.length
+            : props.val.posts.length}
+        </p>
       </div>
     </div>
   );
 }
 
-export default UserSearchCard;
+export default UserCard;

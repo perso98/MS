@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchUser } from "../api/user";
 import InfoCard from "../components/InfoCard";
-import UserSearchCard from "../components/UserSearchCard";
+import UserCard from "../components/UserCard";
 import Button from "@mui/material/Button";
 import { searchPost } from "../api/post";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -74,7 +74,7 @@ function SearchPage() {
             array={users}
             setArray={setUsers}
             loadMore={loadMoreUsers}
-            component={UserSearchCard}
+            component={UserCard}
           />
         </>
       ) : (

@@ -60,8 +60,8 @@ export const followHandler = async (id, user, setUser, setArray) => {
   }
 };
 
-export const getUser = async (id, setProfile) => {
-  const res = await axios.get(`/user/${id}`);
-
+export const getUser = async (id, setProfile, setLoading) => {
+  const res = await axios.get(`/user/get-user/${id}`);
+  setLoading(false);
   setProfile(res.data);
 };
