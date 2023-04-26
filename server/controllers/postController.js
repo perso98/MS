@@ -95,5 +95,18 @@ const postController = {
       res.send(err);
     }
   },
+  updatePost: async (req, res) => {
+    try {
+      const { subject, category, desc, id } = req.body;
+      await Post.findByIdAndUpdate(id, {
+        category,
+        desc,
+        subject,
+      });
+      res.send({ success: true });
+    } catch (err) {
+      res.send({ success: false });
+    }
+  },
 };
 export default postController;

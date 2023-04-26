@@ -61,10 +61,17 @@ export const like = async (id, userId, setLikes, likes) => {
 };
 
 export const editPost = async (id, setPosts, post) => {
-  setPosts((prevPosts) => [
-    ...prevPosts.map((val) => {
-      if (val._id === id) return post;
-      else return val;
-    }),
-  ]);
+  const res = await axios.put(`/post/`, {
+    id: post._id,
+    category: post.category,
+    subject: post.subject,
+    desc: post.desc,
+  });
+  if (res.data.success)
+    setPosts((prevPosts) => [
+      ...prevPosts.map((val) => {
+        if (val._id === id) return post;
+        else return val;
+      }),
+    ]);
 };
