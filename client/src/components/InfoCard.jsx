@@ -17,10 +17,18 @@ export default function InfoCard(props) {
   const navigate = useNavigate();
   return (
     <Card className="card-container" variant="outlined">
-      <div className="post-buttons">
+      <div className="post-top">
+        <Typography
+          className="user-post-section"
+          onClick={() => navigate(`/user/${props.val._id}`)}
+        >
+          <div className="post-avatar">{props.val.user.name.charAt(0)}</div>{" "}
+          {props.val.user.name} {props.val.user.surname}
+        </Typography>
         {user._id === props.val.user._id ? (
-          <>
+          <div>
             <Button
+              style={{ marginRight: "1rem" }}
               variant="contained"
               color="warning"
               onClick={() => {
@@ -39,7 +47,7 @@ export default function InfoCard(props) {
             >
               Delete
             </Button>
-          </>
+          </div>
         ) : null}
       </div>
       <CardContent
@@ -47,11 +55,9 @@ export default function InfoCard(props) {
         onClick={() => navigate(`/post/${props.val._id}`)}
       >
         <div className="top-card">
-          <Typography>
-            {props.val.user.name} {props.val.user.surname}
-          </Typography>
           <TimeAgo createdAt={props.val.createdAt} />
         </div>
+
         <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
           {props.val.category}
         </div>
@@ -59,6 +65,7 @@ export default function InfoCard(props) {
 
         <div className="card-content"> {props.val.desc}</div>
       </CardContent>
+
       <CardActions className="bottom-card">
         <div>
           <IconButton onClick={() => like(props.val._id, user._id, setLikes)}>

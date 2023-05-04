@@ -35,7 +35,7 @@ export default function User() {
   return (
     <>
       {loading ? (
-        <CircularProgress />
+        <CircularProgress color="inherit" />
       ) : (
         <>
           {profile ? <UserCard val={profile} /> : null}

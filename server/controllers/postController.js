@@ -116,5 +116,14 @@ const postController = {
       res.send({ success: false });
     }
   },
+  followsPosts: async (req, res) => {
+    const users = await User.findById(req.session.user._id).select("follows");
+    const posts = await Post.find({ user: { $in: users.follows } })
+      .skip(req.params.skip)
+      .limit(5)
+      .populate("user", "_id name surname");
+
+    res.send({ success: true, posts: posts });
+  },
 };
 export default postController;

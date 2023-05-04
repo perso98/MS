@@ -89,3 +89,18 @@ export const deletePost = async (id, setPosts, posts) => {
     }
   }
 };
+
+export const findFollowsPosts = async (posts, setPosts) => {
+  try {
+    await axios.get(`/post/follows/posts/${+posts.skip}`).then((res) => {
+      setPosts({
+        skip: posts.skip + 5,
+        hasMore: res.data.posts.length !== 0,
+        data: [...posts.data, ...res.data.posts],
+        loading: false,
+      });
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
