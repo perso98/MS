@@ -93,6 +93,7 @@ const userController = {
       const user = await User.findById(req.params.id).select(
         "-email -password"
       );
+      console.log(user);
       res.send(user);
     } catch (err) {
       res.send(err);

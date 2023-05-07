@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Main from "./pages/Main";
@@ -14,14 +14,19 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useMediaQuery } from "@material-ui/core";
 function App() {
   const { user, loading } = useContext(AuthContext);
-  const showSideBar = useMediaQuery("(min-width:1170px)");
+  const isSmallScreen = useMediaQuery("(max-width:1222px)");
+  const [openSidebar, setOpenSidebar] = useState(true);
+  useEffect(() => {
+    if (isSmallScreen) {
+      setOpenSidebar(false);
+    }
+  }, [isSmallScreen]);
   return (
     <>
       {!loading ? (
         <>
-          <Navbar />
-
-          {user ? <Sidebar /> : null}
+          <Navbar setOpen={setOpenSidebar} open={openSidebar} />
+          {user && openSidebar ? <Sidebar /> : null}
           <div className="main-container">
             <div className="main-elements ">
               <Routes>

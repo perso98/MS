@@ -1,21 +1,36 @@
 import "./style.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
 import DarkTextField from "./DarkTextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
-export default function Navbar() {
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+export default function Navbar(props) {
   const { logoutUser, user } = useContext(AuthContext);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   return (
     <div className="navbar-container">
-      <NavLink to="/">
-        <h1>MS</h1>
-      </NavLink>
+      <div className="navbar-left">
+        <IconButton
+          onClick={() => {
+            props.open ? props.setOpen(false) : props.setOpen(true);
+          }}
+        >
+          {props.open ? (
+            <CloseIcon className="nav-open-close-icon" />
+          ) : (
+            <MenuIcon className="nav-open-close-icon" />
+          )}
+        </IconButton>
+        <NavLink to="/">
+          <h1>MS</h1>
+        </NavLink>
+      </div>
 
       {user ? (
         <>

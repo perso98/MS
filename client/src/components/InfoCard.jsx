@@ -20,9 +20,11 @@ export default function InfoCard(props) {
       <div className="post-top">
         <Typography
           className="user-post-section"
-          onClick={() => navigate(`/user/${props.val._id}`)}
+          onClick={() => navigate(`/user/${props.val.user._id}`)}
         >
-          <div className="post-avatar">{props.val.user.name.charAt(0)}</div>{" "}
+          <div className="post-avatar" style={{ fontWeight: "normal" }}>
+            {props.val.user.name.charAt(0)}
+          </div>{" "}
           {props.val.user.name} {props.val.user.surname}
         </Typography>
         {user._id === props.val.user._id ? (
@@ -54,14 +56,11 @@ export default function InfoCard(props) {
         className="card-click"
         onClick={() => navigate(`/post/${props.val._id}`)}
       >
+        <div style={{ fontSize: "0.9rem" }}>{props.val.category}</div>
         <div className="top-card">
+          <h3>{props.val.subject}</h3>
           <TimeAgo createdAt={props.val.createdAt} />
         </div>
-
-        <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-          {props.val.category}
-        </div>
-        <div className="card-subject">{props.val.subject}</div>
 
         <div className="card-content"> {props.val.desc}</div>
       </CardContent>

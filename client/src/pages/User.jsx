@@ -28,8 +28,8 @@ export default function User() {
   };
 
   useEffect(() => {
-    loadMore();
     getUser(id, setProfile, setLoading);
+    loadMore();
   }, [id]);
 
   return (
@@ -44,7 +44,7 @@ export default function User() {
           ) : null}
           {posts.length === 0 ? (
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
-              Nothing found
+              This user doesn't have any posts.
             </div>
           ) : null}
           <InfiniteScroll
