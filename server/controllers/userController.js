@@ -93,9 +93,30 @@ const userController = {
       const user = await User.findById(req.params.id).select(
         "-email -password"
       );
-      console.log(user);
+
       res.send(user);
     } catch (err) {
+      res.send(err);
+    }
+  },
+  getFollowsOrFollowers: async (req, res) => {
+    try {
+      if (req.params.type == 0) {
+        const user = await User.findById(req.params.id)
+          .populate("follows", "_id name surname")
+          .limit(10)
+          .skip(req.params.skip);
+        console.log(user.follows);
+        res.send(user.follows);
+      } else {
+        const user = await User.findById(req.params.id)
+          .populate("followers", "_id name surname")
+          .limit(10)
+          .skip(req.params.skip);
+        res.send(user.followers);
+      }
+    } catch (err) {
+      console.log(err);
       res.send(err);
     }
   },

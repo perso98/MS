@@ -10,6 +10,19 @@ export const searchUser = async (search, users, setUsers) => {
   });
 };
 
+export const followHandlerWithoutUpdatingFollower = async (
+  id,
+  user,
+  setUser
+) => {
+  const res = await axios.post(`/user/follow`, { id });
+  if (res.data.followed) setUser({ ...user, follows: [...user.follows, id] });
+  else
+    setUser({
+      ...user,
+      follows: user.follows.filter((val) => val !== id),
+    });
+};
 export const followHandler = async (id, user, setUser, setArray) => {
   const res = await axios.post(`/user/follow`, { id });
   if (res.data.followed) {
@@ -62,6 +75,18 @@ export const followHandler = async (id, user, setUser, setArray) => {
 
 export const getUser = async (id, setProfile, setLoading) => {
   const res = await axios.get(`/user/get-user/${id}`);
-  setLoading(false);
   setProfile(res.data);
+  setLoading(false);
+};
+
+export const getFollowersOrFollows = async (id, type, setFollow, follow) => {
+  const res = await axios.get(
+    `/user/get-followers-or-follows/${type}/${id}/${follow.skip}`
+  );
+  setFollow({
+    ...follow,
+    users: [...follow.users, ...res.data],
+    loading: false,
+    skip: follow.skip + 10,
+  });
 };

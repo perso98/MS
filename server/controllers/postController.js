@@ -110,7 +110,9 @@ const postController = {
   },
   deletePost: async (req, res) => {
     try {
+      const user = await User.findById(req.session.user._id);
       await Post.findByIdAndDelete(req.params.id);
+      await user.updateOne({ $pull: { posts: req.params.id } });
       res.send({ success: true });
     } catch (err) {
       res.send({ success: false });

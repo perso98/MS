@@ -16,25 +16,46 @@ export default function User() {
   const [profile, setProfile] = useState();
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [postsLoading, setPostsLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const [openEdit, setOpenEdit] = useState(false);
   const [post, setPost] = useState({});
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const { id } = useParams();
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
   const loadMore = () => {
-    findOwnerPosts(skip, setSkip, setHasMore, posts, setPosts, id);
+    findOwnerPosts(
+      skip,
+      setSkip,
+      setHasMore,
+      posts,
+      setPosts,
+      id,
+      setPostsLoading
+    );
   };
 
   useEffect(() => {
+    setPosts([]);
+    setSkip(0);
+    setPostsLoading(true);
+    setLoading(true);
+    setHasMore(true);
     getUser(id, setProfile, setLoading);
-    loadMore();
+    setInitialLoadComplete(false);
   }, [id]);
-
+  useEffect(() => {
+    if (initialLoadComplete) {
+      loadMore();
+    } else {
+      setInitialLoadComplete(true);
+    }
+  }, [initialLoadComplete]);
   return (
     <>
-      {loading ? (
+      {loading && postsLoading ? (
         <CircularProgress color="inherit" />
       ) : (
         <>
@@ -42,7 +63,7 @@ export default function User() {
           {id === user._id ? (
             <AddPost posts={posts} setPosts={setPosts} />
           ) : null}
-          {posts.length === 0 ? (
+          {posts.length === 0 && !postsLoading ? (
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
               This user doesn't have any posts.
             </div>

@@ -11,5 +11,8 @@ router.post("/follow", userController.follow);
 router.get("/get-user/:id", userController.getUser);
 router.get("/auth", userController.auth);
 router.get("/:search/:skip", userController.findUser);
-
+router.get(
+  "/get-followers-or-follows/:type/:id/:skip",
+  userController.getFollowsOrFollowers
+);
 export default router;

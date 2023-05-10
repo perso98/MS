@@ -6,7 +6,8 @@ export const findOwnerPosts = async (
   setHasMore,
   posts,
   setPosts,
-  id
+  id,
+  setPostsLoading
 ) => {
   try {
     await axios.get(`/post/posts/${id}/${+skip}`).then((res) => {
@@ -15,6 +16,7 @@ export const findOwnerPosts = async (
       setPosts([...posts, ...newPosts]);
       setSkip(skip + 5);
       setHasMore(res.data.posts.length !== 0);
+      setPostsLoading(false);
     });
   } catch (err) {
     console.error(err);

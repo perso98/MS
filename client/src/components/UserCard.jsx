@@ -8,6 +8,7 @@ import FollowDialog from "./FollowDialog";
 function UserCard(props) {
   const { user, setUser } = useContext(AuthContext);
   const [openFollow, setOpenFollow] = useState(false);
+  const [followType, setFollowType] = useState(null);
   const navigate = useNavigate();
   const handleCloseFollow = () => {
     setOpenFollow(false);
@@ -54,10 +55,22 @@ function UserCard(props) {
             : null}
         </div>
         <div className="user-bottom-content">
-          <p onClick={() => setOpenFollow(true)}>
+          <p
+            onClick={() => {
+              setFollowType(1);
+              setOpenFollow(true);
+            }}
+          >
             followers: {props.val.followers.length}
           </p>
-          <p>follows: {props.val.follows.length}</p>
+          <p
+            onClick={() => {
+              setFollowType(0);
+              setOpenFollow(true);
+            }}
+          >
+            follows: {props.val.follows.length}
+          </p>
           <p>
             posts:{" "}
             {user._id === props.val._id
@@ -66,7 +79,12 @@ function UserCard(props) {
           </p>
         </div>
       </div>
-      <FollowDialog handleClose={handleCloseFollow} open={openFollow} />
+      <FollowDialog
+        handleClose={handleCloseFollow}
+        open={openFollow}
+        id={props.val._id}
+        followType={followType}
+      />
     </>
   );
 }
