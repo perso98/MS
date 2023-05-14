@@ -101,20 +101,17 @@ const userController = {
   },
   getFollowsOrFollowers: async (req, res) => {
     try {
+      let populateField;
       if (req.params.type == 0) {
-        const user = await User.findById(req.params.id)
-          .populate("follows", "_id name surname")
-          .limit(10)
-          .skip(req.params.skip);
-        console.log(user.follows);
-        res.send(user.follows);
+        populateField = "follows";
       } else {
-        const user = await User.findById(req.params.id)
-          .populate("followers", "_id name surname")
-          .limit(10)
-          .skip(req.params.skip);
-        res.send(user.followers);
+        populateField = "followers";
       }
+      const user = await User.findById(req.params.id)
+        .populate(populateField, "_id name surname")
+        .skip(parseInt(req.params.skip))
+        .limit(10);
+      res.send(user[populateField]);
     } catch (err) {
       console.log(err);
       res.send(err);

@@ -10,65 +10,22 @@ export const searchUser = async (search, users, setUsers) => {
   });
 };
 
-export const followHandlerWithoutUpdatingFollower = async (
-  id,
-  user,
-  setUser
-) => {
-  const res = await axios.post(`/user/follow`, { id });
-  if (res.data.followed) setUser({ ...user, follows: [...user.follows, id] });
-  else
-    setUser({
-      ...user,
-      follows: user.follows.filter((val) => val !== id),
-    });
-};
-export const followHandler = async (id, user, setUser, setArray) => {
+export const followHandler = async (id, user, setUser, setFollowInfo) => {
   const res = await axios.post(`/user/follow`, { id });
   if (res.data.followed) {
     setUser({ ...user, follows: [...user.follows, id] });
-    setArray((prevState) => ({
-      ...prevState,
-      data: prevState.data.map((val) => {
-        if (val._id === user._id) {
-          return {
-            ...val,
-            follows: [...val.follows, id],
-          };
-        } else if (val._id === id) {
-          return {
-            ...val,
-            followers: [...val.followers, user._id],
-          };
-        } else {
-          return val;
-        }
-      }),
+    setFollowInfo((prevFollowInfo) => ({
+      ...prevFollowInfo,
+      followers: [...prevFollowInfo.followers, user._id],
     }));
   } else {
     setUser({
       ...user,
       follows: user.follows.filter((val) => val !== id),
     });
-    setArray((prevState) => ({
-      ...prevState,
-      data: prevState.data.map((val) => {
-        if (val._id === user._id) {
-          return {
-            ...val,
-            follows: val.follows.filter((follows) => follows !== id),
-          };
-        } else if (val._id === id) {
-          return {
-            ...val,
-            followers: val.followers.filter(
-              (followers) => followers !== user._id
-            ),
-          };
-        } else {
-          return val;
-        }
-      }),
+    setFollowInfo((prevFollowInfo) => ({
+      ...prevFollowInfo,
+      followers: prevFollowInfo.followers.filter((val) => val !== user._id),
     }));
   }
 };
@@ -83,6 +40,7 @@ export const getFollowersOrFollows = async (id, type, setFollow, follow) => {
   const res = await axios.get(
     `/user/get-followers-or-follows/${type}/${id}/${follow.skip}`
   );
+
   setFollow({
     ...follow,
     users: [...follow.users, ...res.data],

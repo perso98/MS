@@ -9,10 +9,23 @@ function UserCard(props) {
   const { user, setUser } = useContext(AuthContext);
   const [openFollow, setOpenFollow] = useState(false);
   const [followType, setFollowType] = useState(null);
+  const [followInfo, setFollowInfo] = useState({
+    followers: props.val.followers,
+    follows: props.val.follows,
+  });
+  const [follow, setFollow] = useState({
+    users: [],
+    skip: 0,
+    hasMore: true,
+    loading: true,
+  });
   const navigate = useNavigate();
   const handleCloseFollow = () => {
+    console.log(follow);
+    setFollow({ ...follow, users: [], skip: 0, hasMore: true, loading: true });
     setOpenFollow(false);
   };
+
   return (
     <>
       <div className="user-card-container">
@@ -33,7 +46,7 @@ function UserCard(props) {
                   user.follows.includes(props.val._id) ? "warning" : "success"
                 }
                 onClick={() =>
-                  followHandler(props.val._id, user, setUser, props.setArray)
+                  followHandler(props.val._id, user, setUser, setFollowInfo)
                 }
               >
                 {user.follows.includes(props.val._id) ? "unfollow" : "follow"}
@@ -56,20 +69,25 @@ function UserCard(props) {
         </div>
         <div className="user-bottom-content">
           <p
+            style={{ cursor: "pointer" }}
             onClick={() => {
               setFollowType(1);
               setOpenFollow(true);
             }}
           >
-            followers: {props.val.followers.length}
+            followers: {followInfo.followers.length}
           </p>
           <p
+            style={{ cursor: "pointer" }}
             onClick={() => {
               setFollowType(0);
               setOpenFollow(true);
             }}
           >
-            follows: {props.val.follows.length}
+            follows:{" "}
+            {user._id !== props.val._id
+              ? followInfo.follows.length
+              : user.follows.length}
           </p>
           <p>
             posts:{" "}
@@ -84,6 +102,8 @@ function UserCard(props) {
         open={openFollow}
         id={props.val._id}
         followType={followType}
+        follow={follow}
+        setFollow={setFollow}
       />
     </>
   );
