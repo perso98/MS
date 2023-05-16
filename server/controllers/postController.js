@@ -121,11 +121,13 @@ const postController = {
   followsPosts: async (req, res) => {
     const users = await User.findById(req.session.user._id).select("follows");
     const posts = await Post.find({ user: { $in: users.follows } })
-      .skip(req.params.skip)
-      .limit(5)
+      .limit(req.params.limit)
       .populate("user", "_id name surname");
-
-    res.send({ success: true, posts: posts });
+    if (posts.length > +req.params.limit - 5) {
+      res.send({ success: true, posts: posts });
+    } else {
+      res.send({ success: true, posts: [] });
+    }
   },
 };
 export default postController;

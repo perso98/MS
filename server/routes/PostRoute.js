@@ -15,6 +15,6 @@ router.route("/:id").get(postController.post).delete(postController.deletePost);
 
 router.route("/posts/:id/:skip").get(postController.userPosts);
 
-router.route("/follows/posts/:skip").get(postController.followsPosts);
+router.route("/follows/posts/:limit").get(postController.followsPosts);
 
 export default router;

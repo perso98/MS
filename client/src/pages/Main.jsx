@@ -8,7 +8,7 @@ export default function Main() {
   const [posts, setPosts] = useState({
     data: [],
     hasMore: true,
-    skip: 0,
+    limit: 5,
   });
   const loadMore = () => {
     findFollowsPosts(posts, setPosts);
