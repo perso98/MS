@@ -9,7 +9,7 @@ router
 
 router.route("/like").post(postController.like);
 
-router.route("/:search/:skip").get(postController.findPost);
+router.route("/:search/:limit").get(postController.findPost);
 
 router.route("/:id").get(postController.post).delete(postController.deletePost);
 

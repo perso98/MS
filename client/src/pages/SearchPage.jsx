@@ -23,8 +23,6 @@ function SearchPage() {
   const [toggleSearch, setToggleSearch] = useState(true);
   const { search } = useParams();
   useEffect(() => {
-    setUsers({ ...users, loading: true, hasMore: true });
-    setPosts({ ...posts, loading: true, hasMore: true });
     searchUser(
       search,
       { loading: true, data: [], limit: 5, hasMore: true },

@@ -36,16 +36,12 @@ export const createPost = async (post, setPosts, setUser) => {
     posts: [...prevUser.posts, res.data.post._id],
   }));
 };
-export const searchPost = async (search, posts, setPosts) => {
-  const res = await axios.get(`/post/${search}/${posts.skip}`);
+export const findFollowsPosts = async (posts, setPosts) => {
+  await fetchData("/post/follows/posts", posts, setPosts, "posts");
+};
 
-  setPosts({
-    ...posts,
-    data: [...posts.data, ...res.data],
-    hasMore: res.data.length !== 0,
-    skip: posts.skip + 5,
-    loading: posts.loading ? false : null,
-  });
+export const searchPost = async (search, posts, setPosts) => {
+  await fetchData(`/post/${search}`, posts, setPosts, "posts");
 };
 
 export const getPost = async (setPost, id) => {
@@ -90,8 +86,4 @@ export const deletePost = async (id, setPosts, posts) => {
       setPosts((prevPosts) => [...prevPosts.filter((val) => val._id !== id)]);
     }
   }
-};
-
-export const findFollowsPosts = async (posts, setPosts) => {
-  await fetchData("/post/follows/posts", posts, setPosts, "posts");
 };

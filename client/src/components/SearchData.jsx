@@ -32,7 +32,7 @@ function SearchData(props) {
           {props.array.loading ? null : "Nothing found"}
         </div>
       )}
-      {!props.array.hasMore ? (
+      {!props.array.hasMore && props.array.data.length !== 0 ? (
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
           There is nothing more
         </div>

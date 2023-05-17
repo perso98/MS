@@ -51,21 +51,21 @@ const postController = {
   },
   findPost: async (req, res) => {
     const search = req.params.search;
-    if (req.params.skip == 0) {
-      req.session.lastPostSearch = new Date();
-    }
+
     const posts = await Post.find({
-      createdAt: { $lt: req.session.lastPostSearch },
       $or: [
         { subject: { $regex: search, $options: "i" } },
         { desc: { $regex: search, $options: "i" } },
       ],
     })
-      .skip(req.params.skip)
-      .limit(5)
+      .limit(req.params.limit)
       .populate("user", "_id name surname");
 
-    res.send(posts);
+    if (posts.length > +req.params.limit - 5) {
+      res.send({ success: true, posts: posts });
+    } else {
+      res.send({ success: true, posts: [] });
+    }
   },
   post: async (req, res) => {
     try {
