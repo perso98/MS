@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import InfoCard from "../components/InfoCard";
+import PostCard from "../components/PostCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LinearProgress from "@mui/material/LinearProgress";
 import { findFollowsPosts } from "../api/post";
@@ -41,7 +41,7 @@ export default function Main() {
           >
             {posts.data.map((val) => (
               <div className="main-element" key={val._id}>
-                <InfoCard val={val} setPosts={setPosts} />
+                <PostCard val={val} setPosts={setPosts} />
               </div>
             ))}
           </InfiniteScroll>

@@ -100,11 +100,14 @@ export const findFollowsPosts = async (posts, setPosts) => {
           (existingPost) => existingPost._id === post._id
         );
       });
+      const updatedPosts = posts.data.filter((existingPost) => {
+        return res.data.posts.some((post) => post._id === existingPost._id);
+      });
       if (newPosts.length > 0) {
         setPosts({
           ...posts,
           limit: posts.limit + 5,
-          data: [...posts.data, ...newPosts],
+          data: [...updatedPosts, ...newPosts],
           loading: false,
         });
       } else {

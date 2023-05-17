@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchUser } from "../api/user";
-import InfoCard from "../components/InfoCard";
+import PostCard from "../components/PostCard";
 import UserCard from "../components/UserCard";
 import Button from "@mui/material/Button";
 import { searchPost } from "../api/post";
@@ -84,7 +84,7 @@ function SearchPage() {
             array={posts}
             setArray={setPosts}
             loadMore={loadMorePosts}
-            component={InfoCard}
+            component={PostCard}
           />
         </>
       )}

@@ -34,7 +34,7 @@ const TimeAgo = (props) => {
     setTimeAgo(timeAgo);
   };
 
-  return <span>{timeAgo}</span>;
+  return timeAgo;
 };
 
 export default TimeAgo;

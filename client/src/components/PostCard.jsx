@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Button } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import TimeAgo from "../components/TimeAgo";
+import TimeAgo from "./TimeAgo";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { deletePost, like } from "../api/post";
@@ -56,38 +56,37 @@ export default function InfoCard(props) {
         className="card-click"
         onClick={() => navigate(`/post/${props.val._id}`)}
       >
-        <div style={{ fontSize: "0.9rem" }}>{props.val.category}</div>
+        <span style={{ fontSize: "0.9rem" }}>{props.val.category}</span>
         <div className="top-card">
-          <h3>{props.val.subject}</h3>
-          <TimeAgo createdAt={props.val.createdAt} />
+          <span className="card-subject">{props.val.subject}</span>
+          <span style={{ marginTop: "0.3rem" }}>
+            <TimeAgo createdAt={props.val.createdAt} />
+          </span>
         </div>
 
-        <div className="card-content"> {props.val.desc}</div>
+        <p className="card-content"> {props.val.desc}</p>
       </CardContent>
 
       <CardActions className="bottom-card">
-        <div>
-          <IconButton onClick={() => like(props.val._id, user._id, setLikes)}>
-            {" "}
-            <FavoriteIcon
-              sx={{
-                color: likes.includes(user._id) ? "red" : "white",
-              }}
-            />
-            <Typography sx={{ color: "white", marginLeft: "0.5rem" }}>
-              {likes.length}
-            </Typography>
-          </IconButton>
-        </div>
-        <div>
-          <IconButton>
-            {" "}
-            <Typography sx={{ color: "white", marginRight: "0.5rem" }}>
-              {props.val.comments?.length}
-            </Typography>
-            <CommentIcon sx={{ color: "white" }} />{" "}
-          </IconButton>
-        </div>
+        <IconButton onClick={() => like(props.val._id, user._id, setLikes)}>
+          {" "}
+          <FavoriteIcon
+            sx={{
+              color: likes.includes(user._id) ? "red" : "white",
+            }}
+          />
+          <Typography sx={{ color: "white", marginLeft: "0.5rem" }}>
+            {likes.length}
+          </Typography>
+        </IconButton>
+
+        <IconButton>
+          {" "}
+          <Typography sx={{ color: "white", marginRight: "0.5rem" }}>
+            {props.val.comments?.length}
+          </Typography>
+          <CommentIcon sx={{ color: "white" }} />{" "}
+        </IconButton>
       </CardActions>
     </Card>
   );

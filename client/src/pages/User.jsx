@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import InfoCard from "../components/InfoCard";
+import PostCard from "../components/PostCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LinearProgress from "@mui/material/LinearProgress";
 import { findOwnerPosts } from "../api/post";
@@ -80,7 +80,7 @@ export default function User() {
           >
             {posts.map((val) => (
               <div className="main-element" key={val._id}>
-                <InfoCard
+                <PostCard
                   val={val}
                   setPost={setPost}
                   setOpen={setOpenEdit}

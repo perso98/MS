@@ -35,7 +35,9 @@ function UserCard(props) {
             onClick={() => navigate(`/user/${props.val._id}`)}
           >
             <div className="user-avatar">{props.val.name.charAt(0)}</div>
-            {props.val.name} {props.val.surname}
+            <span>
+              {props.val.name} {props.val.surname}
+            </span>
           </div>
           <div className="user-card-info">
             {user._id !== props.val._id ? (
@@ -49,26 +51,23 @@ function UserCard(props) {
                   followHandler(props.val._id, user, setUser, setFollowInfo)
                 }
               >
-                {user.follows.includes(props.val._id) ? "unfollow" : "follow"}
+                <span>
+                  {" "}
+                  {user.follows.includes(props.val._id) ? "unfollow" : "follow"}
+                </span>
               </Button>
             ) : null}
           </div>
         </div>
-        <div
-          style={{
-            margin: "1rem 0 1rem ",
-            fontSize: "1rem",
-            marginLeft: "auto",
-          }}
-        >
+        <span className="following-info">
           {user._id !== props.val._id
             ? props.val.follows.includes(user._id)
               ? "following you"
               : "not following you"
             : null}
-        </div>
+        </span>
         <div className="user-bottom-content">
-          <p
+          <span
             style={{ cursor: "pointer" }}
             onClick={() => {
               setFollowType(1);
@@ -76,8 +75,8 @@ function UserCard(props) {
             }}
           >
             followers: {followInfo.followers.length}
-          </p>
-          <p
+          </span>
+          <span
             style={{ cursor: "pointer" }}
             onClick={() => {
               setFollowType(0);
@@ -88,13 +87,13 @@ function UserCard(props) {
             {user._id !== props.val._id
               ? followInfo.follows.length
               : user.follows.length}
-          </p>
-          <p>
+          </span>
+          <span>
             posts:{" "}
             {user._id === props.val._id
               ? user.posts.length
               : props.val.posts.length}
-          </p>
+          </span>
         </div>
       </div>
       <FollowDialog
