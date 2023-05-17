@@ -54,7 +54,7 @@ const userController = {
       })
         .limit(+req.params.limit)
         .select("-password");
-      if (users.length > +req.params.limit - 5) {
+      if (users.length > +req.params.limit - 10) {
         res.send({ success: true, users: users });
       } else {
         res.send({ success: true, users: [] });
@@ -110,11 +110,17 @@ const userController = {
       } else {
         populateField = "followers";
       }
-      const user = await User.findById(req.params.id)
-        .populate(populateField, "_id name surname")
-        .skip(parseInt(req.params.skip))
-        .limit(10);
-      res.send(user[populateField]);
+      const users = await User.findById(req.params.id).populate({
+        path: populateField,
+        select: "_id name surname",
+        options: { limit: +req.params.limit },
+      });
+
+      if (users[populateField].length > +req.params.limit - 5) {
+        res.send({ success: true, users: users[populateField] });
+      } else {
+        res.send({ success: true, users: [] });
+      }
     } catch (err) {
       console.log(err);
       res.send(err);

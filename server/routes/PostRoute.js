@@ -13,7 +13,7 @@ router.route("/:search/:limit").get(postController.findPost);
 
 router.route("/:id").get(postController.post).delete(postController.deletePost);
 
-router.route("/posts/:id/:skip").get(postController.userPosts);
+router.route("/posts/:id/:limit").get(postController.userPosts);
 
 router.route("/follows/posts/:limit").get(postController.followsPosts);
 

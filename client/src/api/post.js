@@ -1,23 +1,8 @@
 import axios from "axios";
 import { fetchData } from "./fetchData";
-export const findOwnerPosts = async (
-  skip,
-  setSkip,
-  setHasMore,
-  posts,
-  setPosts,
-  id,
-  setPostsLoading
-) => {
+export const findOwnerPosts = async (posts, setPosts, id) => {
   try {
-    await axios.get(`/post/posts/${id}/${+skip}`).then((res) => {
-      const userId = res.data.userId;
-      const newPosts = res.data.posts.map((post) => ({ ...post, userId }));
-      setPosts([...posts, ...newPosts]);
-      setSkip(skip + 5);
-      setHasMore(res.data.posts.length !== 0);
-      setPostsLoading(false);
-    });
+    await fetchData(`/post/posts/${id}`, posts, setPosts, "posts");
   } catch (err) {
     console.error(err);
   }
@@ -30,7 +15,10 @@ export const createPost = async (post, setPosts, setUser) => {
     category: post.category,
   });
 
-  setPosts((prevPosts) => [res.data.post, ...prevPosts]);
+  setPosts((prevPosts) => ({
+    ...prevPosts,
+    data: [res.data.post, ...prevPosts.data],
+  }));
   setUser((prevUser) => ({
     ...prevUser,
     posts: [...prevUser.posts, res.data.post._id],

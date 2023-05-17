@@ -12,7 +12,7 @@ router.get("/get-user/:id", userController.getUser);
 router.get("/auth", userController.auth);
 router.get("/:search/:limit", userController.findUser);
 router.get(
-  "/get-followers-or-follows/:type/:id/:skip",
+  "/get-followers-or-follows/:type/:id/:limit",
   userController.getFollowsOrFollowers
 );
 export default router;

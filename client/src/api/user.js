@@ -31,14 +31,10 @@ export const getUser = async (id, setProfile, setLoading) => {
 };
 
 export const getFollowersOrFollows = async (id, type, setFollow, follow) => {
-  const res = await axios.get(
-    `/user/get-followers-or-follows/${type}/${id}/${follow.skip}`
+  await fetchData(
+    `/user/get-followers-or-follows/${type}/${id}`,
+    follow,
+    setFollow,
+    "users"
   );
-
-  setFollow({
-    ...follow,
-    users: [...follow.users, ...res.data],
-    loading: false,
-    skip: follow.skip + 10,
-  });
 };

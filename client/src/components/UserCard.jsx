@@ -14,15 +14,14 @@ function UserCard(props) {
     follows: props.val.follows,
   });
   const [follow, setFollow] = useState({
-    users: [],
-    skip: 0,
+    data: [],
+    limit: 10,
     hasMore: true,
     loading: true,
   });
   const navigate = useNavigate();
   const handleCloseFollow = () => {
-    console.log(follow);
-    setFollow({ ...follow, users: [], skip: 0, hasMore: true, loading: true });
+    setFollow({ ...follow, data: [], limit: 10, hasMore: true, loading: true });
     setOpenFollow(false);
   };
 
@@ -68,19 +67,27 @@ function UserCard(props) {
         </span>
         <div className="user-bottom-content">
           <span
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor: followInfo.followers.length !== 0 ? "pointer" : "default",
+            }}
             onClick={() => {
-              setFollowType(1);
-              setOpenFollow(true);
+              if (followInfo.followers.length !== 0) {
+                setFollowType(1);
+                setOpenFollow(true);
+              }
             }}
           >
             followers: {followInfo.followers.length}
           </span>
           <span
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor: followInfo.follows.length !== 0 ? "pointer" : "default",
+            }}
             onClick={() => {
-              setFollowType(0);
-              setOpenFollow(true);
+              if (followInfo.follows.length !== 0) {
+                setFollowType(0);
+                setOpenFollow(true);
+              }
             }}
           >
             follows:{" "}

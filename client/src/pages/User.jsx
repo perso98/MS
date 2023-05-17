@@ -11,12 +11,14 @@ import { getUser } from "../api/user";
 import CircularProgress from "@mui/material/CircularProgress";
 import EditPost from "../components/EditPost";
 export default function User() {
-  const [posts, setPosts] = useState([]);
-  const [skip, setSkip] = useState(0);
+  const [posts, setPosts] = useState({
+    data: [],
+    hasMore: true,
+    limit: 5,
+    loading: true,
+  });
   const [profile, setProfile] = useState();
-  const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [postsLoading, setPostsLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const [openEdit, setOpenEdit] = useState(false);
   const [post, setPost] = useState({});
@@ -26,23 +28,12 @@ export default function User() {
     setOpenEdit(false);
   };
   const loadMore = () => {
-    findOwnerPosts(
-      skip,
-      setSkip,
-      setHasMore,
-      posts,
-      setPosts,
-      id,
-      setPostsLoading
-    );
+    findOwnerPosts(posts, setPosts, id);
   };
 
   useEffect(() => {
-    setPosts([]);
-    setSkip(0);
-    setPostsLoading(true);
+    setPosts({ data: [], hasMore: true, limit: 5, loading: true });
     setLoading(true);
-    setHasMore(true);
     getUser(id, setProfile, setLoading);
     setInitialLoadComplete(false);
   }, [id]);
@@ -55,7 +46,7 @@ export default function User() {
   }, [initialLoadComplete]);
   return (
     <>
-      {loading && postsLoading ? (
+      {loading && posts.loading ? (
         <CircularProgress color="inherit" />
       ) : (
         <>
@@ -63,22 +54,22 @@ export default function User() {
           {id === user._id ? (
             <AddPost posts={posts} setPosts={setPosts} />
           ) : null}
-          {posts.length === 0 && !postsLoading ? (
+          {posts.data.length === 0 && !posts.loading ? (
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
               This user doesn't have any posts.
             </div>
           ) : null}
           <InfiniteScroll
-            dataLength={posts.length}
+            dataLength={posts.data.length}
             next={loadMore}
-            hasMore={hasMore}
+            hasMore={posts.hasMore}
             loader={
               <div style={{ marginTop: "2rem", textAlign: "center" }}>
                 <LinearProgress color="inherit" />
               </div>
             }
           >
-            {posts.map((val) => (
+            {posts.data.map((val) => (
               <div className="main-element" key={val._id}>
                 <PostCard
                   val={val}
@@ -89,7 +80,7 @@ export default function User() {
               </div>
             ))}
           </InfiniteScroll>
-          {!hasMore && posts.length !== 0 ? (
+          {!posts.hasMore && posts.data.length !== 0 ? (
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
               There is nothing more
             </div>

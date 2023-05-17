@@ -29,22 +29,18 @@ const postController = {
   },
   userPosts: async (req, res) => {
     try {
-      let lastPostFetchTime = req.session.lastPostFetchTime;
-      if (!lastPostFetchTime || req.params.skip == 0) {
-        lastPostFetchTime = new Date();
-        req.session.lastPostFetchTime = lastPostFetchTime;
-      }
-
       const posts = await Post.find({
         user: req.params.id,
-        createdAt: { $lt: lastPostFetchTime },
       })
         .sort({ createdAt: -1 })
-        .limit(5)
-        .skip(req.params.skip)
+        .limit(req.params.limit)
         .populate("user", "_id name surname");
 
-      res.send({ success: true, posts: posts });
+      if (posts.length > +req.params.limit - 5) {
+        res.send({ success: true, posts: posts });
+      } else {
+        res.send({ success: true, posts: [] });
+      }
     } catch (err) {
       res.send(err);
     }
