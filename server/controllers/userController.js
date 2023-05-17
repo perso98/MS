@@ -44,21 +44,24 @@ const userController = {
     } else res.send("You are not logged in");
   },
   findUser: async (req, res) => {
-    if (req.params.skip == 0) {
-      req.session.lastUserSearch = new Date();
+    try {
+      const search = req.params.search;
+      const users = await User.find({
+        $or: [
+          { name: { $regex: search, $options: "i" } },
+          { surname: { $regex: search, $options: "i" } },
+        ],
+      })
+        .limit(+req.params.limit)
+        .select("-password");
+      if (users.length > +req.params.limit - 5) {
+        res.send({ success: true, users: users });
+      } else {
+        res.send({ success: true, users: [] });
+      }
+    } catch (error) {
+      console.error(error);
     }
-    const search = req.params.search;
-    const users = await User.find({
-      createdAt: { $lt: req.session.lastUserSearch },
-      $or: [
-        { name: { $regex: search, $options: "i" } },
-        { surname: { $regex: search, $options: "i" } },
-      ],
-    })
-      .skip(req.params.skip)
-      .limit(5)
-      .select("-password");
-    res.send(users);
   },
   follow: async (req, res) => {
     const { id } = req.body;

@@ -11,28 +11,28 @@ function SearchPage() {
   const [users, setUsers] = useState({
     data: [],
     loading: true,
-    skip: 0,
+    limit: 5,
     hasMore: true,
   });
   const [posts, setPosts] = useState({
     data: [],
     loading: true,
-    skip: 0,
+    limit: 5,
     hasMore: true,
   });
   const [toggleSearch, setToggleSearch] = useState(true);
   const { search } = useParams();
   useEffect(() => {
-    setUsers({ ...users, loading: true });
-    setPosts({ ...posts, loading: true });
+    setUsers({ ...users, loading: true, hasMore: true });
+    setPosts({ ...posts, loading: true, hasMore: true });
     searchUser(
       search,
-      { loading: true, data: [], skip: 0, hasMore: true },
+      { loading: true, data: [], limit: 5, hasMore: true },
       setUsers
     );
     searchPost(
       search,
-      { loading: true, data: [], skip: 0, hasMore: true },
+      { loading: true, data: [], limit: 5, hasMore: true },
       setPosts
     );
   }, [search]);

@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { fetchData } from "./fetchData";
 export const findOwnerPosts = async (
   skip,
   setSkip,
@@ -93,32 +93,5 @@ export const deletePost = async (id, setPosts, posts) => {
 };
 
 export const findFollowsPosts = async (posts, setPosts) => {
-  try {
-    await axios.get(`/post/follows/posts/${posts.limit}`).then((res) => {
-      const newPosts = res.data.posts.filter((post) => {
-        return !posts.data.some(
-          (existingPost) => existingPost._id === post._id
-        );
-      });
-      const updatedPosts = posts.data.filter((existingPost) => {
-        return res.data.posts.some((post) => post._id === existingPost._id);
-      });
-      if (newPosts.length > 0) {
-        setPosts({
-          ...posts,
-          limit: posts.limit + 5,
-          data: [...updatedPosts, ...newPosts],
-          loading: false,
-        });
-      } else {
-        setPosts({
-          ...posts,
-          hasMore: res.data.posts.length !== 0,
-          loading: false,
-        });
-      }
-    });
-  } catch (err) {
-    console.error(err);
-  }
+  await fetchData("/post/follows/posts", posts, setPosts, "posts");
 };

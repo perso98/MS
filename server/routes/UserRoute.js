@@ -10,7 +10,7 @@ router.post("/logout", userController.logout);
 router.post("/follow", userController.follow);
 router.get("/get-user/:id", userController.getUser);
 router.get("/auth", userController.auth);
-router.get("/:search/:skip", userController.findUser);
+router.get("/:search/:limit", userController.findUser);
 router.get(
   "/get-followers-or-follows/:type/:id/:skip",
   userController.getFollowsOrFollowers
