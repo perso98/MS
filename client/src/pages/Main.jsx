@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LinearProgress from "@mui/material/LinearProgress";
 import { findFollowsPosts } from "../api/post";
 import CircularProgress from "@mui/material/CircularProgress";
+import CommentDialog from "../components/CommentDialog";
 export default function Main() {
   const [posts, setPosts] = useState({
     data: [],
@@ -52,6 +53,7 @@ export default function Main() {
           ) : null}
         </div>
       )}
+      <CommentDialog />
     </>
   );
 }
