@@ -83,15 +83,16 @@ export default function Register() {
           <div style={{ height: "1rem" }}></div>
         )}
 
-        {registerForm.password === registerForm.password2 ? (
-          <Button variant="contained" color="success" type="submit">
-            Register
-          </Button>
-        ) : (
-          <Button variant="contained" color="success" disabled="true">
-            Register
-          </Button>
-        )}
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          disabled={
+            registerForm.password === registerForm.password2 ? false : true
+          }
+        >
+          Register
+        </Button>
       </form>
     </div>
   );
