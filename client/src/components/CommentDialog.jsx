@@ -1,6 +1,6 @@
 import { Dialog, Button, IconButton, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
+import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 function CommentDialog(props) {
   const comments = [
     { user: "you", message: "xdddddd" },
@@ -12,7 +12,11 @@ function CommentDialog(props) {
 
     { user: "you", message: "xdddddd" },
 
-    { user: "you", message: "xdddddd" },
+    {
+      user: "you",
+      message:
+        "xddddddxddddddxddddddxddddddxddddddxddddddxddddddxddddddxddddddxddddddxddddddxddddddxddddddxddddddxdddddd",
+    },
 
     { user: "x", message: "xdddddd" },
 
@@ -40,12 +44,22 @@ function CommentDialog(props) {
               </IconButton>
             </div>
             <div className="comments-container">
-              {comments.map((comment) => (
-                <div className="comment-container">
+              {comments.map((comment, idx) => (
+                <div className="comment-container" key={idx}>
                   <div className="profile-comment-container">J</div>
                   <div className="comment-user-info">
                     <span>Name Surname</span>
-                    <span className="comment">{comment.message}</span>
+                    <div className="comment">
+                      {comment.message}
+                      <IconButton className="comment-like-container">
+                        <span> 154</span>
+                        <FavoriteIcon
+                          style={{
+                            marginLeft: "0.3rem",
+                          }}
+                        />
+                      </IconButton>
+                    </div>
                   </div>
                   <IconButton>
                     <CloseIcon style={{ color: "red", marginRight: "1rem" }} />

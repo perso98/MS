@@ -16,17 +16,19 @@ export default function Navbar(props) {
   return (
     <div className="navbar-container">
       <div className="navbar-left">
-        <IconButton
-          onClick={() => {
-            props.open ? props.setOpen(false) : props.setOpen(true);
-          }}
-        >
-          {props.open ? (
-            <CloseIcon className="nav-open-close-icon" />
-          ) : (
-            <MenuIcon className="nav-open-close-icon" />
-          )}
-        </IconButton>
+        {user ? (
+          <IconButton
+            onClick={() => {
+              props.open ? props.setOpen(false) : props.setOpen(true);
+            }}
+          >
+            {props.open ? (
+              <CloseIcon className="nav-open-close-icon" />
+            ) : (
+              <MenuIcon className="nav-open-close-icon" />
+            )}
+          </IconButton>
+        ) : null}
         <NavLink to="/">
           <h1>MS</h1>
         </NavLink>

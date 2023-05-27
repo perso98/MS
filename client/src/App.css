@@ -1,3 +1,6 @@
+body {
+  background-color: #3f3f46;
+}
 .main-container {
   color: white;
   display: flex;
@@ -5,7 +8,7 @@
   align-items: center;
   width: 100%;
   padding-bottom: 3rem;
-  min-height: 85.6vh;
+  min-height: 100%;
   background-color: #3f3f46;
 }
 .main-elements {
