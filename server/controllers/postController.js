@@ -93,9 +93,8 @@ const postController = {
   },
   updatePost: async (req, res) => {
     try {
-      const { subject, category, desc, id } = req.body;
+      const { subject, desc, id } = req.body;
       await Post.findByIdAndUpdate(id, {
-        category,
         desc,
         subject,
       });

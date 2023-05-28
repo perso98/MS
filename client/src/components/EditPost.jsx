@@ -38,17 +38,6 @@ function EditPost(props) {
               }
             />
           </div>
-          <div className="post-element-container">
-            <label>Category</label>
-            <input
-              required
-              type="text"
-              value={props.post.category}
-              onChange={(e) =>
-                props.setPost({ ...props.post, category: e.target.value })
-              }
-            />
-          </div>
 
           <Button type="submit" variant="contained" color="warning">
             Edit post

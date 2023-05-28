@@ -12,7 +12,6 @@ export const createPost = async (post, setPosts, setUser) => {
   const res = await axios.post("/post/", {
     subject: post.subject,
     desc: post.desc,
-    category: post.category,
   });
 
   setPosts((prevPosts) => ({
@@ -49,7 +48,6 @@ export const like = async (id, userId, setLikes, likes) => {
 export const editPost = async (id, setPosts, post) => {
   const res = await axios.put(`/post/`, {
     id: post._id,
-    category: post.category,
     subject: post.subject,
     desc: post.desc,
   });
@@ -65,13 +63,11 @@ export const editPost = async (id, setPosts, post) => {
 export const deletePost = async (id, setPosts, posts) => {
   const res = await axios.delete(`/post/${id}`);
   if (res.data.success) {
-    if (typeof posts === "object") {
-      setPosts((prevPost) => ({
-        ...prevPost,
-        data: [...prevPost.data.filter((val) => val._id !== id)],
-      }));
-    } else {
-      setPosts((prevPosts) => [...prevPosts.filter((val) => val._id !== id)]);
-    }
+    setPosts((prevPost) => ({
+      ...prevPost,
+      data: [...prevPost.data.filter((val) => val._id !== id)],
+    }));
+  } else {
+    setPosts((prevPosts) => [...prevPosts.filter((val) => val._id !== id)]);
   }
 };

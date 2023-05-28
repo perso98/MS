@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   follows: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  pokemon: { type: mongoose.Schema.Types.ObjectId, ref: "Pokemon" },
   createdAt: { type: Date, default: Date.now },
 });
 

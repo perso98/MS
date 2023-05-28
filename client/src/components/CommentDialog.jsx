@@ -35,7 +35,7 @@ function CommentDialog(props) {
   return (
     <>
       {true ? (
-        <Dialog open={true}>
+        <Dialog open={false}>
           <div className="dark-dialog" dividers id="scrollableDiv">
             <div className="dialog-top">
               <span>Comments</span>

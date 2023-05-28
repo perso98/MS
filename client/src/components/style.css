@@ -143,16 +143,15 @@ label {
   margin-bottom: 1rem;
   display: flex;
   display: row;
-  max-width: 500px;
 }
 .post-element-container textarea {
-  width: 100%;
+  width: 200%;
   height: 50px;
   font-size: 1.1rem;
   padding: 1rem;
 }
 .post-element-container input {
-  width: 100%;
+  width: 200%;
   font-size: 1.1rem;
   padding: 1rem;
 }
@@ -372,7 +371,8 @@ label {
 
 .comment-like-container {
   position: absolute !important;
-  bottom: -34px;
+  bottom: -33px;
+  filter: opacity(70%);
   width: 100px;
   right: 0;
   z-index: 0;
@@ -386,4 +386,13 @@ label {
   border-bottom-left-radius: 10px !important;
   align-items: center;
   width: 30%;
+  transition: 1s ease-in-out;
+}
+.comment-like-container:hover {
+  filter: opacity(100%);
+}
+.post-limit-characters {
+  justify-content: center;
+  display: flex;
+  margin-bottom: 1rem;
 }

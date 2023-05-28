@@ -56,7 +56,6 @@ export default function InfoCard(props) {
         className="card-click"
         onClick={() => navigate(`/post/${props.val._id}`)}
       >
-        <span style={{ fontSize: "0.9rem" }}>{props.val.category}</span>
         <div className="top-card">
           <span className="card-subject">{props.val.subject}</span>
           <span style={{ marginTop: "0.3rem" }}>

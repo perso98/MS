@@ -7,7 +7,6 @@ export default function AddPost(props) {
   const [post, setPost] = useState({
     subject: "",
     desc: "",
-    category: "",
   });
 
   return (
@@ -25,28 +24,27 @@ export default function AddPost(props) {
             required
             type="text"
             value={post.subject}
-            onChange={(e) => setPost({ ...post, subject: e.target.value })}
+            onChange={(e) => {
+              if (post.subject.length < 50)
+                setPost({ ...post, subject: e.target.value });
+            }}
           />
         </div>
 
+        <span className="post-limit-characters">{post.subject.length}/50</span>
         <div className="post-element-container">
           <label>Description</label>
           <textarea
             required
             value={post.desc}
-            onChange={(e) => setPost({ ...post, desc: e.target.value })}
-          />
-        </div>
-        <div className="post-element-container">
-          <label>Category</label>
-          <input
-            required
-            type="text"
-            value={post.category}
-            onChange={(e) => setPost({ ...post, category: e.target.value })}
+            onChange={(e) => {
+              if (post.desc.length < 200)
+                setPost({ ...post, desc: e.target.value });
+            }}
           />
         </div>
 
+        <span className="post-limit-characters">{post.desc.length}/200</span>
         <Button type="submit" variant="contained" color="success">
           Add Post
         </Button>
