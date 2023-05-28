@@ -8,7 +8,7 @@ export const findOwnerPosts = async (posts, setPosts, id) => {
   }
 };
 
-export const createPost = async (post, setPosts, setUser) => {
+export const createPost = async (post, setPosts, setUser, setPost) => {
   const res = await axios.post("/post/", {
     subject: post.subject,
     desc: post.desc,
@@ -18,6 +18,7 @@ export const createPost = async (post, setPosts, setUser) => {
     ...prevPosts,
     data: [res.data.post, ...prevPosts.data],
   }));
+  setPost({ subject: "", desc: "" });
   setUser((prevUser) => ({
     ...prevUser,
     posts: [...prevUser.posts, res.data.post._id],
@@ -46,18 +47,21 @@ export const like = async (id, userId, setLikes, likes) => {
 };
 
 export const editPost = async (id, setPosts, post) => {
-  const res = await axios.put(`/post/`, {
-    id: post._id,
-    subject: post.subject,
-    desc: post.desc,
-  });
-  if (res.data.success)
-    setPosts((prevPosts) => [
-      ...prevPosts.map((val) => {
-        if (val._id === id) return post;
-        else return val;
-      }),
-    ]);
+  await axios
+    .put(`/post/`, {
+      id: post._id,
+      subject: post.subject,
+      desc: post.desc,
+    })
+    .then((res) => {
+      if (res.data.success)
+        setPosts((prevPosts) => [
+          ...prevPosts.map((val) => {
+            if (val._id === id) return post;
+            else return val;
+          }),
+        ]);
+    });
 };
 
 export const deletePost = async (id, setPosts, posts) => {

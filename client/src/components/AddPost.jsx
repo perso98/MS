@@ -15,7 +15,7 @@ export default function AddPost(props) {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          createPost(post, props.setPosts, setUser);
+          createPost(post, props.setPosts, setUser, setPost);
         }}
       >
         <div className="post-element-container">
@@ -23,7 +23,7 @@ export default function AddPost(props) {
           <input
             required
             type="text"
-            value={post.subject}
+            value={post.subject.slice(0, 50)}
             onChange={(e) => {
               if (post.subject.length < 50)
                 setPost({ ...post, subject: e.target.value });
@@ -31,12 +31,15 @@ export default function AddPost(props) {
           />
         </div>
 
-        <span className="post-limit-characters">{post.subject.length}/50</span>
+        <span className="post-limit-characters">
+          {" "}
+          {post?.subject?.length > 50 ? 50 : post?.subject?.length}/50
+        </span>
         <div className="post-element-container">
           <label>Description</label>
           <textarea
             required
-            value={post.desc}
+            value={post.desc.slice(0, 200)}
             onChange={(e) => {
               if (post.desc.length < 200)
                 setPost({ ...post, desc: e.target.value });
@@ -44,7 +47,10 @@ export default function AddPost(props) {
           />
         </div>
 
-        <span className="post-limit-characters">{post.desc.length}/200</span>
+        <span className="post-limit-characters">
+          {props?.post?.desc?.length > 200 ? 200 : post?.desc?.length}
+          /200
+        </span>
         <Button type="submit" variant="contained" color="success">
           Add Post
         </Button>

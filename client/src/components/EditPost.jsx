@@ -21,24 +21,35 @@ function EditPost(props) {
             <input
               required
               type="text"
-              value={props.post.subject}
-              onChange={(e) =>
-                props.setPost({ ...props.post, subject: e.target.value })
+              value={
+                props.post.subject.slice(0, 50) > 50
+                  ? 50
+                  : props.post.subject.slice(0, 50)
               }
+              onChange={(e) => {
+                if (props?.post?.subject?.length < 50)
+                  props.setPost({ ...props.post, subject: e.target.value });
+              }}
             />
           </div>
-
+          <span className="post-limit-characters">
+            {props?.post?.subject?.length}/50
+          </span>
           <div className="post-element-container">
             <label>Description</label>
             <textarea
               required
-              value={props.post.desc}
-              onChange={(e) =>
-                props.setPost({ ...props.post, desc: e.target.value })
-              }
+              value={props.post.desc.slice(0, 200)}
+              onChange={(e) => {
+                if (props?.post?.desc?.length < 200)
+                  props.setPost({ ...props.post, desc: e.target.value });
+              }}
             />
           </div>
-
+          <span className="post-limit-characters">
+            {props?.post?.desc?.length > 200 ? 200 : props?.post?.desc?.length}
+            /200
+          </span>
           <Button type="submit" variant="contained" color="warning">
             Edit post
           </Button>
