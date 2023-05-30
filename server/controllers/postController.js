@@ -117,6 +117,7 @@ const postController = {
     const users = await User.findById(req.session.user._id).select("follows");
     const posts = await Post.find({ user: { $in: users.follows } })
       .limit(req.params.limit)
+      .sort({ createdAt: -1 })
       .populate("user", "_id name surname");
     if (posts.length > +req.params.limit - 5) {
       res.send({ success: true, posts: posts });

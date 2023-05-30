@@ -54,13 +54,13 @@ export default function User() {
           {id === user._id ? (
             <AddPost posts={posts} setPosts={setPosts} />
           ) : null}
-          {posts.data.length === 0 && !posts.loading ? (
+          {posts.data?.length === 0 && !posts.loading ? (
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
               This user doesn't have any posts.
             </div>
           ) : null}
           <InfiniteScroll
-            dataLength={posts.data.length}
+            dataLength={posts.data?.length}
             next={loadMore}
             hasMore={posts.hasMore}
             loader={
@@ -69,9 +69,10 @@ export default function User() {
               </div>
             }
           >
-            {posts.data.map((val) => (
+            {posts.data?.map((val) => (
               <div className="main-element" key={val._id}>
                 <PostCard
+                  key={val._id}
                   val={val}
                   setPost={setPost}
                   setOpen={setOpenEdit}
@@ -80,7 +81,7 @@ export default function User() {
               </div>
             ))}
           </InfiniteScroll>
-          {!posts.hasMore && posts.data.length !== 0 ? (
+          {!posts.hasMore && posts.data?.length !== 0 ? (
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
               There is nothing more
             </div>
@@ -93,6 +94,7 @@ export default function User() {
         post={post}
         setPost={setPost}
         setPosts={setPosts}
+        user={user}
       />
     </>
   );

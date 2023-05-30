@@ -12,7 +12,7 @@ function EditPost(props) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            editPost(props.post._id, props.setPosts, props.post);
+            editPost(props.post._id, props.setPosts, props.post, props.user);
             props.handleClose();
           }}
         >
@@ -22,9 +22,9 @@ function EditPost(props) {
               required
               type="text"
               value={
-                props.post.subject.slice(0, 50) > 50
+                props?.post?.subject?.slice(0, 50) > 50
                   ? 50
-                  : props.post.subject.slice(0, 50)
+                  : props?.post?.subject?.slice(0, 50)
               }
               onChange={(e) => {
                 if (props?.post?.subject?.length < 50)
@@ -39,7 +39,7 @@ function EditPost(props) {
             <label>Description</label>
             <textarea
               required
-              value={props.post.desc.slice(0, 200)}
+              value={props?.post?.desc?.slice(0, 200)}
               onChange={(e) => {
                 if (props?.post?.desc?.length < 200)
                   props.setPost({ ...props.post, desc: e.target.value });

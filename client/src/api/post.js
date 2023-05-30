@@ -45,8 +45,7 @@ export const like = async (id, userId, setLikes, likes) => {
     setLikes((prevLikes) => [...prevLikes.filter((like) => like !== userId)]);
   }
 };
-
-export const editPost = async (id, setPosts, post) => {
+export const editPost = async (id, setPosts, post, user) => {
   await axios
     .put(`/post/`, {
       id: post._id,
@@ -54,13 +53,15 @@ export const editPost = async (id, setPosts, post) => {
       desc: post.desc,
     })
     .then((res) => {
-      if (res.data.success)
-        setPosts((prevPosts) => [
-          ...prevPosts.map((val) => {
-            if (val._id === id) return post;
+      if (res.data.success) {
+        setPosts((prevPosts) => ({
+          ...prevPosts,
+          data: prevPosts.data.map((val) => {
+            if (val._id === id) return { ...post, user: user };
             else return val;
           }),
-        ]);
+        }));
+      }
     });
 };
 
