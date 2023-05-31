@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton, Button } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
+import ConfirmDialog from "./ConfirmDialog";
 import TimeAgo from "./TimeAgo";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
@@ -22,6 +23,19 @@ export default function PostCard(props) {
   const [commentsIds, setCommentsIds] = useState(props.val.comments);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState({
+    open: false,
+    id: null,
+    text: "Are you sure you want to delete this post?",
+  });
+  const handleCloseDialogConfirm = () => {
+    setConfirmDialogOpen({
+      ...confirmDialogOpen,
+      open: false,
+      id: null,
+      onClick: null,
+    });
+  };
   return (
     <>
       <Card className="card-container" variant="outlined">
@@ -52,7 +66,15 @@ export default function PostCard(props) {
                 variant="contained"
                 color="error"
                 onClick={() => {
-                  deletePost(props.val._id, props.setPosts, props.posts);
+                  setConfirmDialogOpen({
+                    ...confirmDialogOpen,
+                    open: true,
+                    id: props.val._id,
+                    onClick: () => {
+                      deletePost(props.val._id, props.setPosts, props.posts);
+                      handleCloseDialogConfirm();
+                    },
+                  });
                 }}
               >
                 Delete
@@ -106,6 +128,10 @@ export default function PostCard(props) {
         open={openComments}
         setCommentsIds={setCommentsIds}
         postId={postId}
+      />
+      <ConfirmDialog
+        handleClose={handleCloseDialogConfirm}
+        confirmDialog={confirmDialogOpen}
       />
     </>
   );

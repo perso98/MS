@@ -43,5 +43,31 @@ const commentController = {
       console.log(err);
     }
   },
+  deleteComment: async (req, res) => {
+    const { commentId, postId } = req.params;
+    try {
+      const post = await Post.findById(postId);
+      await post.updateOne({ $pull: { comments: commentId } });
+      await Comment.findByIdAndDelete(commentId);
+      res.send({ success: true });
+    } catch (err) {
+      res.send({ success: false });
+    }
+  },
+  like: async (req, res) => {
+    try {
+      const comment = await Comment.findById(req.params.id);
+      if (!comment.likes.includes(req.session.user._id)) {
+        await comment.updateOne({ $push: { likes: req.session.user._id } });
+        res.send({ like: true });
+      } else {
+        await comment.updateOne({ $pull: { likes: req.session.user._id } });
+        res.send({ like: false });
+      }
+    } catch (err) {
+      console.log(err);
+      res.send(err);
+    }
+  },
 };
 export default commentController;

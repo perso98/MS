@@ -23,10 +23,9 @@ export default function AddPost(props) {
           <input
             required
             type="text"
-            value={post?.subject?.slice(0, 75)}
+            value={post?.subject?.slice(0, 74)}
             onChange={(e) => {
-              if (post?.subject?.length < 75)
-                setPost({ ...post, subject: e.target.value });
+              setPost({ ...post, subject: e.target.value });
             }}
           />
         </div>
@@ -39,17 +38,16 @@ export default function AddPost(props) {
           <label>Description</label>
           <textarea
             required
-            value={post?.desc?.slice(0, 400)}
+            value={post?.desc?.slice(0, 399)}
             onChange={(e) => {
-              if (post?.desc?.length < 400)
-                setPost({ ...post, desc: e.target.value });
+              setPost({ ...post, desc: e.target.value });
             }}
           />
         </div>
 
         <span className="post-limit-characters">
           {props?.post?.desc?.length > 400 ? 400 : post?.desc?.length}
-          /350
+          /400
         </span>
         <Button type="submit" variant="contained" color="success">
           Add Post

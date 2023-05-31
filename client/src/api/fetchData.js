@@ -1,7 +1,7 @@
 import axios from "axios";
 export const fetchData = async (endpoint, items, setItems, itemsKey, jump) => {
   try {
-    await axios.get(`${endpoint}/${items.limit}/${jump}`).then((res) => {
+    await axios.get(`${endpoint}/${items.limit}/${jump + 1}`).then((res) => {
       const newItems = res.data[itemsKey].filter((item) => {
         return !items.data.some(
           (existingItem) => existingItem._id === item._id

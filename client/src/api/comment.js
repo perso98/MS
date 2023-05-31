@@ -9,18 +9,20 @@ export const getComments = async (id, comments, setComments) => {
 };
 
 export const likeComment = async (id, userId, setComments) => {
-  const res = await axios.post(`/comment/like`, { id });
+  const res = await axios.put(`/comment/${id}`);
   if (res.data.like) {
-    setComments((prevComments) => [
-      ...prevComments.map((comment) =>
+    setComments((prevComments) => ({
+      ...prevComments,
+      data: prevComments.data.map((comment) =>
         comment._id === id
           ? { ...comment, likes: [...comment.likes, userId] }
           : comment
       ),
-    ]);
+    }));
   } else {
-    setComments((prevComments) => [
-      ...prevComments.map((comment) =>
+    setComments((prevComments) => ({
+      ...prevComments,
+      data: prevComments.data.map((comment) =>
         comment._id === id
           ? {
               ...comment,
@@ -28,7 +30,7 @@ export const likeComment = async (id, userId, setComments) => {
             }
           : comment
       ),
-    ]);
+    }));
   }
 };
 
@@ -37,7 +39,8 @@ export const addComment = async (
   postId,
   user,
   setComments,
-  setCommentsIds
+  setCommentsIds,
+  setComment
 ) => {
   await axios
     .post(`/comment/`, { text: comment.text, postId, userId: user._id })
@@ -60,4 +63,24 @@ export const addComment = async (
         ],
       }));
     });
+  setComment({ text: "", likes: [], user: {}, createdAt: "" });
+};
+
+export const deleteComment = async (
+  postId,
+  commentId,
+  setComments,
+  setCommentsIds
+) => {
+  await axios.delete(`/comment/${postId}/${commentId}`).then((res) => {
+    if (res.data.success) {
+      setCommentsIds((prevCommentsIds) =>
+        prevCommentsIds.filter((id) => id !== commentId)
+      );
+      setComments((prevComments) => ({
+        ...prevComments,
+        data: prevComments.data.filter((comment) => comment._id !== commentId),
+      }));
+    }
+  });
 };

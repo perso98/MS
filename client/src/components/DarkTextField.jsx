@@ -16,7 +16,10 @@ function DarkTextField(props) {
       margin="normal"
       label={props.label}
       style={{ width: props.width }}
-      onChange={(e) => props.setOnChange(e.target.value)}
+      value={props.value}
+      multiline={props.multiline || false}
+      rows={props.rows || 1}
+      onChange={(value) => props.setOnChange(value)}
       inputProps={{
         style: {
           color: "white",
@@ -32,11 +35,8 @@ function DarkTextField(props) {
           notchedOutline: classes.notchedOutline,
         },
 
-        startAdornment: props.adornment ? (
-          <InputAdornment
-            position="end"
-            style={{ position: "absolute", right: 0 }}
-          >
+        endAdornment: props.adornment ? (
+          <InputAdornment position="end">
             <IconButton
               style={{ color: "white" }}
               onClick={props.adornmentOnClick}

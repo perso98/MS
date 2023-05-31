@@ -267,6 +267,7 @@ label {
 .dark-dialog {
   background-color: #1e1b1e;
   color: white;
+  border: 3px solid white;
   width: 60vh;
   height: 70vh;
   overflow-y: auto;
@@ -321,6 +322,7 @@ label {
   flex-direction: column;
   margin-bottom: 1rem;
   min-height: 68%;
+  width: 100%;
 }
 
 .comment-container {
@@ -355,16 +357,22 @@ label {
 .dialog-comment-bottom {
   position: sticky;
   width: 100%;
-  height: 10%;
-  bottom: -1px;
+  bottom: 0;
   background-color: white;
   display: flex;
+  flex-direction: column;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   color: black;
   background-color: #1e1b1e;
   border-top: 1px solid white;
+}
+.comment-counter-letters {
+  color: white;
+  margin-left: auto;
+  margin-right: 2rem;
 }
 .comment-user-info {
   display: flex;
@@ -405,4 +413,32 @@ label {
   display: flex;
   margin-bottom: 0.5rem;
   justify-content: space-between;
+}
+.confirm-dialog-container {
+  background-color: #1e1b1e;
+  color: white;
+  border: 3px solid white;
+  width: 30vh;
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.confirm-top-dialog {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.confirm-top-dialog span {
+  width: 80%;
+  font-size: 1.2rem;
+  word-wrap: break-word;
+}
+.confirm-bottom-dialog {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  bottom: 0;
 }

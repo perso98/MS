@@ -38,7 +38,7 @@ export default function Navbar(props) {
         <>
           <DarkTextField
             label="Search data"
-            setOnChange={setSearch}
+            setOnChange={(e) => setSearch(e.target.value)}
             value={search}
             width="20%"
             adornment={true}
