@@ -9,6 +9,9 @@ const UserSchema = new mongoose.Schema({
   follows: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   pokemon: { type: mongoose.Schema.Types.ObjectId, ref: "Pokemon" },
+  notifications: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Notification" },
+  ],
   createdAt: { type: Date, default: Date.now },
 });
 

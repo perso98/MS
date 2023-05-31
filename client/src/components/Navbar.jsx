@@ -1,18 +1,44 @@
 import "./style.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, IconButton } from "@mui/material";
+
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
 import DarkTextField from "./DarkTextField";
+import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { getNotificationsIds } from "../api/notifications";
+import NotificationsDialog from "./NotificationsDialog";
 export default function Navbar(props) {
-  const { logoutUser, user } = useContext(AuthContext);
+  const { logoutUser, user, setUser } = useContext(AuthContext);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const [startInterval, setStartInterval] = useState(true);
+  useEffect(() => {
+    if (startInterval && user) {
+      getNotificationsIds(setUser);
+      setStartInterval(false);
+    }
+    if (user) {
+      const fetchNotifications = () => {
+        getNotificationsIds(setUser);
+      };
+      const interval = setInterval(fetchNotifications, 600000);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, []);
+  const [openNotifications, setOpenNotifications] = useState(false);
+  const handleCloseNotificationDialog = () => {
+    setOpenNotifications(false);
+  };
   return (
     <div className="navbar-container">
       <div className="navbar-left">
@@ -47,6 +73,14 @@ export default function Navbar(props) {
           />
           <div className="navbar-elements">
             <div className="logged-elements">
+              <IconButton
+                className="notification-button-container"
+                onClick={() => setOpenNotifications(true)}
+              >
+                <Badge badgeContent={user.notifications.length} color="error">
+                  <NotificationsIcon className="notification-button" />
+                </Badge>
+              </IconButton>
               <NavLink to={`/user/${user._id}`}>
                 <div className="profile-container">{user.name.slice(0, 1)}</div>
               </NavLink>
@@ -62,6 +96,10 @@ export default function Navbar(props) {
           </div>
         </>
       ) : null}
+      <NotificationsDialog
+        handleClose={handleCloseNotificationDialog}
+        open={openNotifications}
+      />
     </div>
   );
 }

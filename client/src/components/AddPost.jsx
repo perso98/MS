@@ -23,9 +23,10 @@ export default function AddPost(props) {
           <input
             required
             type="text"
-            value={post?.subject?.slice(0, 74)}
+            value={post?.subject?.slice(0, 75)}
             onChange={(e) => {
-              setPost({ ...post, subject: e.target.value });
+              const text = e.target.value.slice(0, 75);
+              setPost({ ...post, subject: text });
             }}
           />
         </div>
@@ -38,9 +39,10 @@ export default function AddPost(props) {
           <label>Description</label>
           <textarea
             required
-            value={post?.desc?.slice(0, 399)}
+            value={post?.desc?.slice(0, 400)}
             onChange={(e) => {
-              setPost({ ...post, desc: e.target.value });
+              const text = e.target.value.slice(0, 200);
+              setPost({ ...post, desc: text });
             }}
           />
         </div>

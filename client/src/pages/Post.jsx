@@ -4,11 +4,26 @@ import { useParams } from "react-router-dom";
 import PostCard from "../components/PostCard";
 function Post() {
   const { id } = useParams();
-  const [post, setPost] = useState();
+  const [posts, setPosts] = useState({ data: [] });
+  const [open, setOpen] = useState(false);
   useEffect(() => {
-    getPost(setPost, id);
+    getPost(setPosts, id);
   }, [id]);
-  return <>{post ? <PostCard val={post} /> : null}</>;
+  return (
+    <>
+      {posts.data.length !== 0 ? (
+        <>
+          {console.log(posts)}
+          <PostCard
+            val={posts.data[0]}
+            setArray={setPosts}
+            setOpen={setOpen}
+            open={open}
+          />
+        </>
+      ) : null}
+    </>
+  );
 }
 
 export default Post;

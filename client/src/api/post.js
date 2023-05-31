@@ -33,8 +33,10 @@ export const searchPost = async (search, posts, setPosts) => {
 };
 
 export const getPost = async (setPost, id) => {
-  const res = await axios.get(`/post/${id}`);
-  setPost(res.data);
+  await axios.get(`/post/${id}`).then((res) => {
+    console.log(res.data);
+    setPost({ data: [res.data] });
+  });
 };
 
 export const like = async (id, userId, setLikes) => {

@@ -28,14 +28,18 @@ const userController = {
     if (user) {
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (passwordMatch) {
+        delete user.password;
         req.session.user = user;
         res.send({ user: user, success: true });
       } else res.send({ message: "Password isn't correct", success: false });
     } else res.send({ message: "User doesn't exist", success: false });
   },
   auth: async (req, res) => {
-    if (req.session.user) res.send({ success: true, user: req.session.user });
-    else res.send({ success: false });
+    if (req.session.user) {
+      const user = req.session.user;
+      delete user.password;
+      res.send({ success: true, user: user });
+    } else res.send({ success: false });
   },
   logout: async (req, res) => {
     if (req.session.user) {

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { deletePost, like } from "../api/post";
 import CommentDialog from "./CommentDialog";
+import EditPost from "./EditPost";
 
 export default function PostCard(props) {
   const [postId, setPostId] = useState("");
@@ -19,6 +20,7 @@ export default function PostCard(props) {
   const handleCommentClose = () => {
     setOpenComments(false);
   };
+  const [openEdit, setOpenEdit] = useState(false);
   const [likes, setLikes] = useState(props.val.likes);
   const [commentsIds, setCommentsIds] = useState(props.val.comments);
   const { user } = useContext(AuthContext);
@@ -36,6 +38,11 @@ export default function PostCard(props) {
       onClick: null,
     });
   };
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+  const [post, setPost] = useState(props.val);
+
   return (
     <>
       <Card className="card-container" variant="outlined">
@@ -56,8 +63,8 @@ export default function PostCard(props) {
                 variant="contained"
                 color="warning"
                 onClick={() => {
-                  props.setPost(props.val);
-                  props.setOpen(true);
+                  setPost(props.val);
+                  setOpenEdit(true);
                 }}
               >
                 Edit
@@ -71,7 +78,7 @@ export default function PostCard(props) {
                     open: true,
                     id: props.val._id,
                     onClick: () => {
-                      deletePost(props.val._id, props.setPosts, props.posts);
+                      deletePost(props.val._id, props.setArray, props.array);
                       handleCloseDialogConfirm();
                     },
                   });
@@ -128,6 +135,13 @@ export default function PostCard(props) {
         open={openComments}
         setCommentsIds={setCommentsIds}
         postId={postId}
+      />
+      <EditPost
+        handleClose={handleCloseEdit}
+        open={openEdit}
+        post={post}
+        setPost={setPost}
+        setPosts={props.setArray}
       />
       <ConfirmDialog
         handleClose={handleCloseDialogConfirm}

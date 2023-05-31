@@ -9,6 +9,7 @@ import UserRoute from "./routes/UserRoute.js";
 import session from "express-session";
 import PostRoute from "./routes/PostRoute.js";
 import CommentRoute from "./routes/CommentRoute.js";
+import NotificationRoute from "./routes/NotificationRoute.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -39,6 +40,7 @@ app.use(
 app.use("/user", UserRoute);
 app.use("/comment", CommentRoute);
 app.use("/post", PostRoute);
+app.use("/notifications", NotificationRoute);
 /* Database seup */
 const PORT = process.env.PORT || 3001;
 mongoose

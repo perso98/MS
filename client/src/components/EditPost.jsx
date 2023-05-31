@@ -1,7 +1,10 @@
 import Dialog from "@mui/material/Dialog";
 import { Button } from "@mui/material";
 import { editPost } from "../api/post";
+import { AuthContext } from "../providers/AuthProvider";
+import { useContext } from "react";
 function EditPost(props) {
+  const { user } = useContext(AuthContext);
   return (
     <Dialog onClose={props.handleClose} open={props.open}>
       <div
@@ -12,7 +15,7 @@ function EditPost(props) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            editPost(props.post._id, props.setPosts, props.post, props.user);
+            editPost(props.post._id, props.setPosts, props.post, user);
             props.handleClose();
           }}
         >
@@ -27,8 +30,8 @@ function EditPost(props) {
                   : props?.post?.subject?.slice(0, 50)
               }
               onChange={(e) => {
-                if (props?.post?.subject?.length < 50)
-                  props.setPost({ ...props.post, subject: e.target.value });
+                const text = e.target.value.slice(0, 150);
+                props.setPost({ ...props.post, subject: text });
               }}
             />
           </div>
@@ -41,8 +44,8 @@ function EditPost(props) {
               required
               value={props?.post?.desc?.slice(0, 200)}
               onChange={(e) => {
-                if (props?.post?.desc?.length < 200)
-                  props.setPost({ ...props.post, desc: e.target.value });
+                const text = e.target.value.slice(0, 200);
+                props.setPost({ ...props.post, desc: text });
               }}
             />
           </div>

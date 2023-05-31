@@ -1,5 +1,6 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import Notification from "../models/Notification.js";
 const postController = {
   createPost: async (req, res) => {
     try {
@@ -80,7 +81,17 @@ const postController = {
   like: async (req, res) => {
     try {
       const post = await Post.findById(req.body.id);
+
       if (!post.likes.includes(req.session.user._id)) {
+        const notification = await Notification.create({
+          user: req.session.user._id,
+          action: "likedPost",
+          likedPost: post._id,
+        });
+        await User.findByIdAndUpdate(post.user._id, {
+          $push: { notifications: notification._id },
+        });
+
         await post.updateOne({ $push: { likes: req.session.user._id } });
         res.send({ like: true });
       } else {
@@ -89,6 +100,7 @@ const postController = {
         res.send({ like: false });
       }
     } catch (err) {
+      console.log(err);
       res.send(err);
     }
   },

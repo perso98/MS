@@ -27,7 +27,7 @@ function FollowDialog(props) {
         <Dialog onClose={props.handleClose} open={props.open}>
           <div className="dark-dialog" dividers id="scrollableDiv">
             <div className="dialog-top">
-              {props.followType ? "Followers" : "Follows"}
+              <h2> {props.followType ? "Followers" : "Follows"}</h2>
               <IconButton onClick={props.handleClose}>
                 <CloseIcon style={{ color: "white" }} />
               </IconButton>

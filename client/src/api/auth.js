@@ -33,6 +33,7 @@ export const register = async (registerForm, setRegisterForm, setAlert) => {
 export const auth = async (setUser, setLoading) => {
   await axios.get("/user/auth").then((res) => {
     if (res.data.success) {
+      console.log(res.data.user);
       setUser(res.data.user);
     }
     setLoading(false);

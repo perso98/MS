@@ -326,23 +326,26 @@ label {
   width: 100%;
 }
 
-.comment-container {
+.dialog-middle-container {
   display: flex;
   align-items: top;
   margin-bottom: 2rem;
   margin-left: 2rem;
 }
+.notification-container {
+  display: flex;
+  flex-direction: column;
+}
 .comment {
   position: relative;
   font-size: 1.2rem;
-  background-color: #52525b;
+  border: 1px solid white;
   padding: 1rem;
   border-radius: 25px;
   width: 90%;
-
-  border-bottom-right-radius: 0px;
   word-wrap: break-word;
   margin-right: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 2rem;
 }
 .profile-comment-container {
@@ -356,7 +359,7 @@ label {
   text-align: center;
   margin-left: 1rem;
 }
-.dialog-comment-bottom {
+.dialog-container-bottom {
   position: sticky;
   width: 100%;
   bottom: 0;
@@ -385,25 +388,18 @@ label {
 
 .comment-like-container {
   position: absolute !important;
-  bottom: -33px;
-  filter: opacity(70%);
+  bottom: -36px;
   width: 100px;
   right: 0;
   z-index: 0;
+  background-color: transparent !important;
+  color: white !important;
   font-size: 1rem !important;
-  background-color: whitesmoke !important;
   color: black !important;
   padding: 0.3rem !important;
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 10px !important;
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 10px !important;
+  border-radius: 0 !important;
   align-items: center;
   width: 30%;
-  transition: 1s ease-in-out;
-}
-.comment-like-container:hover {
-  filter: opacity(100%);
 }
 .post-limit-characters {
   justify-content: right;
@@ -443,4 +439,37 @@ label {
   flex-direction: row;
   justify-content: space-between;
   bottom: 0;
+}
+.notification-button-container {
+  color: white !important;
+  margin-right: 1rem !important;
+}
+
+.notification-button {
+  transition: 0.5s ease-in-out !important;
+}
+.notification-button:hover {
+  transform: rotate(20deg) !important;
+}
+
+.dialog-container-bottom button {
+  color: white;
+}
+
+.liked-notification-container {
+  padding: 1rem;
+  background-color: #52525b;
+  margin-bottom: 1rem;
+  border-radius: 25px;
+  width: 80%;
+  font-size: 1.2rem;
+  word-wrap: break-word;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100px;
+}
+
+.dialog-notification-container {
+  display: flex;
+  flex-direction: column;
 }

@@ -57,7 +57,7 @@ function CommentDialog(props) {
           <Dialog open={props.open} onClose={() => props.handleClose()}>
             <div className="dark-dialog" dividers id="scrollableDiv">
               <div className="dialog-top">
-                <span>Comments</span>
+                <h2>Comments</h2>
                 <IconButton onClick={() => props.handleClose()}>
                   <CloseIcon style={{ color: "white" }} />
                 </IconButton>
@@ -88,7 +88,7 @@ function CommentDialog(props) {
                         </div>
                       ) : null}
                       {comments?.data?.map((comment, idx) => (
-                        <div className="comment-container" key={idx}>
+                        <div className="dialog-middle-container" key={idx}>
                           <div className="profile-comment-container">
                             {comment.user.name.charAt(0)}
                           </div>
@@ -116,7 +116,12 @@ function CommentDialog(props) {
                                   );
                                 }}
                               >
-                                <span> {comment.likes.length}</span>
+                                <span style={{ color: "white" }}>
+                                  {" "}
+                                  {comment.likes.length > 0
+                                    ? comment.likes.length
+                                    : null}
+                                </span>
                                 {comment.likes.includes(user._id) ? (
                                   <FavoriteIconOutlined
                                     style={{
@@ -126,7 +131,10 @@ function CommentDialog(props) {
                                   />
                                 ) : (
                                   <FavoriteIcon
-                                    style={{ marginLeft: "0.3rem" }}
+                                    style={{
+                                      marginLeft: "0.3rem",
+                                      color: "white",
+                                    }}
                                   />
                                 )}
                               </IconButton>
@@ -134,6 +142,7 @@ function CommentDialog(props) {
                           </div>
                           {user._id === comment.user._id ? (
                             <IconButton
+                              style={{ backgroundColor: "transparent" }}
                               onClick={() => {
                                 setConfirmDialogOpen({
                                   ...confirmDialogOpen,
@@ -166,7 +175,7 @@ function CommentDialog(props) {
                   </>
                 )}
               </div>
-              <div className="dialog-comment-bottom">
+              <div className="dialog-container-bottom">
                 <DarkTextField
                   label="Add your comment"
                   width="90%"

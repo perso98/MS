@@ -9,7 +9,6 @@ import { AuthContext } from "../providers/AuthProvider";
 import UserCard from "../components/UserCard";
 import { getUser } from "../api/user";
 import CircularProgress from "@mui/material/CircularProgress";
-import EditPost from "../components/EditPost";
 export default function User() {
   const [posts, setPosts] = useState({
     data: [],
@@ -20,13 +19,9 @@ export default function User() {
   const [profile, setProfile] = useState();
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
-  const [openEdit, setOpenEdit] = useState(false);
-  const [post, setPost] = useState({});
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const { id } = useParams();
-  const handleCloseEdit = () => {
-    setOpenEdit(false);
-  };
+
   const loadMore = () => {
     findOwnerPosts(posts, setPosts, id);
   };
@@ -71,13 +66,7 @@ export default function User() {
           >
             {posts.data?.map((val) => (
               <div className="main-element" key={val._id}>
-                <PostCard
-                  key={val._id}
-                  val={val}
-                  setPost={setPost}
-                  setOpen={setOpenEdit}
-                  setPosts={setPosts}
-                />
+                <PostCard key={val._id} val={val} setArray={setPosts} />
               </div>
             ))}
           </InfiniteScroll>
@@ -88,14 +77,6 @@ export default function User() {
           ) : null}
         </>
       )}
-      <EditPost
-        handleClose={handleCloseEdit}
-        open={openEdit}
-        post={post}
-        setPost={setPost}
-        setPosts={setPosts}
-        user={user}
-      />
     </>
   );
 }
