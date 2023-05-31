@@ -1,4 +1,10 @@
-import { Dialog, Button, IconButton, TextField } from "@mui/material";
+import {
+  Dialog,
+  Button,
+  IconButton,
+  TextField,
+  CircularProgress,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useContext, useEffect } from "react";
@@ -14,9 +20,12 @@ function CommentDialog(props) {
     user: {},
     createdAt: "",
   });
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {}, [props.open]);
+  useEffect(() => {
+    if (props.open) getComments(props.postId, props.setComments, setLoading);
+  }, [props.postId]);
 
   return (
     <>
@@ -30,45 +39,68 @@ function CommentDialog(props) {
               </IconButton>
             </div>
             <div className="comments-container">
-              {props.comments?.map((comment, idx) => (
-                <div className="comment-container" key={idx}>
-                  <div className="profile-comment-container">J</div>
-                  <div className="comment-user-info">
-                    <div className="top-comment-info">
-                      <span>
-                        {comment.user.name} {comment.user.surname}
-                      </span>
-                      <span>{comment.createdAt}</span>
-                    </div>
-
-                    <div className="comment">
-                      {comment.text}
-                      <IconButton
-                        className="comment-like-container"
-                        onClick={() => {
-                          likeComment(comment._id, user._id, props.setComments);
-                        }}
-                      >
-                        <span> {comment.likes.length}</span>
-                        {comment.likes.includes(user._id) ? (
-                          <FavoriteIconOutlined
-                            style={{ color: "red", marginLeft: "0.3rem" }}
-                          />
-                        ) : (
-                          <FavoriteIcon style={{ marginLeft: "0.3rem" }} />
-                        )}
-                      </IconButton>
-                    </div>
-                  </div>
-                  {user._id === comment.user._id ? (
-                    <IconButton>
-                      <CloseIcon
-                        style={{ color: "red", marginRight: "1rem" }}
-                      />
-                    </IconButton>
-                  ) : null}
+              {loading ? (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <CircularProgress color="inherit" />
                 </div>
-              ))}
+              ) : (
+                <>
+                  {!loading && props.comments.length === 0 ? (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      There are no comments
+                    </div>
+                  ) : null}
+                  {props.comments?.map((comment, idx) => (
+                    <div className="comment-container" key={idx}>
+                      <div className="profile-comment-container">J</div>
+                      <div className="comment-user-info">
+                        <div className="top-comment-info">
+                          <span>
+                            {comment.user.name} {comment.user.surname}
+                          </span>
+                          <span>
+                            {comment.createdAt.replace("T", " ").slice(0, 16)}
+                          </span>
+                        </div>
+
+                        <div className="comment">
+                          {comment.text}
+                          <IconButton
+                            className="comment-like-container"
+                            onClick={() => {
+                              likeComment(
+                                comment._id,
+                                user._id,
+                                props.setComments
+                              );
+                            }}
+                          >
+                            <span> {comment.likes.length}</span>
+                            {comment.likes.includes(user._id) ? (
+                              <FavoriteIconOutlined
+                                style={{ color: "red", marginLeft: "0.3rem" }}
+                              />
+                            ) : (
+                              <FavoriteIcon style={{ marginLeft: "0.3rem" }} />
+                            )}
+                          </IconButton>
+                        </div>
+                      </div>
+                      {user._id === comment.user._id ? (
+                        <IconButton>
+                          <CloseIcon
+                            style={{
+                              color: "red",
+                              marginRight: "1rem",
+                              marginLeft: "1rem",
+                            }}
+                          />
+                        </IconButton>
+                      ) : null}
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
             <div className="dialog-comment-bottom">
               <TextField
@@ -84,7 +116,7 @@ function CommentDialog(props) {
               <Button
                 variant="contained"
                 onClick={() => {
-                  addComment(props.postId, user._id, props.setComments);
+                  addComment(comment, props.postId, user, props.setComments);
                 }}
               >
                 Send

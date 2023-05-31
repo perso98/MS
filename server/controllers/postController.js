@@ -36,7 +36,7 @@ const postController = {
         .limit(req.params.limit)
         .populate("user", "_id name surname");
 
-      if (posts.length > +req.params.limit - 5) {
+      if (posts.length > +req.params.limit - req.params.jump) {
         res.send({ success: true, posts: posts });
       } else {
         res.send({ success: true, posts: [] });
@@ -54,10 +54,11 @@ const postController = {
         { desc: { $regex: search, $options: "i" } },
       ],
     })
+      .sort({ createdAt: -1 })
       .limit(req.params.limit)
       .populate("user", "_id name surname");
 
-    if (posts.length > +req.params.limit - 5) {
+    if (posts.length > +req.params.limit - req.params.jump) {
       res.send({ success: true, posts: posts });
     } else {
       res.send({ success: true, posts: [] });
@@ -116,10 +117,10 @@ const postController = {
   followsPosts: async (req, res) => {
     const users = await User.findById(req.session.user._id).select("follows");
     const posts = await Post.find({ user: { $in: users.follows } })
-      .limit(req.params.limit)
       .sort({ createdAt: -1 })
+      .limit(req.params.limit)
       .populate("user", "_id name surname");
-    if (posts.length > +req.params.limit - 5) {
+    if (posts.length > +req.params.limit - req.params.jump) {
       res.send({ success: true, posts: posts });
     } else {
       res.send({ success: true, posts: [] });

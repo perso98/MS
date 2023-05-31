@@ -44,7 +44,7 @@ function App() {
       ) : (
         <div className="loading-div">
           <CircularProgress style={{ color: "white" }} />
-          <h2>Waiting for authorization...</h2>
+          <h2>Loading...</h2>
         </div>
       )}
     </>

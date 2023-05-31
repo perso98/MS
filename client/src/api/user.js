@@ -1,7 +1,7 @@
 import axios from "axios";
 import { fetchData } from "./fetchData";
 export const searchUser = async (search, users, setUsers) => {
-  await fetchData(`/user/${search}`, users, setUsers, "users");
+  await fetchData(`/user/${search}`, users, setUsers, "users", 5);
 };
 
 export const followHandler = async (id, user, setUser, setFollowInfo) => {
@@ -35,6 +35,7 @@ export const getFollowersOrFollows = async (id, type, setFollow, follow) => {
     `/user/get-followers-or-follows/${type}/${id}`,
     follow,
     setFollow,
-    "users"
+    "users",
+    10
   );
 };

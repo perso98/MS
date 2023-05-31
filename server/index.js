@@ -8,6 +8,7 @@ import morgan from "morgan";
 import UserRoute from "./routes/UserRoute.js";
 import session from "express-session";
 import PostRoute from "./routes/PostRoute.js";
+import CommentRoute from "./routes/CommentRoute.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -36,6 +37,7 @@ app.use(
 );
 /* Routes */
 app.use("/user", UserRoute);
+app.use("/comment", CommentRoute);
 app.use("/post", PostRoute);
 /* Database seup */
 const PORT = process.env.PORT || 3001;

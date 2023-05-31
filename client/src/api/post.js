@@ -2,7 +2,7 @@ import axios from "axios";
 import { fetchData } from "./fetchData";
 export const findOwnerPosts = async (posts, setPosts, id) => {
   try {
-    await fetchData(`/post/posts/${id}`, posts, setPosts, "posts");
+    await fetchData(`/post/posts/${id}`, posts, setPosts, "posts", 5);
   } catch (err) {
     console.error(err);
   }
@@ -25,11 +25,11 @@ export const createPost = async (post, setPosts, setUser, setPost) => {
   }));
 };
 export const findFollowsPosts = async (posts, setPosts) => {
-  await fetchData("/post/follows/posts", posts, setPosts, "posts");
+  await fetchData("/post/follows/posts", posts, setPosts, "posts", 5);
 };
 
 export const searchPost = async (search, posts, setPosts) => {
-  await fetchData(`/post/${search}`, posts, setPosts, "posts");
+  await fetchData(`/post/${search}`, posts, setPosts, "posts", 5);
 };
 
 export const getPost = async (setPost, id) => {
@@ -37,7 +37,7 @@ export const getPost = async (setPost, id) => {
   setPost(res.data);
 };
 
-export const like = async (id, userId, setLikes, likes) => {
+export const like = async (id, userId, setLikes) => {
   const res = await axios.post(`/post/like`, { id });
   if (res.data.like) {
     setLikes((prevLikes) => [...prevLikes, userId]);

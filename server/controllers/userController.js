@@ -52,9 +52,10 @@ const userController = {
           { surname: { $regex: search, $options: "i" } },
         ],
       })
+        .sort({ createdAt: -1 })
         .limit(+req.params.limit)
         .select("-password");
-      if (users.length > +req.params.limit - 10) {
+      if (users.length > +req.params.limit - req.params.jump) {
         res.send({ success: true, users: users });
       } else {
         res.send({ success: true, users: [] });
@@ -116,7 +117,7 @@ const userController = {
         options: { limit: +req.params.limit },
       });
 
-      if (users[populateField].length > +req.params.limit - 5) {
+      if (users[populateField].length > +req.params.limit - req.params.jump) {
         res.send({ success: true, users: users[populateField] });
       } else {
         res.send({ success: true, users: [] });

@@ -10,9 +10,9 @@ router.post("/logout", userController.logout);
 router.post("/follow", userController.follow);
 router.get("/get-user/:id", userController.getUser);
 router.get("/auth", userController.auth);
-router.get("/:search/:limit", userController.findUser);
+router.get("/:search/:limit/:jump", userController.findUser);
 router.get(
-  "/get-followers-or-follows/:type/:id/:limit",
+  "/get-followers-or-follows/:type/:id/:limit/:jump",
   userController.getFollowsOrFollowers
 );
 export default router;

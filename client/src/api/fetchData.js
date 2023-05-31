@@ -1,7 +1,7 @@
 import axios from "axios";
-export const fetchData = async (endpoint, items, setItems, itemsKey) => {
+export const fetchData = async (endpoint, items, setItems, itemsKey, jump) => {
   try {
-    await axios.get(`${endpoint}/${items.limit}`).then((res) => {
+    await axios.get(`${endpoint}/${items.limit}/${jump}`).then((res) => {
       const newItems = res.data[itemsKey].filter((item) => {
         return !items.data.some(
           (existingItem) => existingItem._id === item._id
@@ -13,7 +13,7 @@ export const fetchData = async (endpoint, items, setItems, itemsKey) => {
       if (newItems.length > 0) {
         setItems({
           ...items,
-          limit: items.limit + 5,
+          limit: items.limit + jump,
           data: [...updatedItems, ...newItems],
           loading: false,
         });
