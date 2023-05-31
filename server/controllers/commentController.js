@@ -3,12 +3,20 @@ import Post from "../models/Post.js";
 const commentController = {
   getComments: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id).populate({
-        path: "comments",
-        populate: { path: "user" },
-      });
-      console.log(post);
-      res.send(post.comments);
+      const post = await Post.findById(req.params.id)
+        .populate({
+          path: "comments",
+          populate: { path: "user" },
+          options: { sort: { createdAt: -1 } },
+        })
+
+        .limit(req.params.limit);
+
+      if (post.comments.length > +req.params.limit - req.params.jump) {
+        res.send({ success: true, comments: post.comments });
+      } else {
+        res.send({ success: true, comments: [] });
+      }
     } catch (err) {
       res.send({ success: false });
       console.log(err);

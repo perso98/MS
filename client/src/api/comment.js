@@ -1,11 +1,8 @@
 import axios from "axios";
-
-export const getComments = async (id, setComments, setLoading) => {
+import { fetchData } from "./fetchData";
+export const getComments = async (id, comments, setComments) => {
   try {
-    await axios.get(`/comment/${id}`).then((res) => {
-      setComments(res.data);
-      setLoading(false);
-    });
+    fetchData(`/comment/${id}`, comments, setComments, "comments", 10);
   } catch (error) {
     console.log(error);
   }
@@ -35,19 +32,32 @@ export const likeComment = async (id, userId, setComments) => {
   }
 };
 
-export const addComment = async (comment, postId, user, setComments) => {
+export const addComment = async (
+  comment,
+  postId,
+  user,
+  setComments,
+  setCommentsIds
+) => {
   await axios
     .post(`/comment/`, { text: comment.text, postId, userId: user._id })
     .then((res) => {
-      setComments((prevComments) => [
-        ...prevComments,
-        {
-          _id: res.data.commentId,
-          ...comment,
-          text: comment.text,
-          user: { _id: user._id, name: user.name, surname: user.surname },
-          createdAt: res.data.createdAt,
-        },
+      setCommentsIds((prevCommentsIds) => [
+        ...prevCommentsIds,
+        res.data.commentId,
       ]);
+      setComments((prevComments) => ({
+        ...prevComments,
+        data: [
+          {
+            _id: res.data.commentId,
+            ...comment,
+            text: comment.text,
+            user: { _id: user._id, name: user.name, surname: user.surname },
+            createdAt: res.data.createdAt,
+          },
+          ...prevComments.data,
+        ],
+      }));
     });
 };

@@ -12,19 +12,27 @@ import { addComment, getComments, likeComment } from "../api/comment";
 import FavoriteIconOutlined from "@mui/icons-material/FavoriteOutlined";
 import { AuthContext } from "../providers/AuthProvider";
 import { useState } from "react";
-
+import InfiniteScroll from "react-infinite-scroll-component";
+import { LinearProgress } from "@mui/material";
 function CommentDialog(props) {
+  const [comments, setComments] = useState({
+    data: [],
+    hasMore: true,
+    limit: 10,
+    loading: true,
+  });
   const [comment, setComment] = useState({
     text: "",
     likes: [],
     user: {},
     createdAt: "",
   });
-  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
-
+  const loadMore = () => {
+    getComments(props.postId, comments, setComments);
+  };
   useEffect(() => {
-    if (props.open) getComments(props.postId, props.setComments, setLoading);
+    if (props.open) loadMore();
   }, [props.postId]);
 
   return (
@@ -39,66 +47,82 @@ function CommentDialog(props) {
               </IconButton>
             </div>
             <div className="comments-container">
-              {loading ? (
+              {comments.loading ? (
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <CircularProgress color="inherit" />
                 </div>
               ) : (
                 <>
-                  {!loading && props.comments.length === 0 ? (
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      There are no comments
-                    </div>
-                  ) : null}
-                  {props.comments?.map((comment, idx) => (
-                    <div className="comment-container" key={idx}>
-                      <div className="profile-comment-container">J</div>
-                      <div className="comment-user-info">
-                        <div className="top-comment-info">
-                          <span>
-                            {comment.user.name} {comment.user.surname}
-                          </span>
-                          <span>
-                            {comment.createdAt.replace("T", " ").slice(0, 16)}
-                          </span>
-                        </div>
-
-                        <div className="comment">
-                          {comment.text}
-                          <IconButton
-                            className="comment-like-container"
-                            onClick={() => {
-                              likeComment(
-                                comment._id,
-                                user._id,
-                                props.setComments
-                              );
-                            }}
-                          >
-                            <span> {comment.likes.length}</span>
-                            {comment.likes.includes(user._id) ? (
-                              <FavoriteIconOutlined
-                                style={{ color: "red", marginLeft: "0.3rem" }}
-                              />
-                            ) : (
-                              <FavoriteIcon style={{ marginLeft: "0.3rem" }} />
-                            )}
-                          </IconButton>
-                        </div>
+                  <InfiniteScroll
+                    dataLength={comments.data.length}
+                    next={loadMore}
+                    hasMore={comments.hasMore}
+                    loader={
+                      <div style={{ marginTop: "2rem", textAlign: "center" }}>
+                        <LinearProgress color="inherit" />
                       </div>
-                      {user._id === comment.user._id ? (
-                        <IconButton>
-                          <CloseIcon
-                            style={{
-                              color: "red",
-                              marginRight: "1rem",
-                              marginLeft: "1rem",
-                            }}
-                          />
-                        </IconButton>
-                      ) : null}
-                    </div>
-                  ))}
+                    }
+                    scrollableTarget="scrollableDiv"
+                  >
+                    {!comments.loading && comments.data.length === 0 ? (
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        There are no comments
+                      </div>
+                    ) : null}
+                    {comments?.data?.map((comment, idx) => (
+                      <div className="comment-container" key={idx}>
+                        <div className="profile-comment-container">J</div>
+                        <div className="comment-user-info">
+                          <div className="top-comment-info">
+                            <span>
+                              {comment.user.name} {comment.user.surname}
+                            </span>
+                            <span>
+                              {comment.createdAt.replace("T", " ").slice(0, 16)}
+                            </span>
+                          </div>
+
+                          <div className="comment">
+                            {comment.text}
+                            <IconButton
+                              className="comment-like-container"
+                              onClick={() => {
+                                likeComment(
+                                  comment._id,
+                                  user._id,
+                                  props.setComments
+                                );
+                              }}
+                            >
+                              <span> {comment.likes.length}</span>
+                              {comment.likes.includes(user._id) ? (
+                                <FavoriteIconOutlined
+                                  style={{ color: "red", marginLeft: "0.3rem" }}
+                                />
+                              ) : (
+                                <FavoriteIcon
+                                  style={{ marginLeft: "0.3rem" }}
+                                />
+                              )}
+                            </IconButton>
+                          </div>
+                        </div>
+                        {user._id === comment.user._id ? (
+                          <IconButton>
+                            <CloseIcon
+                              style={{
+                                color: "red",
+                                marginRight: "1rem",
+                                marginLeft: "1rem",
+                              }}
+                            />
+                          </IconButton>
+                        ) : null}
+                      </div>
+                    ))}
+                  </InfiniteScroll>
                 </>
               )}
             </div>
@@ -116,7 +140,13 @@ function CommentDialog(props) {
               <Button
                 variant="contained"
                 onClick={() => {
-                  addComment(comment, props.postId, user, props.setComments);
+                  addComment(
+                    comment,
+                    props.postId,
+                    user,
+                    setComments,
+                    props.setCommentsIds
+                  );
                 }}
               >
                 Send

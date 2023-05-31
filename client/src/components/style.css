@@ -325,8 +325,8 @@ label {
 
 .comment-container {
   display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  align-items: top;
+  margin-bottom: 2rem;
 }
 .comment {
   position: relative;
@@ -335,15 +335,15 @@ label {
   padding: 1rem;
   border-radius: 25px;
   width: 90%;
+
   border-bottom-right-radius: 0px;
   word-wrap: break-word;
-  margin-right: 0.5rem;
-  margin-top: 0.5rem;
+  margin-right: 1rem;
   margin-bottom: 2rem;
 }
 .profile-comment-container {
-  width: 50px;
-  height: 50px;
+  min-width: 50px;
+  max-height: 50px;
   background-color: beige;
   color: black;
   font-size: 1.5rem;
@@ -351,7 +351,6 @@ label {
   line-height: 50px;
   text-align: center;
   margin-left: 1rem;
-  margin-right: 1rem;
 }
 .dialog-comment-bottom {
   position: sticky;
@@ -370,7 +369,7 @@ label {
 .comment-user-info {
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 70%;
   margin-left: 1rem;
 }
 
@@ -404,5 +403,6 @@ label {
 
 .top-comment-info {
   display: flex;
+  margin-bottom: 0.5rem;
   justify-content: space-between;
 }

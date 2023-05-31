@@ -14,7 +14,7 @@ export default function Main() {
     findFollowsPosts(posts, setPosts);
   };
   useEffect(() => {
-    setPosts((p) => ({ ...p, loading: true }));
+    setPosts({ ...posts, loading: true });
     loadMore();
   }, []);
 

@@ -19,7 +19,7 @@ export default function PostCard(props) {
     setOpenComments(false);
   };
   const [likes, setLikes] = useState(props.val.likes);
-  const [comments, setComments] = useState(props.val.comments);
+  const [commentsIds, setCommentsIds] = useState(props.val.comments);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
@@ -95,7 +95,7 @@ export default function PostCard(props) {
           >
             {" "}
             <Typography sx={{ color: "white", marginRight: "0.5rem" }}>
-              {comments.length}
+              {commentsIds.length}
             </Typography>
             <CommentIcon sx={{ color: "white" }} />{" "}
           </IconButton>
@@ -104,8 +104,7 @@ export default function PostCard(props) {
       <CommentDialog
         handleClose={handleCommentClose}
         open={openComments}
-        setComments={setComments}
-        comments={comments}
+        setCommentsIds={setCommentsIds}
         postId={postId}
       />
     </>

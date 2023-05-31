@@ -10,7 +10,17 @@ export const fetchData = async (endpoint, items, setItems, itemsKey, jump) => {
       const updatedItems = items.data.filter((existingItem) => {
         return res.data[itemsKey].some((item) => item._id === existingItem._id);
       });
-      if (newItems.length > 0) {
+      if (res.data[itemsKey].length < items.limit) {
+        console.log(res.data[itemsKey].length, items.limit);
+        setItems({
+          ...items,
+          hasMore: false,
+          data: [...updatedItems, ...newItems],
+          loading: false,
+        });
+      } else if (newItems.length > 0) {
+        console.log(res.data[itemsKey].length, items.limit);
+
         setItems({
           ...items,
           limit: items.limit + jump,
