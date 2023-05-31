@@ -89,7 +89,9 @@ function CommentDialog(props) {
                       ) : null}
                       {comments?.data?.map((comment, idx) => (
                         <div className="comment-container" key={idx}>
-                          <div className="profile-comment-container">J</div>
+                          <div className="profile-comment-container">
+                            {comment.user.name.charAt(0)}
+                          </div>
                           <div className="comment-user-info">
                             <div className="top-comment-info">
                               <span>
