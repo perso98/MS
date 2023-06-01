@@ -11,10 +11,14 @@ const notificationController = {
   },
   notifications: async (req, res) => {
     try {
-      const user = await User.findById(req.session.user._id).populate(
-        "notifications"
-      );
-
+      const user = await User.findById(req.session.user._id).populate({
+        path: "notifications",
+        populate: {
+          path: "user",
+          select: "-password -posts -notifications",
+        },
+      });
+      console.log(user.notifications);
       res.send(user.notifications);
     } catch (err) {
       console.log(err);

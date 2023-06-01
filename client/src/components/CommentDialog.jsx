@@ -105,7 +105,7 @@ function CommentDialog(props) {
                             </div>
 
                             <div className="comment">
-                              {comment.text}
+                              <p> {comment.text}</p>
                               <IconButton
                                 className="comment-like-container"
                                 onClick={() => {

@@ -27,9 +27,7 @@ a {
   line-height: 50px;
   margin-right: 2rem;
 }
-.profile-container:hover {
-  box-shadow: #8d8d8c 0px 0px 0px 3px;
-}
+
 .sidebar-container {
   height: 90.5vh;
   width: 40vh;
@@ -226,9 +224,7 @@ label {
   margin-right: 1rem;
   color: black;
 }
-.post-avatar:hover {
-  box-shadow: #8d8d8c 0px 0px 0px 3px;
-}
+
 .user-post-section {
   display: flex;
   flex-direction: row;
@@ -302,11 +298,18 @@ label {
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   margin-bottom: 0.3rem;
+
+  padding: 1rem;
+}
+.follow-dialog-element:hover {
+  filter: brightness(120%);
 }
 .follow-dialog-element {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  background-color: #1e1b1e;
+  align-items: center;
 }
 .follow-dialog-container {
   margin-top: 0.5rem;
@@ -337,6 +340,8 @@ label {
   flex-direction: column;
 }
 .comment {
+  background-color: #1e1b1e;
+  filter: brightness(120%);
   position: relative;
   font-size: 1.2rem;
   border: 1px solid white;
@@ -348,6 +353,7 @@ label {
   margin-top: 0.5rem;
   margin-bottom: 2rem;
 }
+
 .profile-comment-container {
   min-width: 50px;
   max-height: 50px;
@@ -390,7 +396,7 @@ label {
   position: absolute !important;
   bottom: -36px;
   width: 100px;
-  right: 0;
+  right: -30px;
   z-index: 0;
   background-color: transparent !important;
   color: white !important;
@@ -445,20 +451,25 @@ label {
   margin-right: 1rem !important;
 }
 
-.notification-button {
-  transition: 0.5s ease-in-out !important;
-}
 .notification-button:hover {
-  transform: rotate(20deg) !important;
+  animation: rotateLeftRight 2s infinite;
 }
-
+@keyframes rotateLeftRight {
+  0%,
+  100% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+}
 .dialog-container-bottom button {
   color: white;
 }
 
-.liked-notification-container {
+.notification-container {
+  background-color: #1e1b1e;
   padding: 1rem;
-  background-color: #52525b;
   margin-bottom: 1rem;
   border-radius: 25px;
   width: 80%;
@@ -466,10 +477,26 @@ label {
   word-wrap: break-word;
   margin-left: auto;
   margin-right: auto;
-  min-height: 100px;
 }
 
 .dialog-notification-container {
   display: flex;
   flex-direction: column;
+}
+
+.liked-notification-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+.notification-container:hover {
+  filter: brightness(120%);
+}
+.notification-user-info {
+  display: flex;
+  align-items: center;
+}
+.notification-container:hover .profile-container {
+  filter: brightness(80%);
 }

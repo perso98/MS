@@ -27,22 +27,35 @@ function NotificationsDialog(props) {
             console.log(notification);
             if (notification.action === "likedPost") {
               return (
-                <div className="liked-notification-container">
-                  <Link
-                    to={`/user/${notification.user}`}
-                    onClick={props.handleClose}
-                    style={{ textDecoration: "underline" }}
-                  >
-                    USER
-                  </Link>
-                  <span> liked your </span>
-                  <Link
-                    style={{ textDecoration: "underline" }}
-                    to={`/post/${notification.likedPost}`}
-                    onClick={props.handleClose}
-                  >
-                    POST
-                  </Link>
+                <div className="notification-container">
+                  <div className="liked-notification-container">
+                    <Link
+                      to={`/user/${notification.user}`}
+                      onClick={props.handleClose}
+                      className="notification-user-info"
+                      style={{ textDecoration: "underline" }}
+                    >
+                      <div
+                        className="profile-container"
+                        style={{ marginRight: "1rem" }}
+                      >
+                        {notification.user.name.charAt(0)}
+                      </div>
+
+                      <p>
+                        {notification.user.name} {notification.user.surname}
+                      </p>
+                    </Link>
+
+                    <span> liked your </span>
+                    <Link
+                      style={{ textDecoration: "underline" }}
+                      to={`/post/${notification.likedPost}`}
+                      onClick={props.handleClose}
+                    >
+                      POST
+                    </Link>
+                  </div>
                 </div>
               );
             } else {
