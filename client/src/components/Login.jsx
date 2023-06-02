@@ -22,17 +22,18 @@ export default function Login() {
           loginUser(loginForm, setAlert);
         }}
       >
-        <label>E-mail</label>
         <input
+          placeholder="E-mail"
           required
           type="email"
           onChange={(e) =>
             setLoginForm({ ...loginForm, email: e.target.value })
           }
         />
-        <label>Password</label>
+
         <input
           required
+          placeholder="Password"
           type="password"
           onChange={(e) =>
             setLoginForm({ ...loginForm, password: e.target.value })

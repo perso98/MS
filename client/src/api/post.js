@@ -32,10 +32,10 @@ export const searchPost = async (search, posts, setPosts) => {
   await fetchData(`/post/${search}`, posts, setPosts, "posts", 5);
 };
 
-export const getPost = async (setPost, id) => {
+export const getPost = async (setPost, id, setLoading) => {
   await axios.get(`/post/${id}`).then((res) => {
-    console.log(res.data);
     setPost({ data: [res.data] });
+    setLoading(false);
   });
 };
 

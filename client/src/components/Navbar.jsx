@@ -40,7 +40,7 @@ export default function Navbar(props) {
     setOpenNotifications(false);
   };
   return (
-    <div className="navbar-container">
+    <nav>
       <div className="navbar-left">
         {user ? (
           <IconButton
@@ -100,6 +100,6 @@ export default function Navbar(props) {
         handleClose={handleCloseNotificationDialog}
         open={openNotifications}
       />
-    </div>
+    </nav>
   );
 }

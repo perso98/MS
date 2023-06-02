@@ -28,8 +28,8 @@ export default function Register() {
           register(registerForm, setRegisterForm, setAlert);
         }}
       >
-        <label>Name</label>
         <input
+          placeholder="Name"
           required
           type="text"
           value={registerForm.name}
@@ -37,8 +37,9 @@ export default function Register() {
             setRegisterForm({ ...registerForm, name: e.target.value })
           }
         />
-        <label>Surname</label>
+
         <input
+          placeholder="Surname"
           required
           type="text"
           value={registerForm.surname}
@@ -46,8 +47,9 @@ export default function Register() {
             setRegisterForm({ ...registerForm, surname: e.target.value })
           }
         />
-        <label>E-mail</label>
+
         <input
+          placeholder="E-mail"
           required
           type="email"
           value={registerForm.email}
@@ -55,8 +57,9 @@ export default function Register() {
             setRegisterForm({ ...registerForm, email: e.target.value })
           }
         />
-        <label>Password</label>
+
         <input
+          placeholder="Password"
           required
           type="password"
           value={registerForm.password}
@@ -64,8 +67,9 @@ export default function Register() {
             setRegisterForm({ ...registerForm, password: e.target.value })
           }
         />
-        <label>Confirm password</label>
+
         <input
+          placeholder="Confirm password"
           type="password"
           required
           value={registerForm.password2}

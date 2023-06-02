@@ -1,4 +1,15 @@
-.navbar-container {
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+nav {
   background-color: #1e1b1e;
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
   display: flex;
@@ -22,7 +33,7 @@ a {
   background-color: beige;
   border-radius: 25px;
   font-size: 25px;
-  width: 50px;
+  min-width: 50px;
   text-align: center;
   line-height: 50px;
   margin-right: 2rem;
@@ -112,14 +123,21 @@ a {
   margin-top: 2rem;
 }
 
-.auth-elements input,
-label {
+.auth-elements input {
   display: block;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   line-height: 40px;
   font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: white;
+  background-color: white;
+  padding: 0.5rem;
+  color: black;
+}
+.auth-elements input::placeholder {
+  color: black;
 }
 
 .auth-elements button {
@@ -131,6 +149,11 @@ label {
   background-color: #1e1b1e;
   border-radius: 25px;
   border: 2px solid white;
+}
+
+.post-container input::placeholder,
+textarea::placeholder {
+  color: black;
 }
 .post-top {
   padding: 1rem;
@@ -268,17 +291,7 @@ label {
   height: 70vh;
   overflow-y: auto;
 }
-.dark-dialog::-webkit-scrollbar {
-  width: 0.5em;
-}
 
-.dark-dialog::-webkit-scrollbar-thumb {
-  background-color: #888;
-}
-
-.dark-dialog::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
 .dialog-top {
   display: flex;
   justify-content: space-between;
@@ -468,20 +481,11 @@ label {
 }
 
 .notification-container {
-  background-color: #1e1b1e;
-  padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 25px;
   width: 80%;
   font-size: 1.2rem;
-  word-wrap: break-word;
   margin-left: auto;
   margin-right: auto;
-}
-
-.dialog-notification-container {
-  display: flex;
-  flex-direction: column;
 }
 
 .liked-notification-container {
@@ -489,14 +493,19 @@ label {
   flex-direction: row;
   gap: 1rem;
   align-items: center;
+  padding: 1rem;
+  border-radius: 25px;
+  background-color: #1e1b1e;
+  flex-wrap: wrap;
+  word-break: break-all;
 }
-.notification-container:hover {
+.liked-notification-container:hover {
   filter: brightness(120%);
+}
+.liked-notification-container:hover .profile-container {
+  filter: brightness(83%);
 }
 .notification-user-info {
   display: flex;
   align-items: center;
-}
-.notification-container:hover .profile-container {
-  filter: brightness(80%);
 }

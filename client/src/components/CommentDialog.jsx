@@ -1,21 +1,15 @@
+import React, { useContext, useEffect, useState } from "react";
 import { Dialog, IconButton, CircularProgress } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { useContext, useEffect } from "react";
-import {
-  addComment,
-  deleteComment,
-  getComments,
-  likeComment,
-} from "../api/comment";
-import FavoriteIconOutlined from "@mui/icons-material/FavoriteOutlined";
 import { AuthContext } from "../providers/AuthProvider";
-import { useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { addComment, getComments } from "../api/comment";
 import { LinearProgress } from "@mui/material";
 import DarkTextField from "./DarkTextField";
 import SendIcon from "@mui/icons-material/Send";
 import ConfirmDialog from "./ConfirmDialog";
+import Comments from "./Comments";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 function CommentDialog(props) {
   const [comments, setComments] = useState({
     data: [],
@@ -30,29 +24,32 @@ function CommentDialog(props) {
     createdAt: "",
   });
   const { user } = useContext(AuthContext);
+
   const loadMore = () => {
     getComments(props.postId, comments, setComments);
   };
+
   useEffect(() => {
     if (props.open) loadMore();
-  }, [props.postId]);
+  }, [props.postId, props.open]);
 
   const [confirmDialogOpen, setConfirmDialogOpen] = useState({
     open: false,
     id: null,
     text: "Are you sure you want to delete this comment?",
   });
+
   const handleCloseDialogConfirm = () => {
     setConfirmDialogOpen({
       ...confirmDialogOpen,
       open: false,
       id: null,
-      onClick: null,
     });
   };
+
   return (
     <>
-      {props.open ? (
+      {props.open && (
         <>
           <Dialog open={props.open} onClose={() => props.handleClose()}>
             <div className="dark-dialog" dividers id="scrollableDiv">
@@ -87,90 +84,14 @@ function CommentDialog(props) {
                           There are no comments
                         </div>
                       ) : null}
-                      {comments?.data?.map((comment, idx) => (
-                        <div className="dialog-middle-container" key={idx}>
-                          <div className="profile-comment-container">
-                            {comment.user.name.charAt(0)}
-                          </div>
-                          <div className="comment-user-info">
-                            <div className="top-comment-info">
-                              <span>
-                                {comment.user.name} {comment.user.surname}
-                              </span>
-                              <span>
-                                {comment.createdAt
-                                  .replace("T", " ")
-                                  .slice(0, 16)}
-                              </span>
-                            </div>
-
-                            <div className="comment">
-                              <p> {comment.text}</p>
-                              <IconButton
-                                className="comment-like-container"
-                                onClick={() => {
-                                  likeComment(
-                                    comment._id,
-                                    user._id,
-                                    setComments
-                                  );
-                                }}
-                              >
-                                <span style={{ color: "white" }}>
-                                  {" "}
-                                  {comment.likes.length > 0
-                                    ? comment.likes.length
-                                    : null}
-                                </span>
-                                {comment.likes.includes(user._id) ? (
-                                  <FavoriteIconOutlined
-                                    style={{
-                                      color: "red",
-                                      marginLeft: "0.3rem",
-                                    }}
-                                  />
-                                ) : (
-                                  <FavoriteIcon
-                                    style={{
-                                      marginLeft: "0.3rem",
-                                      color: "white",
-                                    }}
-                                  />
-                                )}
-                              </IconButton>
-                            </div>
-                          </div>
-                          {user._id === comment.user._id ? (
-                            <IconButton
-                              style={{ backgroundColor: "transparent" }}
-                              onClick={() => {
-                                setConfirmDialogOpen({
-                                  ...confirmDialogOpen,
-                                  open: true,
-                                  id: comment._id,
-                                  onClick: () => {
-                                    deleteComment(
-                                      props.postId,
-                                      comment._id,
-                                      setComments,
-                                      props.setCommentsIds
-                                    );
-                                    handleCloseDialogConfirm();
-                                  },
-                                });
-                              }}
-                            >
-                              <CloseIcon
-                                style={{
-                                  color: "red",
-                                  marginRight: "1rem",
-                                  marginLeft: "1rem",
-                                }}
-                              />
-                            </IconButton>
-                          ) : null}
-                        </div>
-                      ))}
+                      <Comments
+                        comments={comments.data}
+                        user={user}
+                        postId={props.postId}
+                        setComments={setComments}
+                        setCommentsIds={props.setCommentsIds}
+                        setConfirmDialogOpen={setConfirmDialogOpen}
+                      />
                     </InfiniteScroll>
                   </>
                 )}
@@ -211,7 +132,7 @@ function CommentDialog(props) {
             confirmDialog={confirmDialogOpen}
           />
         </>
-      ) : null}
+      )}
     </>
   );
 }

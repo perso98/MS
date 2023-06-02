@@ -8,10 +8,11 @@ export const getNotificationsIds = async (setUser) => {
     console.log(err);
   }
 };
-export const getNotifications = async (setNotifications) => {
+export const getNotifications = async (setNotifications, setLoading) => {
   try {
     await axios.get("/notifications/full/notifications").then((res) => {
       setNotifications(res.data);
+      setLoading(false);
     });
   } catch (err) {
     console.log(err);

@@ -19,8 +19,8 @@ export default function AddPost(props) {
         }}
       >
         <div className="post-element-container">
-          <label>Subject</label>
           <input
+            placeholder="Subject"
             required
             type="text"
             value={post?.subject?.slice(0, 75)}
@@ -36,8 +36,8 @@ export default function AddPost(props) {
           {post?.subject?.length > 75 ? 75 : post?.subject?.length}/75
         </span>
         <div className="post-element-container">
-          <label>Description</label>
           <textarea
+            placeholder="Description"
             required
             value={post?.desc?.slice(0, 400)}
             onChange={(e) => {
