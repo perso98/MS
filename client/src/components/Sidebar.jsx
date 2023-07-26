@@ -1,19 +1,19 @@
 import { NavLink } from "react-router-dom";
-import { useMediaQuery, useScrollTrigger } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 export default function Sidebar() {
   const isSmallScreen = useMediaQuery("(max-width:1222px)");
-  const sidebarElements = ["Shop", "News"];
+  const { user } = useContext(AuthContext);
   return (
     <>
       <div
         className={isSmallScreen ? "small-screen-sidebar" : "sidebar-container"}
       >
         <div className="sidebar-elements">
-          {sidebarElements.map((val) => (
-            <NavLink key={val} to={`/${val}`.toLowerCase()}>
-              <div className="sidebar-element">{val}</div>
-            </NavLink>
-          ))}
+          <NavLink to={`/${user._id}/pokemons`}>
+            <div className="sidebar-element">Pokemons</div>
+          </NavLink>
         </div>
       </div>
     </>

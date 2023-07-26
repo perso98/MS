@@ -1,5 +1,7 @@
 import Comment from "../models/Comment.js";
 import Post from "../models/Post.js";
+import User from "../models/User.js";
+import Notification from "../models/Notification.js";
 const commentController = {
   getComments: async (req, res) => {
     try {
@@ -29,10 +31,18 @@ const commentController = {
         text,
         user: userId,
       });
-      await Post.findByIdAndUpdate(postId, {
+      const post = await Post.findByIdAndUpdate(postId, {
         $push: { comments: newComment._id },
       });
-      console.log(newComment);
+      const notification = await Notification.create({
+        user: req.session.user._id,
+        action: "addComment",
+        addComment: post._id,
+      });
+      const postFinder = await Post.findById(postId).populate("user");
+      await User.findByIdAndUpdate(postFinder.user._id, {
+        $push: { notifications: notification._id },
+      });
       res.send({
         success: true,
         commentId: newComment._id,

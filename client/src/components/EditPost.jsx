@@ -1,7 +1,8 @@
 import Dialog from "@mui/material/Dialog";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { editPost } from "../api/post";
 import { AuthContext } from "../providers/AuthProvider";
+import CloseIcon from "@mui/icons-material/Close";
 import { useContext } from "react";
 function EditPost(props) {
   const { user } = useContext(AuthContext);
@@ -11,7 +12,12 @@ function EditPost(props) {
         className="post-container"
         style={{ color: "white", borderRadius: "0px" }}
       >
-        <h2>Edit your post below</h2>
+        <div className="edit-post-top-container">
+          <h2>Edit your post below</h2>
+          <IconButton onClick={props.handleClose}>
+            <CloseIcon style={{ color: "white", fontSize: "1.5rem" }} />
+          </IconButton>
+        </div>
         <form
           onSubmit={(e) => {
             e.preventDefault();

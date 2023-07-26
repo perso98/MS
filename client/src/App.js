@@ -12,6 +12,7 @@ import SearchPage from "./pages/SearchPage";
 import Post from "./pages/Post";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useMediaQuery } from "@material-ui/core";
+import Pokemons from "./pages/Pokemons";
 function App() {
   const { user, loading } = useContext(AuthContext);
   const isSmallScreen = useMediaQuery("(max-width:1222px)");
@@ -35,6 +36,7 @@ function App() {
                   <Route path="/user/:id" element={<User />} />
                   <Route path="/search/:search" element={<SearchPage />} />
                   <Route path="/post/:id" element={<Post />} />
+                  <Route path="/:id/pokemons" element={<Pokemons />} />
                 </Route>
                 <Route path="/auth" element={<AuthPage />} />
               </Routes>
