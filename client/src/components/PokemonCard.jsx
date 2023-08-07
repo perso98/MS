@@ -30,24 +30,28 @@ function PokemonCard() {
   return (
     <div className="pokemon-card">
       {pokemon.species && pokemon.sprites ? (
-        <div className="pokemon-card-info">
-          <h3>{pokemon.species.name.toUpperCase()}</h3>
-          <div className="pokemon-card-image-container ">
-            <img src={pokemon.sprites.front_default} />
-          </div>
-          <div className="pokemon-card-stats">
-            <span>Level: 10</span>
-            <span>Attack: 20</span>
-            <span>Defense: 30</span>
-            <span>Hp: 45</span>
-            <span>
-              Type:{" "}
-              <span style={{ color: getTypeColor("Legendary") }}>
-                Legendary
+        <div>
+          <div className="pokemon-card-info">
+            <div>
+              <h3>{pokemon.species.name.toUpperCase()}</h3>
+              <div className="pokemon-card-image-container ">
+                <img src={pokemon.sprites.front_default} />
+              </div>
+            </div>
+            <div className="pokemon-card-stats">
+              <span>Level: 10</span>
+              <span>Attack: 20</span>
+              <span>Defense: 30</span>
+              <span>Hp: 45</span>
+              <span>
+                Type:{" "}
+                <span style={{ color: getTypeColor("Legendary") }}>
+                  Legendary
+                </span>
               </span>
-            </span>
+            </div>
           </div>
-          <Button variant="contained" color="error">
+          <Button variant="contained" color="error" id="fight-button-pokemon">
             Fight
           </Button>
         </div>
