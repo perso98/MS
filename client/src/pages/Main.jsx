@@ -5,14 +5,20 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { findFollowsPosts } from "../api/post";
 import CircularProgress from "@mui/material/CircularProgress";
 export default function Main() {
+
+  // Stan dla postów
   const [posts, setPosts] = useState({
     data: [],
     hasMore: true,
     limit: 5,
   });
+
+  // Funkcja do ładowania kolejnych postów
   const loadMore = () => {
     findFollowsPosts(posts, setPosts);
   };
+
+  // Pierwsze ładowanie postów po zamontowaniu komponentu
   useEffect(() => {
     setPosts({ ...posts, loading: true });
     loadMore();

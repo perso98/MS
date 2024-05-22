@@ -5,6 +5,8 @@ import { AuthContext } from "../providers/AuthProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import { useContext } from "react";
 function EditPost(props) {
+
+  // Pobranie użytkownika z kontekstu uwierzytelniania
   const { user } = useContext(AuthContext);
   return (
     <Dialog onClose={props.handleClose} open={props.open}>
@@ -48,16 +50,16 @@ function EditPost(props) {
             <label>Description</label>
             <textarea
               required
-              value={props?.post?.desc?.slice(0, 200)}
+              value={props?.post?.desc?.slice(0, 400)}
               onChange={(e) => {
-                const text = e.target.value.slice(0, 200);
+                const text = e.target.value.slice(0, 400);
                 props.setPost({ ...props.post, desc: text });
               }}
             />
           </div>
           <span className="post-limit-characters">
-            {props?.post?.desc?.length > 200 ? 200 : props?.post?.desc?.length}
-            /200
+            {props?.post?.desc?.length > 400 ? 400 : props?.post?.desc?.length}
+            /400
           </span>
           <Button type="submit" variant="contained" color="warning">
             Edit post

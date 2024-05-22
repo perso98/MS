@@ -11,19 +11,26 @@ const notificationContainerStyle = {
 };
 
 function NotificationsDialog({ open, handleClose }) {
+
+  // Stan przechowujący powiadomienia
   const [notifications, setNotifications] = useState([]);
+
+  // Stan ładowania powiadomień
   const [loading, setLoading] = useState(true);
 
+  // Efekt do pobierania powiadomień przy otwarciu dialogu
   useEffect(() => {
     if (open) getNotifications(setNotifications, setLoading);
   }, [open]);
 
+  // Komponent wyświetlający wskaźnik ładowania
   const Loading = () => (
     <div style={notificationContainerStyle}>
       <CircularProgress color="inherit" />
     </div>
   );
 
+  // Komponent wyświetlający informację o braku powiadomień
   const EmptyNotifications = () => (
     <div style={notificationContainerStyle}>
       <p>There are no notifications</p>

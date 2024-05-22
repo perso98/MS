@@ -2,6 +2,8 @@ import React from "react";
 import PokemonCard from "../components/PokemonCard";
 
 function Pokemons() {
+
+  // Stan wyświetlania pokemonów
   const poks = [1, 2, 3, 4];
   return (
     <>

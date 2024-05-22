@@ -6,7 +6,11 @@ import { followHandler } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import FollowDialog from "./FollowDialog";
 function UserCard(props) {
+
+  // Pobranie aktualnie zalogowanego użytkownika z kontekstu uwierzytelniania
   const { user, setUser } = useContext(AuthContext);
+
+  // Stany
   const [openFollow, setOpenFollow] = useState(false);
   const [followType, setFollowType] = useState(null);
   const [followInfo, setFollowInfo] = useState({
@@ -19,7 +23,11 @@ function UserCard(props) {
     hasMore: true,
     loading: true,
   });
+
+  // Hook do nawigacji
   const navigate = useNavigate();
+
+  // Funkcja zamykająca dialog follow
   const handleCloseFollow = () => {
     setFollow({ ...follow, data: [], limit: 10, hasMore: true, loading: true });
     setOpenFollow(false);

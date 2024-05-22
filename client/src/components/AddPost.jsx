@@ -3,7 +3,11 @@ import Button from "@mui/material/Button";
 import { createPost } from "../api/post";
 import { AuthContext } from "../providers/AuthProvider";
 export default function AddPost(props) {
+
+  // Pobranie funkcji setUser z kontekstu uwierzytelniania
   const { setUser } = useContext(AuthContext);
+
+  // Stan do przechowywania danych nowego posta
   const [post, setPost] = useState({
     subject: "",
     desc: "",
@@ -41,7 +45,7 @@ export default function AddPost(props) {
             required
             value={post?.desc?.slice(0, 400)}
             onChange={(e) => {
-              const text = e.target.value.slice(0, 200);
+              const text = e.target.value.slice(0, 400);
               setPost({ ...post, desc: text });
             }}
           />

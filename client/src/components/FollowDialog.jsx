@@ -14,16 +14,21 @@ function FollowDialog({
   open,
   handleClose,
 }) {
+
+  // Pobranie użytkownika z kontekstu uwierzytelniania
   const { user, setUser } = useContext(AuthContext);
 
+  // Funkcja do ładowania kolejnych wyników followers/follows
   const loadMore = () => {
     getFollowersOrFollows(id, followType, setFollow, follow);
   };
 
+  // Efekt ładowania followers/follows przy otwarciu dialogu
   useEffect(() => {
     if (open) loadMore();
   }, [open]);
 
+  // Komponent przycisku follow/unfollow
   const FollowButton = ({ val }) =>
     user._id !== val._id ? (
       <Button

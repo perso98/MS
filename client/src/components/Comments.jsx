@@ -12,6 +12,8 @@ function Comments({
   setComments,
   setConfirmDialogOpen,
 }) {
+
+  // Funkcja obsługująca usuwanie komentarza
   const handleDeleteComment = (commentId) => {
     setConfirmDialogOpen({
       open: true,
@@ -23,6 +25,7 @@ function Comments({
     });
   };
 
+  // Funkcja zamykająca dialog potwierdzenia usunięcia
   const handleCloseDialogConfirm = () => {
     setConfirmDialogOpen({
       open: false,

@@ -4,6 +4,8 @@ import { register } from "../api/auth";
 import ActionAlerts from "./ActionAlerts";
 import "./style.css";
 export default function Register() {
+
+  // Stan dla formularza rejestracji
   const [registerForm, setRegisterForm] = useState({
     email: "",
     password: "",
@@ -11,6 +13,8 @@ export default function Register() {
     name: "",
     surname: "",
   });
+
+  // Stan dla alertów
   const [alert, setAlert] = useState({
     open: false,
     info: "",

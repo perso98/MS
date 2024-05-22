@@ -11,34 +11,44 @@ import Comments from "./Comments";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function CommentDialog(props) {
+
+  // Stan przechowujący komentarze
   const [comments, setComments] = useState({
     data: [],
     hasMore: true,
     limit: 10,
     loading: true,
   });
+
+  // Stan dla nowego komentarza
   const [comment, setComment] = useState({
     text: "",
     likes: [],
     user: {},
     createdAt: "",
   });
+
+  // Pobranie aktualnego użytkownika z kontekstu uwierzytelniania
   const { user } = useContext(AuthContext);
 
+
+  // Funkcja do ładowania kolejnych komentarzy
   const loadMore = () => {
     getComments(props.postId, comments, setComments);
   };
-
+  // Efekt do ładowania komentarzy przy otwarciu dialogu
   useEffect(() => {
     if (props.open) loadMore();
   }, [props.postId, props.open]);
 
+  // Stan dla dialogu potwierdzenia usunięcia komentarza
   const [confirmDialogOpen, setConfirmDialogOpen] = useState({
     open: false,
     id: null,
     text: "Are you sure you want to delete this comment?",
   });
 
+  // Funkcja do zamknięcia dialogu potwierdzenia
   const handleCloseDialogConfirm = () => {
     setConfirmDialogOpen({
       ...confirmDialogOpen,

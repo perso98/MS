@@ -17,9 +17,6 @@ import EditPost from "./EditPost";
 export default function PostCard(props) {
   const [postId, setPostId] = useState("");
   const [openComments, setOpenComments] = useState(false);
-  const handleCommentClose = () => {
-    setOpenComments(false);
-  };
   const [openEdit, setOpenEdit] = useState(false);
   const [likes, setLikes] = useState(props.val.likes);
   const [commentsIds, setCommentsIds] = useState(props.val.comments);
@@ -30,6 +27,19 @@ export default function PostCard(props) {
     id: null,
     text: "Are you sure you want to delete this post?",
   });
+  const [post, setPost] = useState(props.val);
+
+  // Funkcja zamykająca dialog komentarzy
+  const handleCommentClose = () => {
+    setOpenComments(false);
+  };
+
+  // Funkcja zamykająca dialog edycji posta
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
+  // Funkcja zamykająca dialog potwierdzenia
   const handleCloseDialogConfirm = () => {
     setConfirmDialogOpen({
       ...confirmDialogOpen,
@@ -37,11 +47,7 @@ export default function PostCard(props) {
       id: null,
       onClick: null,
     });
-  };
-  const handleCloseEdit = () => {
-    setOpenEdit(false);
-  };
-  const [post, setPost] = useState(props.val);
+  }
 
   return (
     <>

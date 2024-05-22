@@ -8,6 +8,8 @@ import { searchPost } from "../api/post";
 import LinearProgress from "@mui/material/LinearProgress";
 import SearchData from "../components/SearchData";
 function SearchPage() {
+
+  // Stany dla wyników wyszukiwania użytkowników i postów
   const [users, setUsers] = useState({
     data: [],
     loading: true,
@@ -20,8 +22,14 @@ function SearchPage() {
     limit: 5,
     hasMore: true,
   });
+
+  // Przełącznik między wyszukiwaniem użytkowników a postów
   const [toggleSearch, setToggleSearch] = useState(true);
+
+  // Pobranie parametru wyszukiwania z URL
   const { search } = useParams();
+
+  // Wykonanie wyszukiwania przy zmianie parametru wyszukiwania
   useEffect(() => {
     searchUser(
       search,
@@ -35,9 +43,13 @@ function SearchPage() {
     );
   }, [search]);
 
+
+  // Funkcja do ładowania kolejnych wyników użytkowników
   const loadMoreUsers = () => {
     searchUser(search, users, setUsers);
   };
+
+  // Funkcja do ładowania kolejnych wyników postów
   const loadMorePosts = () => {
     searchPost(search, posts, setPosts);
   };

@@ -2,54 +2,83 @@ import bcrypt from "bcrypt";
 import User from "../models/User.js";
 
 const userController = {
-  //register user controller
+  // Rejestracja nowego użytkownika
   register: async (req, res) => {
     const { email, name, surname, password } = req.body;
-    console.log(req.body);
+    // Sprawdzenie, czy użytkownik już istnieje w bazie danych
     const user = await User.findOne({ email });
+    // Jeśli użytkownik nie istnieje w bazie danych, to zostaje utworzony
     if (!user) {
+      // Hashowanie hasła
       const hashedPassword = await bcrypt.hash(password, 10);
+      // Tworzenie nowego użytkownika
       await User.create({
         email,
         name,
         surname,
         password: hashedPassword,
       });
+      // Jeśli się powiodło to zwróć sukces na true i wyślij powiadomienie 
       res.send({ message: "Account created", success: true });
     } else {
+      // Jeśli się nie powiodło to zwróć sukces na false i wyślij powiadomienie 
       res.send({ message: "E-mail is already in database", success: false });
     }
   },
+  // Logowanie użytkownika
   login: async (req, res) => {
     const { email, password } = req.body;
+    // Sprawdzenie, czy użytkownik istnieje
     const user = await User.findOne({
       email,
     });
+    // Jeśli użytkownik istnieje to następuje sprawdzenie
     if (user) {
+      // Odhashowanie hasła użytkownika
       const passwordMatch = await bcrypt.compare(password, user.password);
+      // Jeśli hasła się zgadzają to następuje usunięcie hasła z sesji w celach bezpieczeństwa
       if (passwordMatch) {
         delete user.password;
+        // Nadanie sesji dla użytkownika
         req.session.user = user;
+        // Przekazanie użytkownika do frontu
         res.send({ user: user, success: true });
-      } else res.send({ message: "Password isn't correct", success: false });
-    } else res.send({ message: "User doesn't exist", success: false });
+      }
+      // Niepoprawne hasło 
+      else res.send({ message: "Password isn't correct", success: false });
+    } 
+    // Użytkownik nie istnieje
+    else res.send({ message: "User doesn't exist", success: false });
   },
+  // Autoryzacja użytkownika
   auth: async (req, res) => {
+    // Sprawdzenie, czy użytkownik jest zalogowany
     if (req.session.user) {
+      // Jeśli użytkownik jest zalogowany to prześlij użytkownika do frontu
       const user = req.session.user;
+      // Usunięcie hasła z sesji w celach bezpieczeństwa
       delete user.password;
+      // Wysyłka do frontu
       res.send({ success: true, user: user });
-    } else res.send({ success: false });
+    }
+    // Jeśli użytkownik nie jest zalogowany to zwróć błąd 
+    else res.send({ success: false });
   },
+  // Wylogowanie użytkownika
   logout: async (req, res) => {
     if (req.session.user) {
+      // Usunięcie sesji dla użytkownika
       req.session.destroy();
       res.send("Logout success");
-    } else res.send("You are not logged in");
+    }
+    // Jeśli użytkownik nie jest zalogowany to zwróć informacje 
+    else res.send("You are not logged in");
   },
+  // Wyszukiwanie użytkowników
   findUser: async (req, res) => {
     try {
       const search = req.params.search;
+      // Znalezienie użytkowników na podstawie kryteriów wyszukiwania
       const users = await User.find({
         $or: [
           { name: { $regex: search, $options: "i" } },
@@ -68,6 +97,7 @@ const userController = {
       console.error(error);
     }
   },
+  // Dodawanie lub usuwanie obserwacji użytkownika
   follow: async (req, res) => {
     const { id } = req.body;
     const userId = req.session.user._id;
@@ -75,6 +105,7 @@ const userController = {
       const user = await User.findByIdAndUpdate(userId);
       const isFollowing = user.follows.includes(id);
       if (isFollowing) {
+        // Usuwanie obserwacji
         await User.findByIdAndUpdate(userId, {
           $pull: { follows: id },
         });
@@ -83,6 +114,7 @@ const userController = {
         });
         res.send({ followed: false });
       } else {
+        // Dodawanie obserwacji
         await User.findByIdAndUpdate(userId, {
           $push: { follows: id },
         });
@@ -96,6 +128,7 @@ const userController = {
       res.status(500).send("Internal Server Error");
     }
   },
+  // Pobieranie danych użytkownika na podstawie ID
   getUser: async (req, res) => {
     try {
       const user = await User.findById(req.params.id).select(
@@ -107,6 +140,7 @@ const userController = {
       res.send(err);
     }
   },
+  // Pobieranie obserwujących lub obserwowanych użytkowników
   getFollowsOrFollowers: async (req, res) => {
     try {
       let populateField;

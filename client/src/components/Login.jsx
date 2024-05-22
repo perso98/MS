@@ -4,8 +4,14 @@ import { AuthContext } from "../providers/AuthProvider";
 import ActionAlerts from "./ActionAlerts";
 import "./style.css";
 export default function Login() {
+
+  // Pobranie funkcji loginUser z kontekstu uwierzytelniania
   const { loginUser } = useContext(AuthContext);
+
+  // Stan dla formularza logowania
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+
+  // Stan dla alertów
   const [alert, setAlert] = useState({
     open: false,
     info: "",

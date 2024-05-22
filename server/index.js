@@ -1,3 +1,4 @@
+// Importy
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -10,6 +11,8 @@ import session from "express-session";
 import PostRoute from "./routes/PostRoute.js";
 import CommentRoute from "./routes/CommentRoute.js";
 import NotificationRoute from "./routes/NotificationRoute.js";
+
+// Middlewary
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -18,6 +21,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// Middleware CORS
 app.use(
   cors({
     origin: ["http://localhost:3000"],
@@ -26,6 +30,7 @@ app.use(
     exposedHeaders: ["Access-Control-Allow-Origin"],
   })
 );
+// Middleware sesji
 app.use(
   session({
     secret: "my-secret-key",
@@ -36,13 +41,13 @@ app.use(
     },
   })
 );
-/* Routes */
+// Routy
 app.use("/user", UserRoute);
 app.use("/comment", CommentRoute);
 app.use("/post", PostRoute);
 app.use("/notifications", NotificationRoute);
-/* Database seup */
-const PORT = process.env.PORT || 3001;
+// Konfiguracja bazy danych
+const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,

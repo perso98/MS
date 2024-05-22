@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 function PokemonCard() {
+
+  // Stan do przechowywania danych o Pokemonie
   const [pokemon, setPokemon] = useState({});
+
+  // Efekt do pobierania danych o losowym Pokemonie przy pierwszym renderowaniu komponentu
   useEffect(() => {
     axios
       .get(
@@ -15,6 +19,7 @@ function PokemonCard() {
       });
   }, []);
 
+  // Funkcja do ustalania koloru na podstawie typu Pokemona
   const getTypeColor = (type) => {
     switch (type) {
       case "Legendary":

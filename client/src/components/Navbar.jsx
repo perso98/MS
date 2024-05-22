@@ -15,10 +15,20 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { getNotificationsIds } from "../api/notifications";
 import NotificationsDialog from "./NotificationsDialog";
 export default function Navbar(props) {
+
+  // Pobranie funkcji logoutUser oraz danych użytkownika z kontekstu uwierzytelniania
   const { logoutUser, user, setUser } = useContext(AuthContext);
+
+  // Stan dla pola wyszukiwania
   const [search, setSearch] = useState("");
+
+  // Hook do nawigacji
   const navigate = useNavigate();
+
+  // Stan dla uruchomienia interwału powiadomień
   const [startInterval, setStartInterval] = useState(true);
+
+  // Efekt do pobierania identyfikatorów powiadomień oraz ustawiania interwału
   useEffect(() => {
     if (startInterval && user) {
       getNotificationsIds(setUser);
@@ -35,7 +45,11 @@ export default function Navbar(props) {
       };
     }
   }, []);
+
+  // Stan dla otwarcia dialogu powiadomień
   const [openNotifications, setOpenNotifications] = useState(false);
+
+  // Funkcja zamykająca dialog powiadomień
   const handleCloseNotificationDialog = () => {
     setOpenNotifications(false);
   };
