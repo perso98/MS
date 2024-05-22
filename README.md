@@ -45,6 +45,9 @@ Upewnij się, że masz zainstalowane na swoim systemie:
 - **Rejestracja i logowanie użytkowników:** Użytkownicy mogą tworzyć nowe konta i logować się do aplikacji.
   ![image](https://github.com/perso98/MS---Social-app/assets/72854881/434f6762-a7e4-446c-91c7-1742c0379d0b)
   ![image](https://github.com/perso98/MS---Social-app/assets/72854881/f5bfedf1-69c2-4adb-8b58-0ef549864fd8)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/19426977-798d-423e-8d55-61feab1438d7)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/3e0967e9-b1dc-4e5b-8924-5b4d8d5e251a)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/7621c81c-7860-4faf-816a-0c3a461dbe27)
 
 - **Tworzenie postów:** Użytkownicy mogą tworzyć nowe posty i dzielić się nimi z innymi.
   ![image](https://github.com/perso98/MS---Social-app/assets/72854881/d0e63fdb-2a71-47f1-91c8-693896feb7cd)
@@ -69,6 +72,10 @@ Upewnij się, że masz zainstalowane na swoim systemie:
 
 - **Obserwowanie i followersi:** Użytkownicy mogą sprawdzać listę swoich obserwujących i obserwowanych.
   ![image](https://github.com/perso98/MS---Social-app/assets/72854881/73a5e0e8-bae6-4bb5-8ab1-9fc5c205ec1d)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/b9d57b2c-33f5-4239-830c-c3f46b549554)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/34624918-5542-44a6-b687-2f24e3616a6c)
+
+
 
   
 - **Powiadomienia:** Podstawowy system powiadomień, który informuje użytkowników o interakcjach.
