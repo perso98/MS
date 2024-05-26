@@ -43,24 +43,25 @@ Upewnij się, że masz zainstalowane na swoim systemie:
 ### Funkcje
 
 - **Rejestracja i logowanie użytkowników:** Użytkownicy mogą tworzyć nowe konta i logować się do aplikacji.
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/434f6762-a7e4-446c-91c7-1742c0379d0b)
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/f5bfedf1-69c2-4adb-8b58-0ef549864fd8)
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/19426977-798d-423e-8d55-61feab1438d7)
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/3e0967e9-b1dc-4e5b-8924-5b4d8d5e251a)
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/7621c81c-7860-4faf-816a-0c3a461dbe27)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/fa8e0261-82b0-4d7a-b890-583649c78798)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/d8f451b3-bc14-4316-9b64-f5a00c12fedc)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/4c6d6d13-22d5-4865-91ce-a32b05a82788)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/b552a1d4-1e15-4056-8e7c-598b2a7ff1ad)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/87db690d-f60b-44c9-9912-8ee950770ff7)
 
 - **Tworzenie postów:** Użytkownicy mogą tworzyć nowe posty i dzielić się nimi z innymi.
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/d0e63fdb-2a71-47f1-91c8-693896feb7cd)
+ ![image](https://github.com/perso98/MS---Social-app/assets/72854881/5fe6ea64-49a1-4388-a9b4-6ccfa9531ec8)
+
 
 - **Lajkowanie postów:** Użytkownicy mogą lajkować posty.
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/253fbedd-b151-4b0f-9c8f-9010f7297e4f)
-
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/9659a8ba-cadf-48eb-98d1-62d59000cb7a)
   
 - **Dodawanie komentarzy:** Użytkownicy mogą dodawać komentarze do postów.
   ![image](https://github.com/perso98/MS---Social-app/assets/72854881/a69fdec4-bd01-4dc7-8c1c-ef15b71d8ad8)
 
 - **Lajkowanie komentarzy:** Użytkownicy mogą lajkować komentarze.
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/6fc5510f-c9b0-4736-b576-a31931b18647)
+  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/1c9818cd-5381-4195-a1eb-f3446bd4a31e)
+
 
 - **Usuwanie komentarzy i postów:** Użytkownicy mogą usuwać swoje komentarze i posty.
 ![image](https://github.com/perso98/MS---Social-app/assets/72854881/6c5c98d4-f894-4b57-ac32-20478979839b)
@@ -68,7 +69,8 @@ Upewnij się, że masz zainstalowane na swoim systemie:
 ![image](https://github.com/perso98/MS---Social-app/assets/72854881/9dd5503e-80ab-4bbe-8d16-105f0573526c)
 
 - **Wyszukiwanie użytkowników i postów:** Użytkownicy mogą wyszukiwać innych użytkowników i posty.
-  ![image](https://github.com/perso98/MS---Social-app/assets/72854881/9750abbc-8c62-4e13-bf02-42d9d4f679b1)
+ ![image](https://github.com/perso98/MS---Social-app/assets/72854881/664e0991-4433-41be-a0c1-8a9be1a96f35)
+![image](https://github.com/perso98/MS---Social-app/assets/72854881/f2f2b8b3-fdb1-4611-ba1c-af4b47b06723)
 
 - **Obserwowanie i followersi:** Użytkownicy mogą sprawdzać listę swoich obserwujących i obserwowanych.
   ![image](https://github.com/perso98/MS---Social-app/assets/72854881/73a5e0e8-bae6-4bb5-8ab1-9fc5c205ec1d)
